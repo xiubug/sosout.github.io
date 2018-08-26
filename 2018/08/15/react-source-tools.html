@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: true,
+    lazyload: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="北京时间2017年9月27日，Facebook 官方发布了 React v16.0。相较于之前的 v15.x 版本，v16 发生了很大的变化。 React v16.0 API 变化1.render 函数支持返回数组和字符串：我们终于不需要再将多个同级元素包裹在一个冗余的 DOM 元素中了，但每个同级元素还是需要唯一的 key 值以便 React 进行更新，而且在未来版本，React 可能还会提供一">
+<meta name="keywords" content="react">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React 背后的工具体系">
+<meta property="og:url" content="http://sosout.com/2018/08/15/react-source-tools.html">
+<meta property="og:site_name" content="每天一探">
+<meta property="og:description" content="北京时间2017年9月27日，Facebook 官方发布了 React v16.0。相较于之前的 v15.x 版本，v16 发生了很大的变化。 React v16.0 API 变化1.render 函数支持返回数组和字符串：我们终于不需要再将多个同级元素包裹在一个冗余的 DOM 元素中了，但每个同级元素还是需要唯一的 key 值以便 React 进行更新，而且在未来版本，React 可能还会提供一">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-08-24T10:57:06.052Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React 背后的工具体系">
+<meta name="twitter:description" content="北京时间2017年9月27日，Facebook 官方发布了 React v16.0。相较于之前的 v15.x 版本，v16 发生了很大的变化。 React v16.0 API 变化1.render 函数支持返回数组和字符串：我们终于不需要再将多个同级元素包裹在一个冗余的 DOM 元素中了，但每个同级元素还是需要唯一的 key 值以便 React 进行更新，而且在未来版本，React 可能还会提供一">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="每天一探" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="http://sosout.com/2018/08/15/react-source-tools.html"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>React 背后的工具体系 | 每天一探</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-123825183-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-123825183-1');
+</script>
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?aed6dded356af07f3b5991c346dc812d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">每天一探</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">无法停止探索的脚步</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-开源项目">
+    <a href="/project/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-github"></i> <br />开源项目</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-站点地图">
+    <a href="/sitemap.xml" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />站点地图</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sosout.com/2018/08/15/react-source-tools.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Weich">
+      <meta itemprop="description" content="看博客上一探">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="每天一探">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">React 背后的工具体系
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-08-15 20:10:11" itemprop="dateCreated datePublished" datetime="2018-08-15T20:10:11+08:00">2018-08-15</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/react/" itemprop="url" rel="index"><span itemprop="name">react</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/08/15/react-source-tools.html" class="leancloud_visitors" data-flag-title="React 背后的工具体系">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">14k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">13 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>北京时间2017年9月27日，Facebook 官方发布了 React v16.0。相较于之前的 v15.x 版本，v16 发生了很大的变化。</p>
+<h3 id="React-v16-0-API-变化"><a href="#React-v16-0-API-变化" class="headerlink" title="React v16.0 API 变化"></a>React v16.0 API 变化</h3><p><strong>1.render 函数支持返回数组和字符串：</strong>我们终于不需要再将多个同级元素包裹在一个冗余的 DOM 元素中了，但每个同级元素还是需要唯一的 key 值以便 React 进行更新，而且在未来版本，React 可能还会提供一个特殊的 jsx 片段来支持无 key 值的 DOM 元素。</p>
+<p><strong>2.更好的异常处理：</strong>在之前版本的 React 中，某个组件在 Render 阶段的运行错误可能会 break 掉整个应用，而且抛出的异常信息含义也非常模糊，难以确定错误的发生位置。在 v16.0 中，如果某个组件在执行 render 或其他生命周期函数时出错，整个组件将被从根节点上移除掉，方便开发者快速定位异常组件。在定位到异常组件后，开发者可以为该组件添加 componentDidCatch 方法，并在这个方法中为组件定义一个备用视图用于渲染异常状态下的组件。当然，在这个新的生命周期函数中，开发者也可以获得更加有帮助的错误信息进行 debug。这被称作组件的错误边界，大家可以理解为组件层面的 try catch 声明。</p>
+<p><strong>3.新的组件类型 portals：</strong>ReactDOM.createPortal(child, container) 可以将子组件直接渲染到当前容器组件 DOM 结构之外的任意 DOM 节点中，这将使得开发对话框，浮层，提示信息等需要打破当前 DOM 结构的组件更为方便。</p>
+<p><strong>4.更好的服务端渲染：</strong>与之前 renderToString 方法不同，新版本提供的 renderToNodeStream 将返回 Readable，可以持续产生字节流（a stream of bytes）并在下一部分的 document 生成之前将之前已生成的部分 document 传回给客户端。通常来讲，新的服务端渲染将比老的快3倍以上。在 document 到达客户端之后，新版本的 react 也将不会再去将客户端的初次渲染结果与服务端的渲染结果进行比较，而是尽可能地去重用相同的 DOM 元素。</p>
+<p><strong>5.支持自定义 DOM 元素：</strong>新版本将不会再抛出不支持的 DOM 元素错误，而是将所有开发者自定义的 DOM 元素都传递到相应的 DOM 节点上。</p>
+<p><strong>6.更小的打包大小：</strong>总体体积减少 30%</p>
+<p>react is 5.3 kb (2.2 kb gzipped), 老版本 20.7 kb (6.9 kb gzipped)<br>react-dom is 103.7 kb (32.6 kb gzipped), 老版本 141 kb (42.9 kb gzipped)<br>react + react-dom is 109 kb (34.8 kb gzipped), 老版本 161.7 kb (49.8 kb gzipped)</p>
+<p><strong>7.MIT 许可：</strong>除了最新的 16.0 版本外，Facebook 还发布了使用 MIT 许可的 15.6.2 版本，以方便无法立刻升级的使用者。</p>
+<p><strong>8.新的核心架构 Fiber：</strong>React v16.0 使用了 Fiber 作为底层架构。正是得益于 Fiber，返回数组和字符串及错误边界等功能才变得可能。Fiber 相较于之前最大的不同是它支持<strong>异步渲染（async rendering），</strong>这意味着 React 可以在更细的粒度上控制组件的绘制过程，从最终的用户体验来讲，用户可以体验到更流畅交互及动画体验。而因为异步渲染涉及到 React 的方方面面甚至未来，在 16.0 版本中 React 还暂时没有启用，并将在未来几个月陆续推出。</p>
+<p>其实，以上种种变化都离不开背后构建工具的变化。</p>
+<h3 id="React-构建工具"><a href="#React-构建工具" class="headerlink" title="React 构建工具"></a>React 构建工具</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 开发工具</span></span><br><span class="line">ES Module, Flow, ESLint, Prettier, Yarn workspace, HUBOT(GitHub Bot), [x]Haste, [x]CommonJS Module</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构建工具</span></span><br><span class="line">Rollup, Closure Compiler, Error Code System, React DevTools, [x]Gulp/Grunt+Browserify</span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试工具</span></span><br><span class="line">Jest, Prettier</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发布工具</span></span><br><span class="line">npm</span><br></pre></td></tr></table></figure>
+<p>以上前面带<code>[x]</code>的表示之前在用，React v16.0 已不再使用。简单说一下上面的工具都有什么作用？</p>
+<p>开发时，按照 ES Module 机制编写源码，用 flow 进行类型检查、ESLint 语法规则和代码风格的检查、Prettier 来统一代码风格，借助 Yarn workspace 处理模块依赖，HUBOT(GitHub Bot) 检查PR；</p>
+<p>开发过程中，用 Jest 单元测试，Prettier 来统一代码风格</p>
+<p>开发完成，用 Rollup + Closure Compiler 构建，利用 Error Code System 机制实现生产环境错误追踪，React DevTools 侧面辅助 bundle 检查；</p>
+<p>最后通过 npm 发布新 package。</p>
+<h3 id="开发工具"><a href="#开发工具" class="headerlink" title="开发工具"></a>开发工具</h3><h4 id="ES-Module"><a href="#ES-Module" class="headerlink" title="ES Module"></a>ES Module</h4><p>React 16 之前的版本都用 CommonJS Module 定义，例如：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="built_in">require</span>(<span class="string">'./lib/React'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>React 16 为什么选择使用 ES Module，有以下几个原因：</p>
+<p><strong>1.编译期发现模块导入/导出问题：</strong>我们都知道使用 CommonJS Module 的 require 一个未定义的方法时，不调用我们是发现不了错误的。而 ES Module 由于静态的模块机制，import 与 export 必须按名匹配，否则编译构建就会出错。 </p>
+<p><strong>2.更小的打包大小：</strong> 众所周知 module.exports 是对象级别导出，而ES Module 支持更细粒度的原子级导出，我们把这个特性叫做 tree-shaking，这个特性可以帮助你将无用代码（即没有使用的代码）从最终的目标文件中过滤掉。</p>
+<p>这里只是把源码切换到了 ES Module，单元测试用例并未切换，主要原因是 CommonJS Module 对 Jest 的一些特性（resetModules）更友好，即便切换到 ES Module，在需要模块状态隔离的场景，仍然要用 require，所以切换意义不是很大。</p>
+<p>还有 Haste，则是 React 团队自定义的模块处理工具，用来解决长相对路径的问题，例如：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ref: react-15.5.4</span></span><br><span class="line"><span class="keyword">var</span> ReactCurrentOwner = <span class="built_in">require</span>(<span class="string">'ReactCurrentOwner'</span>);</span><br><span class="line"><span class="keyword">var</span> warning = <span class="built_in">require</span>(<span class="string">'warning'</span>);</span><br><span class="line"><span class="keyword">var</span> canDefineProperty = <span class="built_in">require</span>(<span class="string">'canDefineProperty'</span>);</span><br><span class="line"><span class="keyword">var</span> hasOwnProperty = <span class="built_in">Object</span>.prototype.hasOwnProperty;</span><br><span class="line"><span class="keyword">var</span> REACT_ELEMENT_TYPE = <span class="built_in">require</span>(<span class="string">'ReactElementSymbol'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>Haste 模块机制下模块引用不需要给出明确的相对路径，而是通过项目级唯一的模块名来自动查找，例如：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 声明</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @providesModule ReactClass</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 引用</span></span><br><span class="line"><span class="keyword">var</span> ReactClass = <span class="built_in">require</span>(<span class="string">'ReactClass'</span>);</span><br></pre></td></tr></table></figure></p>
+<p>从表面上解决了长路径引用的问题（并没有解决项目结构深层嵌套的根本问题），使用非标准模块机制有几个典型的坏处：</p>
+<p><strong>1.与标准不和，接入标准生态中的工具时会面临适配问题</strong></p>
+<p><strong>2.源码难读，不容易弄明白模块依赖关系</strong></p>
+<p>React 16 去掉了大部分自定义的模块机制（ReactNative 里还有一小部分），采用 Node 标准的相对路径引用，长路径的问题通过重构项目结构来彻底解决，采用扁平化目录结构（同 package 下最深2级引用，跨 package 的经 Yarn 处理以顶层绝对路径引用）</p>
+<h4 id="Flow-ESLint"><a href="#Flow-ESLint" class="headerlink" title="Flow + ESLint"></a>Flow + ESLint</h4><p>Flow 是 facebook 出品的 JavaScript 静态类型检查工具，所谓类型检查，就是在编译期尽早发现（由类型错误引起的）bug，又不影响代码运行（不需要运行时动态检查类型），使编写 JavaScript 具有和编写 Java 等强类型语言相近的体验。我们看一下 React 使用实例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> type ReactElement = &#123;</span><br><span class="line">  $$<span class="keyword">typeof</span>: any,</span><br><span class="line">  type: any,</span><br><span class="line">  key: any,</span><br><span class="line">  ref: any,</span><br><span class="line">  props: any,</span><br><span class="line">  _owner: any, <span class="comment">// ReactInstance or ReactFiber</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// __DEV__</span></span><br><span class="line">  _store: &#123;</span><br><span class="line">    validated: boolean,</span><br><span class="line">  &#125;,</span><br><span class="line">  _self: React$Element&lt;any&gt;,</span><br><span class="line">  _shadowChildren: any,</span><br><span class="line">  _source: Source,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>除了静态类型声明及检查外，Flow 最大的特点是<strong>对React组件及JSX的深度支持</strong>：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">type Props = &#123;</span><br><span class="line">  foo: number,</span><br><span class="line">&#125;;</span><br><span class="line">type State = &#123;</span><br><span class="line">  bar: number,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyComponent</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span>&lt;<span class="title">Props</span>, <span class="title">State</span>&gt; </span>&#123;</span><br><span class="line">  state = &#123;</span><br><span class="line">    bar: <span class="number">42</span>,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.props.foo + <span class="keyword">this</span>.state.bar;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>另外还有导出类型检查的 Flow “魔法”，用来校验 mock 模块的导出类型是否与源模块一致：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">type Check&lt;_X, <span class="attr">Y</span>: _X, <span class="attr">X</span>: Y = _X&gt; = <span class="literal">null</span>;</span><br><span class="line">(<span class="literal">null</span>: Check&lt;FeatureFlagsShimType, FeatureFlagsType&gt;);</span><br></pre></td></tr></table></figure></p>
+<p>Eslint 解决了代码格式检查的问题，同时，一些有用的提示能让我们发现 bug 和无用代码（如 no-unused-vars, no-extra-bind, no-implicit-globals），例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">rules: &#123;</span><br><span class="line">  <span class="string">'no-unused-expressions'</span>: ERROR,</span><br><span class="line">  <span class="string">'no-unused-vars'</span>: [ERROR, &#123;<span class="attr">args</span>: <span class="string">'none'</span>&#125;],</span><br><span class="line">  <span class="comment">// React &amp; JSX</span></span><br><span class="line">  <span class="comment">// Our transforms set this automatically</span></span><br><span class="line">  <span class="string">'react/jsx-boolean-value'</span>: [ERROR, <span class="string">'always'</span>],</span><br><span class="line">  <span class="string">'react/jsx-no-undef'</span>: ERROR,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="Prettier"><a href="#Prettier" class="headerlink" title="Prettier"></a>Prettier</h4><p>Prettier 可以制定想要的代码风格，然后通过脚本或编辑器插件来一键格式化/美化代码，我发现使用 Prettier 有很多益处：</p>
+<p><strong>1.代码格式化成统一风格</strong></p>
+<p><strong>2.提交之前对有改动的部分进行格式化，也可以保存文件的时候自动统一风格。</strong></p>
+<p><strong>3.配合持续集成，保证PR代码风格完全一致（否则build失败，并输出风格存在差异的部分）</strong></p>
+<p><strong>4.对构建结果进行格式化，一方面提升dev bundle可读性，另外还有助于发现prod bundle中的冗余代码</strong></p>
+<p><strong>5.开源代码开发者不需要去学习项目的代码风格。</strong></p>
+<h4 id="Yarn-workspace"><a href="#Yarn-workspace" class="headerlink" title="Yarn workspace"></a>Yarn workspace</h4><p>Yarn 的 workspace 特性用来解决 monorepo 的 package 依赖（作用类似于 lerna bootstrap），通过在 node_modules 下建立软链接“骗过”Node模块机制。</p>
+<p>通过 package.json/workspaces 配置 Yarn workspaces：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    // ...</span><br><span class="line">    "workspaces": [</span><br><span class="line">        <span class="string">"packages/*"</span></span><br><span class="line">    ],</span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：Yarn 的实际处理与 Lerna 类似，都通过软链接来实现，只是在包管理器这一层提供 monorepo package 支持更合理一些，具体原因见<a href="https://yarnpkg.com/blog/2017/08/02/introducing-workspaces/#lerna" target="_blank" rel="noopener">Workspaces in Yarn | Yarn Blog</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;enableUserTimingAPI&#125; <span class="keyword">from</span> <span class="string">'shared/ReactFeatureFlags'</span>;</span><br><span class="line"><span class="keyword">import</span> getComponentName <span class="keyword">from</span> <span class="string">'shared/getComponentName'</span>;</span><br><span class="line"><span class="keyword">import</span> invariant <span class="keyword">from</span> <span class="string">'fbjs/lib/invariant'</span>;</span><br><span class="line"><span class="keyword">import</span> warning <span class="keyword">from</span> <span class="string">'fbjs/lib/warning'</span>;</span><br></pre></td></tr></table></figure>
+<p>另外，Yarn 与 Lerna 可以无缝结合，通过 useWorkspaces 选项把依赖处理部分交由 Yarn 来做，详细见<a href="https://yarnpkg.com/blog/2017/08/02/introducing-workspaces/#integrating-with-lerna" target="_blank" rel="noopener">Integrating with Lerna</a></p>
+<h4 id="HUBOT"><a href="#HUBOT" class="headerlink" title="HUBOT"></a>HUBOT</h4><p><a href="https://hubot.github.com/" target="_blank" rel="noopener">HUBOT</a> 是指 Github 机器人，通常用于：</p>
+<p><strong>1. 持续集成、PR 触发构建/检查</strong><br><strong>2. 管理 Issue，关掉不活跃的讨论帖</strong></p>
+<p>主要围绕 PR 与 Issue 做一些自动化的事情，比如 React 团队计划（目前还没这么做）机器人回复 PR 对 bundle size 的影响，以此督促持续优化 bundle size。</p>
+<p>目前每次构建把 bundle size 变化输出到文件，并交由 Git 追踪变化（提交上去），例如：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"bundleSizes"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"filename"</span>: <span class="string">"react.development.js"</span>,</span><br><span class="line">      <span class="attr">"bundleType"</span>: <span class="string">"UMD_DEV"</span>,</span><br><span class="line">      <span class="attr">"packageName"</span>: <span class="string">"react"</span>,</span><br><span class="line">      <span class="attr">"size"</span>: <span class="number">59086</span>,</span><br><span class="line">      <span class="attr">"gzip"</span>: <span class="number">16296</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"filename"</span>: <span class="string">"react.production.min.js"</span>,</span><br><span class="line">      <span class="attr">"bundleType"</span>: <span class="string">"UMD_PROD"</span>,</span><br><span class="line">      <span class="attr">"packageName"</span>: <span class="string">"react"</span>,</span><br><span class="line">      <span class="attr">"size"</span>: <span class="number">7217</span>,</span><br><span class="line">      <span class="attr">"gzip"</span>: <span class="number">3050</span></span><br><span class="line">    &#125;,</span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>缺点可想而知，这个json文件经常冲突，要么需要浪费精力 merge 冲突，要么就懒得提交这个自动生成的麻烦文件，导致版本滞后，所以计划通过 GitHub Bot 把这个麻烦抽离出去。</p>
+<h3 id="构建工具"><a href="#构建工具" class="headerlink" title="构建工具"></a>构建工具</h3><h4 id="bundle形式"><a href="#bundle形式" class="headerlink" title="bundle形式"></a>bundle形式</h4><p>React16 之前提供了两种 bundle 形式：</p>
+<p><strong>第一种：</strong>UMD 单文件，用作外部依赖。</p>
+<p><strong>第二种：</strong>CJS 散文件，用于支持自行构建 bundle（把 React 作为源码依赖）。</p>
+<p>存在一些问题：</p>
+<p><strong>一：</strong>自行构建的版本不一致：不同的 build 环境/配置构建出的 bundle 都不一样。</p>
+<p><strong>二：</strong>bundle 性能有优化空间：用打包 App 的方式构建类库不太合适，性能上有提升余地</p>
+<p><strong>三：</strong>不利于实验性优化尝试：无法对散文件模块应用打包、压缩等优化手段</p>
+<p>React 16 调整了 bundle 形式：</p>
+<p><strong>一：</strong>不再提供 CJS 散文件，从 npm 拿到的就是构建好的，统一优化过的 bundle。</p>
+<p><strong>二：</strong>提供 UMD 单文件与 CJS 单文件，分别用于 Web 环境与 Node 环境（SSR）。</p>
+<p>以不可再分的类库姿态，把优化环节都收进来，摆脱 bundle 形式带来的限制。</p>
+<h4 id="Rollup"><a href="#Rollup" class="headerlink" title="Rollup"></a>Rollup</h4><p>之前的构建系统是基于 Gulp/Grunt+Browserify 手搓的一套工具，后来在扩展方面受限于工具，例如：</p>
+<p>Node 环境下性能不好：频繁的 process.env.NODE_ENV 访问拖慢了 SSR 性能，但又没办法从类库角度解决，因为 Uglify 依靠这个去除无用代码，所以 React SSR 性能最佳实践一般都有一条“重新打包 React，在构建时去掉 process.env.NODE_ENV”（当然，React 16 不需要再这样做了，原因见上面提到的bundle形式变化）</p>
+<p>丢弃了过于复杂（overly-complicated）的自定义构建工具，改用更合适的 Rollup：</p>
+<blockquote>
+<p>It solves one problem well: how to combine multiple modules into a flat file with minimal junk code in between.</p>
+</blockquote>
+<p>无论 Haste -&gt; ES Module 还是 Gulp/Grunt+Browserify -&gt; Rollup 的切换都是从非标准的定制化方案切换到标准的开放的方案，应该在“手搓”方面吸取教训，为什么业界规范的东西在我们的场景不适用，非要自己造吗？</p>
+<h4 id="mock-module"><a href="#mock-module" class="headerlink" title="mock module"></a>mock module</h4><p>构建时可能面临动态依赖的场景：不同的 bundle 依赖功能相似但实现存在差异的 module，例如 ReactNative 的错误提醒机制是显示个红框，而 Web 环境就是输出到 Console。</p>
+<p>一般解法有2种：</p>
+<p><strong>第一种：</strong>运行时动态依赖（注入）：把两份都放进bundle，运行时根据配置或环境选择。</p>
+<p><strong>第二种：</strong>构建时处理依赖：多构建几份，不同的bundle含有各自需要的依赖模块。</p>
+<p>显然构建时处理更干净一些，即 mock module，开发中不用关心这种差异，构建时根据环境自动选择具体依赖，通过手写简单的 Rollup 插件来实现：<a href="https://github.com/facebook/react/blob/master/scripts/rollup/forks.js" target="_blank" rel="noopener">动态依赖配置</a> + <a href="https://github.com/facebook/react/blob/master/scripts/rollup/plugins/use-forks-plugin.js" target="_blank" rel="noopener">构建时依赖替换</a>。</p>
+<h4 id="Closure-Compiler"><a href="#Closure-Compiler" class="headerlink" title="Closure Compiler"></a>Closure Compiler</h4><p><a href="https://github.com/google/closure-compiler" target="_blank" rel="noopener">google/closure-compiler</a>是个非常强大的 minifier，有3种优化模式（compilation_level）：</p>
+<p><strong>第一种：</strong>WHITESPACE_ONLY：去除注释，多余的标点符号和空白字符，逻辑功能上与源码完全等价。</p>
+<p><strong>第二种：</strong>SIMPLE_OPTIMIZATIONS：默认模式，在 WHITESPACE_ONLY 的基础上进一步缩短变量名（局部变量和函数形参），逻辑功能基本等价，特殊情况（如 eval(‘localVar’)按名访问局部变量和解析 fn.toString() ）除外</p>
+<p><strong>第三种：</strong>ADVANCED_OPTIMIZATIONS：在 SIMPLE_OPTIMIZATIONS 的基础上进行更强力的重命名（全局变量名，函数名和属性），去除无用代码（走不到的，用不着的），内联方法调用和常量（划算的话，把函数调用换成函数体内容，常量换成其值）</p>
+<p>关于compilation_level的详细信息见<a href="https://developers.google.com/closure/compiler/docs/compilation_levels" target="_blank" rel="noopener">Closure Compiler Compilation Levels</a></p>
+<p>ADVANCED 模式过于强大：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 输入</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hello</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">'Hello, '</span> + name);</span><br><span class="line">&#125;</span><br><span class="line">hello(<span class="string">'New user'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出</span></span><br><span class="line">alert(<span class="string">"Hello, New user"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>也可以在<a href="https://closure-compiler.appspot.com/home" target="_blank" rel="noopener">Closure Compiler Service</a>在线试玩。</p>
+<p>迁移切换有一定风险，因此 React 用的还是 SIMPLE 模式，但后续可能有计划开启 ADVANCED 模式，充分利用 Closure Compiler 优化 bundle size。</p>
+<h4 id="Error-Code-System"><a href="#Error-Code-System" class="headerlink" title="Error Code System"></a>Error Code System</h4><blockquote>
+<p>In order to make debugging in production easier, we’re introducing an Error Code System in 15.2.0. We developed a gulp script that collects all of our invariant error messages and folds them to a JSON file, and at build-time Babel uses the JSON to rewrite our invariant calls in production to reference the corresponding error IDs.</p>
+</blockquote>
+<p>简言之，在 prod bundle 中把详细的报错信息替换成对应错误码，生产环境捕获到运行时错误就把错误码与上下文信息抛出来，再丢给错误码转换服务还原出完整错误信息。这样既保证了 prod bundle 尽量干净，还保留了与开发环境一样的详细报错能力。</p>
+<p>例如生产环境下的非法 React Element 报错：</p>
+<blockquote>
+<p>Minified React error #109; visit <a href="https://reactjs.org/docs/error-decoder.html?invariant=109&amp;args[]=Foo" target="_blank" rel="noopener">https://reactjs.org/docs/error-decoder.html?invariant=109&amp;args[]=Foo</a> for the full message or use the non-minified dev environment for full errors and additional helpful warnings.</p>
+</blockquote>
+<p>很有意思的技巧，确实在提升开发体验上花了不少心思。</p>
+<h4 id="envification"><a href="#envification" class="headerlink" title="envification"></a>envification</h4><p>所谓 envification 就是分环境 build，例如：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ref: react-16.2.0/build/packages/react/index.js</span></span><br><span class="line"><span class="keyword">if</span> (process.env.NODE_ENV === <span class="string">'production'</span>) &#123;</span><br><span class="line">  <span class="built_in">module</span>.exports = <span class="built_in">require</span>(<span class="string">'./cjs/react.production.min.js'</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">module</span>.exports = <span class="built_in">require</span>(<span class="string">'./cjs/react.development.js'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>常用手段，构建时把 process.env.NODE_ENV 替换成目标环境对应的字符串常量，在后续构建过程中（打包工具/压缩工具）会把多余代码剔除掉。</p>
+<p>除了 package 入口文件外，还在里面做了同样的判断作为双保险：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ref: react-16.2.0/build/packages/react/cjs/react.development.js</span></span><br><span class="line"><span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">"production"</span>) &#123;</span><br><span class="line">  (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">module</span>.exports = react;</span><br><span class="line">  &#125;)();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>此外，还担心开发者误用 dev bundle 上线，所以在 React DevTools 也加了一点提醒：</p>
+<blockquote>
+<p>This page is using the development build of React.</p>
+</blockquote>
+<h4 id="DCE-check"><a href="#DCE-check" class="headerlink" title="DCE check"></a>DCE check</h4><p>DCE(dead code eliminated) check 是指检查无用代码是否被正常去除。</p>
+<p>考虑了一种特殊情况：process.env.NODE_ENV 如果是在运行时设置的话也不合理（可能存在另一环境的多余代码），所以还通过 React DevTools 做了 bundle 环境检查：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ref: react-16.2.0/packages/react-dom/npm/index.js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkDCE</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">'production'</span>) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'^_^'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(checkDCE);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">    <span class="built_in">console</span>.error(err);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (process.env.NODE_ENV === <span class="string">'production'</span>) &#123;</span><br><span class="line">  checkDCE();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// DevTools 即__REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE声明</span></span><br><span class="line">checkDCE: <span class="function"><span class="keyword">function</span>(<span class="params">fn</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> toString = <span class="built_in">Function</span>.prototype.toString;</span><br><span class="line">    <span class="keyword">var</span> code = toString.call(fn);</span><br><span class="line">    <span class="keyword">if</span> (code.indexOf(<span class="string">'^_^'</span>) &gt; <span class="number">-1</span>) &#123;</span><br><span class="line">      hasDetectedBadDCE = <span class="literal">true</span>;</span><br><span class="line">      setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(</span><br><span class="line">          <span class="string">'React is running in production mode, but dead code '</span> +</span><br><span class="line">            <span class="string">'elimination has not been applied. Read how to correctly '</span> +</span><br><span class="line">            <span class="string">'configure React for production: '</span> +</span><br><span class="line">            <span class="string">'https://fb.me/react-perf-use-the-production-build'</span></span><br><span class="line">        );</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (err) &#123; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>原理类似于 Redux 的 minified 检测，先声明一个含有 dev 环境判断的方法，在判断中包含一个标识字符串，然后运行时（通过 DevTools ）检查 fn.toString() 源码，如果含有该标识字符串就说明 DCE 失败（无用代码没在 build 过程中去除），异步 throw 出来。</p>
+<p>关于 DCE check 的详细信息，可以参考<a href="https://reactjs.org/blog/2017/12/15/improving-the-repository-infrastructure.html#detecting-misconfigured-dead-code-elimination" target="_blank" rel="noopener">Detecting Misconfigured Dead Code Elimination</a></p>
+<h3 id="测试工具"><a href="#测试工具" class="headerlink" title="测试工具"></a>测试工具</h3><h4 id="Jest"><a href="#Jest" class="headerlink" title="Jest"></a>Jest</h4><p><a href="https://jestjs.io/" target="_blank" rel="noopener">Jest</a> 是由 Facebook 发布的开源的、基于<a href="https://jasmine.github.io/" target="_blank" rel="noopener">Jasmine</a>的 JavaScript 单元测试框架。</p>
+<p><strong>为什么选择Jest？</strong></p>
+<p><strong>第一点：</strong>Jest 可以利用其特有的快照测试功能，通过比对 UI 代码生成的快照文件，实现对 React 等常见框架的自动测试。此外， Jest 的测试用例是并行执行的，而且只执行发生改变的文件所对应的测试，提升了测试速度。</p>
+<p><strong>第二点：</strong>安装配置简单，非常容易上手，几乎是零配置的，通过 npm 命令安装就可以直接运行了。</p>
+<p><strong>第三点：</strong>Jest 内置了测试覆盖率工具 <a href="https://github.com/gotwarlost/istanbul" target="_blank" rel="noopener">istanbul</a>，可以通过命令开启或者在 package.json 文件进行更详细的配置。运行 istanbul 除了会再终端展示测试覆盖率情况，还会在项目下生产一个 coverage 目录，内附一个测试覆盖率的报告，让我们可以清晰看到分支的代码的测试情况。</p>
+<p><strong>第四点：</strong>集成了断言库，不需要再引入第三方的断言库，并且非常完美的支持 React 组件化测试。</p>
+<p>Snapshot Testing 与 UI 自动化测试的一般做法类似，对正确结果截屏作为基准（这个基准需要持续更新，所以快照文件一般随源码提交上去），后续每次改动后与之前的截图做像素级对比，存在差异则说明有问题。</p>
+<p>另外，提到 React App 测试，还有一个更狠的：<a href="http://airbnb.io/enzyme/" target="_blank" rel="noopener">Enzyme</a>，可以采用Jest + Enzyme对React组件进行深度测试，更多信息请查看<a href="https://www.codementor.io/vijayst/unit-testing-react-components-jest-or-enzyme-du1087lh8" target="_blank" rel="noopener">Unit Testing React Components: Jest or Enzyme</a>?</p>
+<p>关于前端UI自动化测试的一般方法，可参考<a href="https://www.zhihu.com/question/29922082/answer/46141819" target="_blank" rel="noopener">如何进行前端自动化测试？ – 张云龙的回答 – 知乎</a>，当然也可以在<a href="https://repl.it/@amasad/try-jest" target="_blank" rel="noopener">repl.it – try-jest by @amasad在线试玩</a>。</p>
+<h4 id="preventing-Infinite-Loops"><a href="#preventing-Infinite-Loops" class="headerlink" title="preventing Infinite Loops"></a>preventing Infinite Loops</h4><p>即死循环检查，Facebook 团队不希望测试过程被死循环阻塞（React 16 递归改循环之后有很多while (true)，他们不太放心）。处理方式与死递归检查类似：限制最大深度（TTL）。通过 Babel 插件来做，在测试环境构建时注入检查：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ref: https://github.com/facebook/react/blob/master/scripts/jest/preprocessor.js#L38</span></span><br><span class="line"><span class="built_in">require</span>.resolve(<span class="string">'../babel/transform-prevent-infinite-loops'</span>),</span><br><span class="line"></span><br><span class="line"><span class="comment">// ref: https://github.com/facebook/react/blob/master/scripts/babel/transform-prevent-infinite-loops.js#L37</span></span><br><span class="line"><span class="string">'WhileStatement|ForStatement|DoWhileStatement'</span>: <span class="function">(<span class="params">path, file</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> guard = buildGuard(&#123;</span><br><span class="line">    ITERATOR: iterator,</span><br><span class="line">    MAX_ITERATIONS: t.numericLiteral(MAX_ITERATIONS),</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">if</span> (!path.get(<span class="string">'body'</span>).isBlockStatement()) &#123;</span><br><span class="line">    <span class="keyword">const</span> statement = path.get(<span class="string">'body'</span>).node;</span><br><span class="line">    path.get(<span class="string">'body'</span>).replaceWith(t.blockStatement([guard, statement]));</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    path.get(<span class="string">'body'</span>).unshiftContainer(<span class="string">'body'</span>, guard);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用来防护的 buildGuard 如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> buildGuard = template(<span class="string">`</span></span><br><span class="line"><span class="string">  if (ITERATOR++ &gt; MAX_ITERATIONS) &#123;</span></span><br><span class="line"><span class="string">    global.infiniteLoopError = new RangeError(</span></span><br><span class="line"><span class="string">      'Potential infinite loop: exceeded ' +</span></span><br><span class="line"><span class="string">      MAX_ITERATIONS +</span></span><br><span class="line"><span class="string">      ' iterations.'</span></span><br><span class="line"><span class="string">    );</span></span><br><span class="line"><span class="string">    throw global.infiniteLoopError;</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">`</span>);</span><br></pre></td></tr></table></figure>
+<p>注意这里使用了一个全局错误变量 global.infiniteLoopError，用来中断后续测试流程：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ref: https://github.com/facebook/react/blob/master/scripts/jest/setupTests.js#L56</span></span><br><span class="line"> env.afterEach(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> error = global.infiniteLoopError;</span><br><span class="line">  global.infiniteLoopError = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">if</span> (error) &#123;</span><br><span class="line">    <span class="keyword">throw</span> error;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>在每个 case 结束都看一眼是否发生死循环，防止 guard 中 throw 的错误被外层 catch 住后，测试流程仍然正常进行。</p>
+<h3 id="发布工具"><a href="#发布工具" class="headerlink" title="发布工具"></a>发布工具</h3><h4 id="npm-publish"><a href="#npm-publish" class="headerlink" title="npm publish"></a>npm publish</h4><p>为了规范/简化发布流程，Facebook 团队做了以下几件事情：</p>
+<p><strong>1.采用 master + feature flag 的分支策略</strong><br><strong>2.统一的工具化发布流程</strong></p>
+<p>之前采用 stable 分支策略，发版时需要手动<a href="https://git-scm.com/docs/git-cherry-pick" target="_blank" rel="noopener">cherry-pick</a>，发个版要花很长时间。后来调整为直接从 master 发布，对于不想要的 breaking change，通过 feature flag 在构建时去掉，免去了手动 cherry-pick 的繁琐。</p>
+<p>统一了工具发布流程，自动的按顺序自动执行，人工的就提示保存退出，人工处理完成后恢复之前的进度继续向下执行，大致经过以下流程：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 自动</span></span><br><span class="line">$ npm run <span class="built_in">test</span></span><br><span class="line">$ npm run build</span><br><span class="line"><span class="comment"># 人工</span></span><br><span class="line">changelog <span class="comment"># 更新日志</span></span><br><span class="line">smoke <span class="built_in">test</span> <span class="comment"># 冒烟测试</span></span><br><span class="line"><span class="comment"># 自动</span></span><br><span class="line">$ git commit <span class="comment"># 提交更新日志</span></span><br><span class="line">$ npm publish <span class="comment"># 发布新包</span></span><br><span class="line"><span class="comment"># 人工</span></span><br><span class="line">GitHub release <span class="comment"># Github 发布</span></span><br><span class="line">update site version <span class="comment"># 更新版本</span></span><br><span class="line"><span class="built_in">test</span> new release <span class="comment"># 测试新版</span></span><br><span class="line">notify involved team <span class="comment"># 发布通知</span></span><br></pre></td></tr></table></figure>
+<p>这样通过工具化可以减少很多人为失误，保证统一的发布流程。</p>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/react/" rel="tag"># react</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/14/javascript-expression-semicolon.html" rel="next" title="JavaScript 表达式后应不应该加分号？">
+                <i class="fa fa-chevron-left"></i> JavaScript 表达式后应不应该加分号？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/16/let-for-together-used.html" rel="prev" title="由 let 和 for 引起的血案">
+                由 let 和 for 引起的血案 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Weich</p>
+              <p class="site-description motion-element" itemprop="description">看博客上一探</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/sosout" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:sosout@139.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://segmentfault.com/u/sosout" target="_blank" title="SegmentFault" rel="external nofollow"><i class="fa fa-fw fa-facebook"></i>SegmentFault</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-twitter"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.sosout.com/" title="工作笔记" target="_blank">工作笔记</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#React-v16-0-API-变化"><span class="nav-number">1.</span> <span class="nav-text">React v16.0 API 变化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React-构建工具"><span class="nav-number">2.</span> <span class="nav-text">React 构建工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开发工具"><span class="nav-number">3.</span> <span class="nav-text">开发工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ES-Module"><span class="nav-number">3.1.</span> <span class="nav-text">ES Module</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Flow-ESLint"><span class="nav-number">3.2.</span> <span class="nav-text">Flow + ESLint</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Prettier"><span class="nav-number">3.3.</span> <span class="nav-text">Prettier</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Yarn-workspace"><span class="nav-number">3.4.</span> <span class="nav-text">Yarn workspace</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HUBOT"><span class="nav-number">3.5.</span> <span class="nav-text">HUBOT</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建工具"><span class="nav-number">4.</span> <span class="nav-text">构建工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#bundle形式"><span class="nav-number">4.1.</span> <span class="nav-text">bundle形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Rollup"><span class="nav-number">4.2.</span> <span class="nav-text">Rollup</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mock-module"><span class="nav-number">4.3.</span> <span class="nav-text">mock module</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Closure-Compiler"><span class="nav-number">4.4.</span> <span class="nav-text">Closure Compiler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Error-Code-System"><span class="nav-number">4.5.</span> <span class="nav-text">Error Code System</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#envification"><span class="nav-number">4.6.</span> <span class="nav-text">envification</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DCE-check"><span class="nav-number">4.7.</span> <span class="nav-text">DCE check</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试工具"><span class="nav-number">5.</span> <span class="nav-text">测试工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Jest"><span class="nav-number">5.1.</span> <span class="nav-text">Jest</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#preventing-Infinite-Loops"><span class="nav-number">5.2.</span> <span class="nav-text">preventing Infinite Loops</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发布工具"><span class="nav-number">6.</span> <span class="nav-text">发布工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#npm-publish"><span class="nav-number">6.1.</span> <span class="nav-text">npm publish</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Weich</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">145k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">2:12</span>
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Mist</a> v6.3.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("JDFztM3Lau0XOKEA9BQR0Gz7-gzGzoHsz", "F34SJfnI4FhcOUUqjd4u3Rps");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text(counter.get('time'));
+            
+            counter.save(null, {
+              success: function(counter) {
+                
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            
+              var newcounter = new Counter();
+              /* Set ACL */
+              var acl = new AV.ACL();
+              acl.setPublicReadAccess(true);
+              acl.setPublicWriteAccess(true);
+              newcounter.setACL(acl);
+              /* End Set ACL */
+              newcounter.set("title", title);
+              newcounter.set("url", url);
+              newcounter.set("time", 1);
+              newcounter.save(null, {
+                success: function(newcounter) {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                },
+                error: function(newcounter, error) {
+                  console.log('Failed to create');
+                }
+              });
+            
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

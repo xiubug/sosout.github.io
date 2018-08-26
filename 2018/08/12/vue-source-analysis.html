@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: true,
+    lazyload: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="版本：v2.5.17-beta.0 前言随着这几年前端的快速发展，页面中需要实现的功能越来越复杂，DOM操作频繁，使用传统的jQuery库去频繁操作DOM时不仅消耗性能，而且各种DOM绑定后期维护时简直是一场噩梦，在开发大型项目时，模块间的依赖问题也变得十分复杂，在这个大背景下，以数据驱动和组件化思想开发的 Vue、React等JavaScript MVVM库应运而生。相比于其他库，Vue.js">
+<meta name="keywords" content="vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue 源码全方位剖析">
+<meta property="og:url" content="http://sosout.com/2018/08/12/vue-source-analysis.html">
+<meta property="og:site_name" content="每天一探">
+<meta property="og:description" content="版本：v2.5.17-beta.0 前言随着这几年前端的快速发展，页面中需要实现的功能越来越复杂，DOM操作频繁，使用传统的jQuery库去频繁操作DOM时不仅消耗性能，而且各种DOM绑定后期维护时简直是一场噩梦，在开发大型项目时，模块间的依赖问题也变得十分复杂，在这个大背景下，以数据驱动和组件化思想开发的 Vue、React等JavaScript MVVM库应运而生。相比于其他库，Vue.js">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-08-24T10:57:06.055Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue 源码全方位剖析">
+<meta name="twitter:description" content="版本：v2.5.17-beta.0 前言随着这几年前端的快速发展，页面中需要实现的功能越来越复杂，DOM操作频繁，使用传统的jQuery库去频繁操作DOM时不仅消耗性能，而且各种DOM绑定后期维护时简直是一场噩梦，在开发大型项目时，模块间的依赖问题也变得十分复杂，在这个大背景下，以数据驱动和组件化思想开发的 Vue、React等JavaScript MVVM库应运而生。相比于其他库，Vue.js">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="每天一探" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="http://sosout.com/2018/08/12/vue-source-analysis.html"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Vue 源码全方位剖析 | 每天一探</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-123825183-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-123825183-1');
+</script>
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?aed6dded356af07f3b5991c346dc812d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">每天一探</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">无法停止探索的脚步</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-开源项目">
+    <a href="/project/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-github"></i> <br />开源项目</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-站点地图">
+    <a href="/sitemap.xml" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />站点地图</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sosout.com/2018/08/12/vue-source-analysis.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Weich">
+      <meta itemprop="description" content="看博客上一探">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="每天一探">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Vue 源码全方位剖析
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item-icon">
+              <i class="fa fa-thumb-tack"></i>
+            </span>
+            <font color="red">置顶</font>
+            <span class="post-meta-divider">|</span>
+          
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-08-12 23:55:37" itemprop="dateCreated datePublished" datetime="2018-08-12T23:55:37+08:00">2018-08-12</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/08/12/vue-source-analysis.html" class="leancloud_visitors" data-flag-title="Vue 源码全方位剖析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">28k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">26 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><code>版本：v2.5.17-beta.0</code></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>随着这几年前端的快速发展，页面中需要实现的功能越来越复杂，DOM操作频繁，使用传统的jQuery库去频繁操作DOM时不仅消耗性能，而且各种DOM绑定后期维护时简直是一场噩梦，在开发大型项目时，模块间的依赖问题也变得十分复杂，在这个大背景下，以数据驱动和组件化思想开发的 Vue、React等JavaScript MVVM库应运而生。相比于其他库，Vue.js 提供了更加简洁、更易于理解的 API，使得我们能够快速上手，一经推出，便迅速走红。现在 Vue.js 更是火得一塌糊涂，github star 数更是超越 React。既然 Vue 如此火，我们是不是很有必要了解一下 Vue.js 背后的实现原理。</p>
+<p>目前社区有很多 Vue.js 的源码剖析文章，当下质量比较好的有<a href="http://hcysun.me/vue-design/" target="_blank" rel="noopener">Vue技术内幕–逐行级别的 Vue 源码分析</a>、<a href="https://ustbhuangyi.github.io/vue-analysis/" target="_blank" rel="noopener">Vue.js 技术揭秘</a>，更是得到 Vue 作者本人的推荐。通过通读这两本电子书，我相信大家都能全方位了解 Vue.js 的实现原理。有人可能会有疑问，比如：既然人家写得这么好你为什么还写，直接看人家的不就好了吗，谁会看你的等等？我要说的是源码分析并不是为了彰显个人技术，更多的是为了学习，不管当下想法是否足够成熟，只要我们坚持，我们都会有收获。在开始之前我们先做以下几点约定：</p>
+<p><strong>第一：</strong>目前分析的版本是 Vue.js 的最新版本 Vue.js 2.5.17-beta.0。<br><strong>第二：</strong>我尽可能站在我自己的角度去剖析，当然我会借鉴社区比较优秀的文章，面对大家的拍砖，我无条件接受，也很乐意与大家一起交换意见，努力写好该 Vue 源码系列。<br><strong>第三：</strong>如果有幸您读到该 Vue 源码系列，感觉写得还行，还望收藏、分享或打赏。</p>
+<h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p>我们从这一章开始即将分析 Vue 的源码，在分析源码之前我们很有必要介绍一些前置知识如flow、Rollup等。除此之外，我们最好已经用过 Vue 做过实际项目，对 Vue 的思想有了一定的了解，对绝大部分的 API 都已经有使用，同时，我们应该有一定的HTML、CSS、JavaScript、ES6+、node &amp; npm等功底，并对代码调试有一定的了解。</p>
+<p>如果具备了以上条件，并且对 Vue 的实现原理很感兴趣，那么就可以开始 Vue 的底层学习了，对它的实现细节一探究竟。</p>
+<h3 id="Flow-JavaScript静态类型检查工具"><a href="#Flow-JavaScript静态类型检查工具" class="headerlink" title="Flow - JavaScript静态类型检查工具"></a>Flow - JavaScript静态类型检查工具</h3><p><a href="https://flow.org/" target="_blank" rel="noopener">Flow</a> 是 facebook 出品的 JavaScript 静态类型检查工具，它与 Typescript 不同的是，它可以部分引入，不需要完全重构整个项目，所以对于一个已有一定规模的项目来说，迁移成本更小，也更加可行。除此之外，Flow 可以提供实时增量的反馈，通过运行 Flow server 不需要在每次更改项目的时候完全从头运行类型检查，提高运行效率。可以简单总结为：<strong>对于新项目，可以考虑使用 TypeScript 或者 Flow，对于已有一定规模的项目则建议使用 Flow 进行较小成本的逐步迁移来引入类型检查。Vue 的源码利用了 Flow 做了静态类型检查，所以了解 Flow 有助于我们阅读源码。</strong></p>
+<h4 id="为什么用静态类型检查工具-Flow"><a href="#为什么用静态类型检查工具-Flow" class="headerlink" title="为什么用静态类型检查工具 Flow"></a>为什么用静态类型检查工具 Flow</h4><p>JavaScript 是动态类型语言，它的灵活性有目共睹，但是过于灵活的副作用就是很容易就写出非常隐蔽的隐患代码，在编译期甚至运行时看上去都不会报错，但是可能会发生各种各样奇怪的和难以解决的bug。</p>
+<p>类型检查是当前动态类型语言的发展趋势，所谓类型检查，就是在编译期尽早发现（由类型错误引起的）bug，又不影响代码运行（不需要运行时动态检查类型），使编写 JavaScript 具有和编写 Java 等强类型语言相近的体验。</p>
+<p>项目越复杂就越需要通过工具的手段来保证项目的维护性和增强代码的可读性。Vue.js 在做2.0重构的时候，在 ES2015 的基础上，除了 ESLint 保证代码风格之外，也引入了 Flow 做静态类型检查。之所以选择 Flow，<strong>最根本原因作者在知乎提及过，还是在于工程上成本和收益的考量。</strong> 大致体现在以下几点：</p>
+<p><strong>第一点：</strong>使用 Flow 可以一个一个文件地迁移，如果使用 TypeScript，则需要全部替换，成本极高，短期内并不现实；<br><strong>第二点：</strong>Babel 和 ESLint 都有对应的 Flow 插件以支持语法，可以完全沿用现有的构建配置，非常小成本的改动就可以拥有静态类型检查的能力；<br><strong>第三点：</strong>更贴近 ES 规范。除了 Flow 的类型声明之外，其他都是标准的 ES。万一哪天不想用 Flow 了，用<code>babel-plugin-transform-flow-strip-types</code>转一下，就得到符合规范的 ES；<br><strong>第四点：</strong>在需要的地方保留 ES 的灵活性，并且对于生成的代码尺寸有更好的控制力 (rollup / 自定义 babel 插件）。</p>
+<h4 id="如何用静态类型检查工具-Flow"><a href="#如何用静态类型检查工具-Flow" class="headerlink" title="如何用静态类型检查工具 Flow"></a>如何用静态类型检查工具 Flow</h4><p>在这里我们就简单说一说 Flow 的用法，其他用法可以参考<a href="https://flow.org/" target="_blank" rel="noopener">Flow官网</a>（可能需要 VPN，非常不稳定），有时间我会详细写一篇 Flow 使用指南。</p>
+<p>Flow 仅仅是一个用于检查的工具，安装使用都很方便，使用时注意以下3点即可：</p>
+<p>1.将 Flow 安装到我们的项目中。<br>2.确保编译之后的代码移除了 Flow 相关的语法。<br>3.在需要检查的地方增加了 Flow 相关的类型注解。</p>
+<p><strong>第一点：将Flow增加到我们的项目中</strong></p>
+<p>安装最新版本的 Flow：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install --save-dev flow-bin</span><br></pre></td></tr></table></figure></p>
+<p>安装完成之后在 package.json 文件中增加执行脚本：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  // ...</span><br><span class="line">  "scripts": &#123;</span><br><span class="line">    "your-script-name": "flow",</span><br><span class="line">    // ...</span><br><span class="line">  &#125;,</span><br><span class="line">  // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后初始化 Flow：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm run flow init</span><br></pre></td></tr></table></figure>
+<p>执行完成后，Flow 会在终端输出以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; yourProjectName@1.0.0 flow /yourProjectPath</span><br><span class="line">&gt; flow &quot;init&quot;</span><br></pre></td></tr></table></figure>
+<p>然后在根目录下生成一个名为 .flowconfig 的文件，打开之后是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[ignore]</span><br><span class="line"></span><br><span class="line">[include]</span><br><span class="line"></span><br><span class="line">[libs]</span><br><span class="line"></span><br><span class="line">[lints]</span><br><span class="line"></span><br><span class="line">[options]</span><br><span class="line"></span><br><span class="line">[strict]</span><br></pre></td></tr></table></figure>
+<p>基本上，配置文件没有什么特殊需求是不用去配置的，Flow 默认涵盖了当前目录之后的所有文件。[include] 用于引入项目之外的文件。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[include]</span><br><span class="line"></span><br><span class="line">../otherProject/a.js</span><br><span class="line"></span><br><span class="line">[libs]</span><br></pre></td></tr></table></figure>
+<p>它会将和当前项目平级的 otherProject/a.js 文件纳入进来。详细配置文件请看<a href="https://flow.org/en/docs/config/" target="_blank" rel="noopener">官网</a>。</p>
+<p><strong>第二点：编译之后的代码移除 Flow 相关的语法</strong></p>
+<p>Flow 在 JavaScript 语法的基础上使用了一些注解（annotation）进行了扩展。因此浏览器无法正确的解读这些 Flow 相关的语法，我们必须在编译之后的代码中（最终发布的代码）将增加的 Flow 注解移除掉。具体方法需要看我们使用了什么样的编译工具。下面将说明一些 Vue 开发常用的编译工具：</p>
+<p><strong>方式一：</strong>Babel</p>
+<p>如果使用 Babel 我们需要安装一个 Babel 对于 Flow 的 preset：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install --save-dev babel-preset-flow</span><br></pre></td></tr></table></figure></p>
+<p>然后，我们需要在项目根目录<a href="http://babeljs.io/docs/en/babelrc/" target="_blank" rel="noopener">Babel 的配置文件 .babelrc</a>中添加一个 Flow 相关的 preset：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"presets"</span>: [</span><br><span class="line">    <span class="string">"flow"</span>,</span><br><span class="line">    //other config</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>方式二：</strong>flow-remove-types</p>
+<p>如果我们既没有使用 Babel 作为语法糖编译器，那么可以使用 <a href="https://github.com/flowtype/flow-remove-types" target="_blank" rel="noopener">flow-remove-types</a> 这个工具在发布之前移除 Flow 代码。</p>
+<p><strong>第三点：在需要检查的地方增加 Flow 相关的类型注解</strong></p>
+<p>如果我们了解 C++/C# 的元编程或者 Java 的 Annotation，那么理解 Flow 的 Annotation 就会非常轻松。大概就是在文件、方法、代码块之前增加一个注解（Annotation）用来告知 Flow 的执行行为。</p>
+<p>首先，Flow 只检查包含<code>// @flow</code>注解的文件，所以如果需要检查，我们需要这样编写我们的文件，首先我们写一个正确的示例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* @flow */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x: number, y: number</span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">add(<span class="number">22</span>, <span class="number">11</span>)</span><br></pre></td></tr></table></figure>
+<p>运行 Flow 终端会打印出以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; yourProjectName@1.0.0 flow /yourProjectPath</span><br><span class="line">&gt; flow &quot;init&quot;</span><br><span class="line"></span><br><span class="line">Found 0 errors</span><br></pre></td></tr></table></figure>
+<p>承接上面代码，我们把代码修改成带有检查错误的例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* @flow */</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x: number, y: number</span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">add(<span class="string">"Hello"</span>, <span class="number">11</span>)</span><br></pre></td></tr></table></figure>
+<p>运行 Flow 终端会打印出以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&gt; yourProjectName@1.0.0 flow /yourProjectPath</span><br><span class="line">&gt; flow &quot;init&quot;</span><br><span class="line"></span><br><span class="line">Error ------------------------------------------------------------------------------------- src/platforms/web/mnr.js:8:5</span><br><span class="line"></span><br><span class="line">Cannot call `add` with `&quot;Hello&quot;` bound to `x` because string [1] is incompatible with number [2].</span><br><span class="line"></span><br><span class="line">   src/platforms/web/mnr.js:8:5</span><br><span class="line">   8| add(&quot;Hello&quot;, 11)</span><br><span class="line">          ^^^^^^^ [1]</span><br><span class="line"></span><br><span class="line">References:</span><br><span class="line">   src/platforms/web/mnr.js:4:17</span><br><span class="line">   4| function add(x: number, y: number): number &#123;</span><br><span class="line">                      ^^^^^^ [2]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Found 1 error</span><br></pre></td></tr></table></figure>
+<p>到这里，Flow 已经算是安装成功了，接下来的事是要增加各种注解以加强类型限定或者参数检测。之后的内容将简要介绍 flow 的类型检查方式。</p>
+<h4 id="Flow-的类型检查方式"><a href="#Flow-的类型检查方式" class="headerlink" title="Flow 的类型检查方式"></a>Flow 的类型检查方式</h4><p>现在我们就说说 Flow 常用的2种类型检查方式：<br><strong>类型推断</strong>：通过变量的执行上下文来推断出变量类型，然后根据这些推断来检查类型。<br><strong>类型注释</strong>：事先注释好我们期望的类型，Flow 会基于这些注释来检查。</p>
+<p><strong>第一种方式：类型推断</strong></p>
+<p>此方式不需要编写任何代码即可进行类型检查，最小化开发者的工作量，它也不会强制我们改变开发习惯，因为它会自动推断出变量的类型，这就是所谓的类型推断，Flow 最重要的特性之一。</p>
+<p>通过一个简单例子说明一下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*@flow*/</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">split</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> str.split(<span class="string">' '</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">split(<span class="number">11</span>)</span><br></pre></td></tr></table></figure></p>
+<p>Flow 检查上述代码后会报错，因为函数 split 期待的参数是字符串，而我们输入的是数字。</p>
+<p><strong>第二种方式：类型注释</strong></p>
+<p>如上所述，类型推断是 Flow 最有用的特性之一，不需要编写任何代码就能进行类型检查。但在某些特定的场景下，使用类型注释可以提供更好更明确的检查依据。</p>
+<p>看看以下代码：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*@flow*/</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">add(<span class="string">'Hello'</span>, <span class="number">11</span>)</span><br></pre></td></tr></table></figure></p>
+<p>Flow 根据类型推断检查上述代码时检查不出任何错误，因为从语法层面考虑， + 既可以用在字符串上，也可以用在数字上，我们并没有明确指出 add() 的参数必须为数字。在这种情况下，我们可以借助类型注释来指明期望的类型。类型注释是以冒号 : 开头，可以在函数参数，返回值，变量声明中使用。如果我们在上段代码中使用类型注释，就会变成如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*@flow*/</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x: number, y: number</span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">add(<span class="string">'Hello'</span>, <span class="number">11</span>)</span><br></pre></td></tr></table></figure></p>
+<p>现在 Flow 就能检查出错误，因为函数参数的期待类型为数字，而我们提供了字符串。上面的例子是针对函数的类型注释。接下来我们来看看 Flow 能支持的一些常见的类型注释:</p>
+<p><strong>第一种：</strong>数组<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*@flow*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arr: <span class="built_in">Array</span>&lt;number&gt; = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"></span><br><span class="line">arr.push(<span class="string">'Hello'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>数组类型注释的格式是 Array<t>，T 表示数组中每项的数据类型。在上述代码中，arr 是每项均为数字的数组。如果我们给这个数组添加了一个字符串，Flow 能检查出错误。</t></p>
+<p><strong>第二种：</strong>类和对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*@flow*/</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bar</span> </span>&#123;</span><br><span class="line">  x: string;           <span class="comment">// x 是字符串</span></span><br><span class="line">  y: string | number;  <span class="comment">// y 可以是字符串或者数字</span></span><br><span class="line">  z: boolean;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>(x: string, y: string | number) &#123;</span><br><span class="line">    <span class="keyword">this</span>.x = x</span><br><span class="line">    <span class="keyword">this</span>.y = y</span><br><span class="line">    <span class="keyword">this</span>.z = <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> bar: Bar = <span class="keyword">new</span> Bar(<span class="string">'hello'</span>, <span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj: &#123; <span class="attr">a</span>: string, <span class="attr">b</span>: number, <span class="attr">c</span>: <span class="built_in">Array</span>&lt;string&gt;, <span class="attr">d</span>: Bar &#125; = &#123;</span><br><span class="line">  a: <span class="string">'hello'</span>,</span><br><span class="line">  b: <span class="number">11</span>,</span><br><span class="line">  c: [<span class="string">'hello'</span>, <span class="string">'world'</span>],</span><br><span class="line">  d: <span class="keyword">new</span> Bar(<span class="string">'hello'</span>, <span class="number">3</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>类的类型注释格式如上，可以对类自身的属性做类型检查，也可以对构造函数的参数做类型检查。这里需要注意的是：属性 y 的类型中间用 | 做间隔，表示 y 的类型即可以是字符串也可以是数字。</p>
+<p>对象的注释类型类似于类，需要指定对象属性的类型。</p>
+<p><strong>第三种：</strong>Null/undefined</p>
+<p>Flow 会检查所有的 JavaScript 基础类型—— Boolean、String、Number、null、undefined（在Flow中用void代替）。除此之外还提供了一些操作符号，例如 text : ?string，它表示参数存在“没有值”的情况，除了传递 string 类型之外，还可以是 null 或 undefined。需要特别注意的是，这里的没有值和 JavaScript 的表达式的“非”是两个概念，Flow 的“没有值”只有 null、void（undefined），而 JavaScript 表达式的“非”包含：null、undefined、0、false。</p>
+<p>如果想任意类型 T 可以为 null 或者 undefined，只需写成如下 ?T 的格式即可：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*@flow*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> foo: ?string = <span class="literal">null</span></span><br></pre></td></tr></table></figure>
+<p>此时，foo 可以为字符串，也可以为 null。</p>
+<h4 id="Flow-在-Vue-js-源码中的应用"><a href="#Flow-在-Vue-js-源码中的应用" class="headerlink" title="Flow 在 Vue.js 源码中的应用"></a>Flow 在 Vue.js 源码中的应用</h4><p>有时候我们想引用第三方库，或者自定义一些类型，但 Flow 并不认识，因此检查的时候会报错。为了解决这类问题，Flow 提出了一个 libdef 的概念，可以用来识别这些第三方库或者是自定义类型，而 Vue.js 也利用了这一特性。</p>
+<p>在 Vue.js 的主目录下有 .flowconfig 文件， 它是 Flow 的配置文件。这其中的 [libs] 部分用来描述包含指定库定义的目录，默认是名为 flow-typed 的目录。</p>
+<p>这里 [libs] 配置的是 flow，表示指定的库定义都在 flow 文件夹内。我们打开这个目录，会发现文件如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">flow</span><br><span class="line">├── compiler.js        # 编译相关</span><br><span class="line">├── component.js       # 组件数据结构</span><br><span class="line">├── global-api.js      # Global API 结构</span><br><span class="line">├── modules.js         # 第三方库定义</span><br><span class="line">├── options.js         # 选项相关</span><br><span class="line">├── ssr.js             # 服务端渲染相关</span><br><span class="line">├── vnode.js           # 虚拟 node 相关</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，Vue.js 有很多自定义类型的定义，在阅读源码的时候，如果遇到某个类型并想了解它完整的数据结构的时候，可以回来翻阅这些数据结构的定义。</p>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>通过对 Flow 的认识，有助于我们阅读 Vue 的源码，并且这种静态类型检查的方式非常有利于大型项目源码的开发和维护。<strong>此外，通过 Vue 重构，我们发现项目重构要么依赖规范，要么就得自己有绝对控制权，同时还要考量开发成本、项目收益以及整个团队的技术水平，并不是一味的什么火就用什么。</strong></p>
+<h3 id="Rollup-另一个前端模块化的打包工具"><a href="#Rollup-另一个前端模块化的打包工具" class="headerlink" title="Rollup - 另一个前端模块化的打包工具"></a>Rollup - 另一个前端模块化的打包工具</h3><p>Rollup 是前端模块化的一个打包工具，可以将小块代码编译成大块复杂的代码，例如 library 或应用程序。简单地说，它可以从一个入口文件开始，将所有使用的模块根据命令或者根据 Rollup 配置文件打包成一个目标文件，并且 Rollup 会自动过滤掉那些没有被使用过的函数或变量，从而使代码最小化，如果想使用直接导入这一个目标文件即可，因此 Rollup 极其适合构建一个工具库。</p>
+<p>这里提到 Rollup 的两个特别重要的特性，第一个就是它使用了 ES2015 的模板标准，这意味着我们可以直接使用 import 和 export 而不需要引入 babel。另一个重要特性叫做 tree-shaking，这个特性可以帮助我们将无用代码（即没有使用的代码）从最终的目标文件中过滤掉。举个简单的例子，我们在 foo.js 文件定义了 f1 和 f2 两个方法，然后在入口文件 index.js 只引入了 foo.js 文件中的 f1 方法，那么在最后打包 index.js 文件时，Rollup 就不会将 f2 方法打包到最终文件中（这个特性是基于 ES6 模块的静态分析的，也就是说，只有 export 而没有 import 的变量是不会被打包到最终代码中的）。</p>
+<h4 id="为什么用前端模块化的打包工具-Rollup"><a href="#为什么用前端模块化的打包工具-Rollup" class="headerlink" title="为什么用前端模块化的打包工具 Rollup"></a>为什么用前端模块化的打包工具 Rollup</h4><p>之前 Vue 用 webpack 打包，还是会自带一个小型的动态 module 加载机制，并且每个文件是包在一个模块函数里的。Rollup 打包通过重命名 import binding 直接把所有文件的函数都放在同一个函数体里面… 所以最终出来的文件会小一些，并且初始化快个十几毫秒的样子。</p>
+<h4 id="如何用前端模块化的打包工具-Rollup"><a href="#如何用前端模块化的打包工具-Rollup" class="headerlink" title="如何用前端模块化的打包工具 Rollup"></a>如何用前端模块化的打包工具 Rollup</h4><p>关于如何使用前端模块化的打包工具 Rollup，这里就不做过多介绍了，可参考我之前写的一篇文章：<a href="/2018/08/04/rollup-tutorial.html">Rollup使用指南</a>，更详细的使用文档可参考：<a href="https://www.rollupjs.com/guide/zh" target="_blank" rel="noopener">官网</a>。</p>
+<h4 id="Webpack-和-Rollup-有什么不同"><a href="#Webpack-和-Rollup-有什么不同" class="headerlink" title="Webpack 和 Rollup 有什么不同"></a>Webpack 和 Rollup 有什么不同</h4><p>Vue 从 1.0.10 开始就改用 Rollup 来打包。作者尤雨溪在知乎上也曾说过 使用 Rollup 只是用于 Vue 发布文件的构建，对用户使用没有直接影响。在这之前用 webpack 打包，还是会自带一个小型的动态 module 加载机制，并且每个文件是包在一个模块函数里的。Rollup 打包通过重命名 import binding 直接把所有文件的函数都放在同一个函数体里面… 所以最终出来的文件会小一些，并且初始化快个十几毫秒的样子。</p>
+<p>Webpack 是目前使用最为火热的打包工具，没有之一，每月有数百万的下载量，为成千上万的网站和应用提供支持。相比之下，Rollup 并不起眼。但 Vue 并不孤单 – React，Ember，Preact，D3，Three.js，Moment 以及其他许多知名的库也使用 Rollup 。世界到底怎么了？为什么我们不能只有一个大众认可的 JavaScript 模块化打包工具？</p>
+<p>Webpack 始于2012年，由 Tobias Koppers 发起，用于解决当时现有工具未解决的的一个难题：<strong>构建复杂的单页应用程序(SPA)。</strong>特别是 webpack 的两个特性改变了一切：</p>
+<p><strong>第一个特性：</strong>代码拆分(Code Splitting)</p>
+<p>代码拆分也就是说我们可以将应用程序分解成可管理的代码块，可以按需加载，这意味着用户可以快速获取网站内容，而不必等到整个应用程序下载和解析完成。</p>
+<p><strong>第二个特性：</strong>各式各样的加载器（loader）</p>
+<p>不管是图像，css，还是 html ，在 Webpack 看来一切都可作为模块，然后通过不同的加载器 loader 来加载它们。</p>
+<p>ES6 发布之后，其中引入的模块机制使得静态分析成为了可能，于是 Rollup 发布了：其中 Rollup 有两个特别重要的特性，第一个就是它利用 ES2015 巧妙的模块设计，尽可能高效的构建出能够直接被其他 Javascript 库的。另一个重要特性叫做 tree-shaking，这个特性可以帮助我们将无用代码（即没有使用的代码）从最终的目标文件中过滤掉。</p>
+<p>紧接着 Webpack2 发布，仿照 Rollup 增加了 tree-shaking。 在之后， Webpack3 发布，仿照 Rollup 又增加了 Scope Hoisting。在在之后， Parcel 发布了一个快速、零配置的打包工具。于是，Webpack4 仿照 Parcel 发布了。</p>
+<p>说了这么多，工作中我们到底该用哪个工具？</p>
+<p>对于应用使用 webpack，对于类库使用 Rollup。如果我们需要代码拆分(Code Splitting)，或者我们有很多静态资源需要处理，再或者我们构建的项目需要引入很多 CommonJS 模块的依赖，那么 webpack 是个很不错的选择。如果您的代码库是基于 ES2015 模块的，而且希望我们写的代码能够被其他人直接使用，我们需要的打包工具可能是 Rollup。</p>
+<h4 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h4><p>通过对 Rollup 的认识，有助于我们了解 Vue 的构建以及源码目录结构。</p>
+<h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><p>上一章我们简单介绍了下 flow、Rollup 等前置知识，有兴趣的可以有针对性的学习它们。这一章我们真正的开始分析 Vue 源码，激动不激动？该章主要包括三小节：项目目录、源码构建、源码入口。</p>
+<h3 id="项目目录"><a href="#项目目录" class="headerlink" title="项目目录"></a>项目目录</h3><p>Vue.js 的源码都在 src 目录下，其详细目录结构如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">├── dist ---------------------------------------- 构建后的输出目录</span><br><span class="line">├── examples ------------------------------------ Vue 开发的应用案例</span><br><span class="line">├── flow ---------------------------------------- Flow 类型声明</span><br><span class="line">├── packages ------------------------------------ 独立发布包的目录</span><br><span class="line">├── scripts ------------------------------------- 构建相关的文件</span><br><span class="line">│   ├── git-hooks ------------------------------- git钩子的目录</span><br><span class="line">│   ├── alias.js -------------------------------- 别名配置文件</span><br><span class="line">│   ├── build.js -------------------------------- Rollup 构建文件</span><br><span class="line">│   ├── config.js ------------------------------- Rollup 构建配置的文件</span><br><span class="line">│   ├── gen-release-note.js --------------------- 生成发布通知</span><br><span class="line">│   ├── get-weex-version.js --------------------- 获取 weex 版本</span><br><span class="line">│   ├── release-weex.sh ------------------------- 自动发布新版本weex脚本</span><br><span class="line">│   ├── ci.sh ----------------------------------- 持续集成运行的脚本</span><br><span class="line">│   ├── release.sh ------------------------------ 自动发布新版本脚本</span><br><span class="line">├── src ----------------------------------------- 源码目录，我们主要剖析目录</span><br><span class="line">│   ├── compiler -------------------------------- 编译相关，主要将 template 编译为 render 函数 </span><br><span class="line">│   ├── core ------------------------------------ 核心代码，与平台无关的代码</span><br><span class="line">│   │   ├── components -------------------------- 抽象出来的通用组件</span><br><span class="line">│   │   ├── instance ---------------------------- Vue 构造函数设计相关的代码</span><br><span class="line">│   │   ├── global-api -------------------------- Vue 构造函数挂载全局方法(静态方法)或属性的代码</span><br><span class="line">│   │   ├── observer ---------------------------- 响应系统，包含数据观测的核心代码</span><br><span class="line">│   │   ├── vdom -------------------------------- 虚拟DOM创建(creation)和打补丁(patching)的代码</span><br><span class="line">├── ├── platforms ------------------------------- 平台特有的相关代码，不同平台的构建入口文件</span><br><span class="line">│   │   ├── web --------------------------------- web平台</span><br><span class="line">│   │   │   ├── entry-runtime.js ---------------- 不带编译器构建的入口</span><br><span class="line">│   │   │   ├── entry-runtime-<span class="keyword">with</span>-compiler.js -- 自带编译器构建的入口</span><br><span class="line">│   │   │   ├── entry-compiler.js --------------- vue-template-compiler 包的入口文件</span><br><span class="line">│   │   │   ├── entry-server-renderer.js -------- vue-server-renderer 包的入口文件</span><br><span class="line">│   │   │   ├── entry-server-basic-renderer.js -- 输出 packages/vue-server-renderer/basic.js</span><br><span class="line">│   │   ├── weex -------------------------------- 混合应用</span><br><span class="line">├── ├── server ---------------------------------- 服务端渲染</span><br><span class="line">│   ├── sfc ------------------------------------- .vue 文件解析</span><br><span class="line">│   ├── shared ---------------------------------- 整个项目通用代码</span><br><span class="line">├── test ---------------------------------------- 测试文件</span><br><span class="line">├── .babelrc ------------------------------------ babel 配置文件</span><br><span class="line">├── .editorconfig ------------------------------- 编辑器语法规范配置</span><br><span class="line">├── .eslintignore ------------------------------- eslint 忽略配置</span><br><span class="line">├── .eslintrc ----------------------------------- eslint 配置文件</span><br><span class="line">├── .flowconfig --------------------------------- flow 的配置文件</span><br><span class="line">├── .gitignore ---------------------------------- git 忽略配置</span><br><span class="line">├── package-lock.json --------------------------- npm 加锁文件</span><br><span class="line">├── package.json -------------------------------- 项目管理文件</span><br><span class="line">├── README.md ----------------------------------- 项目文档</span><br><span class="line">├── yarn.lock ----------------------------------- yarn 加锁文件</span><br></pre></td></tr></table></figure></p>
+<p>上述目录很是熟悉，根目录下 src 存放源码，test 存放单元测试，examples 作为应用案例等等，后续 Vue 团队会不会也采用 monorepo 项目组织方式这个目前不好说，但有可能。接下来我们对重点剖析的源码目录做一个简要分析：</p>
+<h4 id="compiler"><a href="#compiler" class="headerlink" title="compiler"></a>compiler</h4><p>compiler 目录包含 Vue.js 所有编译相关的代码。它包括把模板解析成 ast 语法树，ast 语法树优化，代码生成等功能。通常我们利用 vue-cli 去初始化我们的 Vue.js 项目的时候会询问我们用 Runtime Only 版本的还是 Runtime + Compiler 版本。下面我们来对比这两个版本：</p>
+<p><strong>Runtime Only 版本：</strong>我们在使用 Runtime Only 版本的 Vue.js 的时候，通常需要借助如 webpack 的 vue-loader 工具把 .vue 文件编译成 JavaScript，因为是在编译阶段做的，所以它只包含运行时的 Vue.js 代码，因此代码体积也会更轻量。</p>
+<p><strong>Runtime + Compiler 版本：</strong>我们如果没有对代码做预编译，但又使用了 Vue 的 template 属性并传入一个字符串，则需要在客户端编译模板，如下所示：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 需要编译器的版本</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  template: <span class="string">'&lt;div&gt;&#123;&#123; hi &#125;&#125;&lt;/div&gt;'</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这种情况不需要</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  render (h) &#123;</span><br><span class="line">    <span class="keyword">return</span> h(<span class="string">'div'</span>, <span class="keyword">this</span>.hi)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>因为在 Vue.js 2.0 中，最终渲染都是通过 render 函数，如果写 template 属性，则需要编译成 render 函数，那么这个编译过程会发生运行时，所以需要带有编译器的版本。很显然，这个编译过程对性能会有一定损耗，所以通常我们更推荐使用 Runtime-Only 的 Vue.js。</p>
+<h4 id="core"><a href="#core" class="headerlink" title="core"></a>core</h4><p>core 目录包含了 Vue.js 的核心代码，包括内置组件、全局 API 封装，Vue 实例化、观察者、虚拟 DOM、工具函数等等。</p>
+<h4 id="platform"><a href="#platform" class="headerlink" title="platform"></a>platform</h4><p>platform 目录是 Vue.js 的入口，2 个目录代表 2 个主要入口，分别打包成运行在 web 上和配合 weex 运行在 native 客户端上的 Vue.js。</p>
+<h4 id="server"><a href="#server" class="headerlink" title="server"></a>server</h4><p>server 目录主要用于服务端渲染。这部分代码是跑在服务端的 Node.js，不要和跑在浏览器端的 Vue.js 混为一谈。Vue.js 从 2.0 开始支持了服务端渲染，服务端渲染的主要工作是把组件渲染为服务器端的 HTML 字符串，然后将它们直接发送到浏览器，最后将静态标记”混合”为客户端上完全交互的应用程序。</p>
+<h4 id="sfc"><a href="#sfc" class="headerlink" title="sfc"></a>sfc</h4><p>sfc 目录主要用于把 .vue 文件内容解析成一个 JavaScript 对象，实际开发中我们一般用 webpack 完成该工作。</p>
+<h4 id="shared"><a href="#shared" class="headerlink" title="shared"></a>shared</h4><p>shared 目录主要定义了一些共享的工具方法，这些工具方法不但适用于浏览器端的 Vue.js，同时也适用于服务端的 Vue.js。</p>
+<h4 id="小结-2"><a href="#小结-2" class="headerlink" title="小结"></a>小结</h4><p>从 Vue.js 的目录设计可以看到，作者把功能模块拆分的非常清楚，相关的逻辑放在一个独立的目录下维护，并且把复用的代码也抽成一个独立目录。</p>
+<h3 id="源码构建"><a href="#源码构建" class="headerlink" title="源码构建"></a>源码构建</h3><p>Vue 源码是基于 Rollup 构建的，它的构建相关配置都在 scripts 目录下。</p>
+<h4 id="构建命令"><a href="#构建命令" class="headerlink" title="构建命令"></a>构建命令</h4><p>通常一个基于 NPM 托管的项目都会有一个 package.json 文件，实际上它是对项目的描述文件，它的内容是一个标准的 JSON 对象。我们通常会配置 script 字段作为 NPM 的构建命令，Vue 源码构建的脚本如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    // ...</span><br><span class="line">    "main": "dist/vue.runtime.common.js",</span><br><span class="line">    "module": "dist/vue.runtime.esm.js",</span><br><span class="line">    "unpkg": "dist/vue.js",</span><br><span class="line">    "jsdelivr": "dist/vue.js",</span><br><span class="line">    "typings": "types/index.d.ts",</span><br><span class="line">    "files": [</span><br><span class="line">        "src",</span><br><span class="line">        "dist/*.js",</span><br><span class="line">        <span class="string">"types/*.d.ts"</span></span><br><span class="line">    ],</span><br><span class="line">    "sideEffects": false,</span><br><span class="line">    "scripts": &#123;</span><br><span class="line">         // 构建完整版 umd 模块的 Vue</span><br><span class="line">        "dev": "rollup -w -c scripts/config.js --environment TARGET:web-full-dev",</span><br><span class="line">        // 构建运行时 cjs 模块的 Vue</span><br><span class="line">        "dev:cjs": "rollup -w -c scripts/config.js --environment TARGET:web-runtime-cjs",</span><br><span class="line">        // 构建运行时 es 模块的 Vue</span><br><span class="line">        "dev:esm": "rollup -w -c scripts/config.js --environment TARGET:web-runtime-esm",</span><br><span class="line">        // 构建 web-server-renderer 包</span><br><span class="line">        "dev:ssr": "rollup -w -c scripts/config.js --environment TARGET:web-server-renderer",</span><br><span class="line">        // 构建 Compiler 包</span><br><span class="line">        "dev:compiler": "rollup -w -c scripts/config.js --environment TARGET:web-compiler ",</span><br><span class="line">        // ...</span><br><span class="line">        "build": "node scripts/build.js",</span><br><span class="line">        "build:ssr": "npm run build -- web-runtime-cjs,web-server-renderer",</span><br><span class="line">        "build:weex": "npm run build -- weex",</span><br><span class="line">        // ...</span><br><span class="line">    &#125;,</span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里总共有 3 条命令，作用都是构建 Vue，后面 2 条是在第一条命令的基础上，添加一些环境参数。当在命令行运行<code>npm run build</code>的时候，实际上会执行<code>node scripts/build.js</code>，接下来我们就来看看它实际上是如何构建的。</p>
+<h4 id="构建过程"><a href="#构建过程" class="headerlink" title="构建过程"></a>构建过程</h4><p>我们首先打开构建命令对应的构建 JS 脚本，在<code>scripts/build.js</code>中：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="keyword">let</span> builds = <span class="built_in">require</span>(<span class="string">'./config'</span>).getAllBuilds()</span><br><span class="line"></span><br><span class="line"><span class="comment">// filter builds via command line arg</span></span><br><span class="line"><span class="keyword">if</span> (process.argv[<span class="number">2</span>]) &#123;</span><br><span class="line">  <span class="keyword">const</span> filters = process.argv[<span class="number">2</span>].split(<span class="string">','</span>)</span><br><span class="line">  builds = builds.filter(<span class="function"><span class="params">b</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> filters.some(<span class="function"><span class="params">f</span> =&gt;</span> b.output.file.indexOf(f) &gt; <span class="number">-1</span> || b._name.indexOf(f) &gt; <span class="number">-1</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">// filter out weex builds by default</span></span><br><span class="line">  builds = builds.filter(<span class="function"><span class="params">b</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> b.output.file.indexOf(<span class="string">'weex'</span>) === <span class="number">-1</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">build(builds)</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure></p>
+<p>这段代码逻辑非常简单，先从配置文件读取配置，再通过命令行参数对构建配置做过滤，这样就可以构建出不同用途的 Vue.js 了。稍后我们再来看构建函数 build，我们先来看看配置文件，在<code>scripts/config.js</code>中：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> builds = &#123;</span><br><span class="line">  <span class="comment">// Runtime only (CommonJS). Used by bundlers e.g. Webpack &amp; Browserify</span></span><br><span class="line">  <span class="string">'web-runtime-cjs'</span>: &#123;</span><br><span class="line">    entry: resolve(<span class="string">'web/entry-runtime.js'</span>),</span><br><span class="line">    dest: resolve(<span class="string">'dist/vue.runtime.common.js'</span>),</span><br><span class="line">    format: <span class="string">'cjs'</span>,</span><br><span class="line">    banner</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// Runtime+compiler CommonJS build (CommonJS)</span></span><br><span class="line">  <span class="string">'web-full-cjs'</span>: &#123;</span><br><span class="line">    entry: resolve(<span class="string">'web/entry-runtime-with-compiler.js'</span>),</span><br><span class="line">    dest: resolve(<span class="string">'dist/vue.common.js'</span>),</span><br><span class="line">    format: <span class="string">'cjs'</span>,</span><br><span class="line">    alias: &#123; <span class="attr">he</span>: <span class="string">'./entity-decoder'</span> &#125;,</span><br><span class="line">    banner</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// Runtime only (ES Modules). Used by bundlers that support ES Modules,</span></span><br><span class="line">  <span class="comment">// e.g. Rollup &amp; Webpack 2</span></span><br><span class="line">  <span class="string">'web-runtime-esm'</span>: &#123;</span><br><span class="line">    entry: resolve(<span class="string">'web/entry-runtime.js'</span>),</span><br><span class="line">    dest: resolve(<span class="string">'dist/vue.runtime.esm.js'</span>),</span><br><span class="line">    format: <span class="string">'es'</span>,</span><br><span class="line">    banner</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// Runtime+compiler CommonJS build (ES Modules)</span></span><br><span class="line">  <span class="string">'web-full-esm'</span>: &#123;</span><br><span class="line">    entry: resolve(<span class="string">'web/entry-runtime-with-compiler.js'</span>),</span><br><span class="line">    dest: resolve(<span class="string">'dist/vue.esm.js'</span>),</span><br><span class="line">    format: <span class="string">'es'</span>,</span><br><span class="line">    alias: &#123; <span class="attr">he</span>: <span class="string">'./entity-decoder'</span> &#125;,</span><br><span class="line">    banner</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// runtime-only build (Browser)</span></span><br><span class="line">  <span class="string">'web-runtime-dev'</span>: &#123;</span><br><span class="line">    entry: resolve(<span class="string">'web/entry-runtime.js'</span>),</span><br><span class="line">    dest: resolve(<span class="string">'dist/vue.runtime.js'</span>),</span><br><span class="line">    format: <span class="string">'umd'</span>,</span><br><span class="line">    env: <span class="string">'development'</span>,</span><br><span class="line">    banner</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// runtime-only production build (Browser)</span></span><br><span class="line">  <span class="string">'web-runtime-prod'</span>: &#123;</span><br><span class="line">    entry: resolve(<span class="string">'web/entry-runtime.js'</span>),</span><br><span class="line">    dest: resolve(<span class="string">'dist/vue.runtime.min.js'</span>),</span><br><span class="line">    format: <span class="string">'umd'</span>,</span><br><span class="line">    env: <span class="string">'production'</span>,</span><br><span class="line">    banner</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// Runtime+compiler development build (Browser)</span></span><br><span class="line">  <span class="string">'web-full-dev'</span>: &#123;</span><br><span class="line">    entry: resolve(<span class="string">'web/entry-runtime-with-compiler.js'</span>),</span><br><span class="line">    dest: resolve(<span class="string">'dist/vue.js'</span>),</span><br><span class="line">    format: <span class="string">'umd'</span>,</span><br><span class="line">    env: <span class="string">'development'</span>,</span><br><span class="line">    alias: &#123; <span class="attr">he</span>: <span class="string">'./entity-decoder'</span> &#125;,</span><br><span class="line">    banner</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// Runtime+compiler production build  (Browser)</span></span><br><span class="line">  <span class="string">'web-full-prod'</span>: &#123;</span><br><span class="line">    entry: resolve(<span class="string">'web/entry-runtime-with-compiler.js'</span>),</span><br><span class="line">    dest: resolve(<span class="string">'dist/vue.min.js'</span>),</span><br><span class="line">    format: <span class="string">'umd'</span>,</span><br><span class="line">    env: <span class="string">'production'</span>,</span><br><span class="line">    alias: &#123; <span class="attr">he</span>: <span class="string">'./entity-decoder'</span> &#125;,</span><br><span class="line">    banner</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里简单列举了一些 Vue 构建的配置，其他已省略，可以看出实际上这是一个用于 Rollup 构建配置的对象。接下来我们再看一下构建函数 build，在<code>scripts/build.js</code>中：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line">build(builds)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">build</span> (<span class="params">builds</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> built = <span class="number">0</span></span><br><span class="line">  <span class="keyword">const</span> total = builds.length</span><br><span class="line">  <span class="keyword">const</span> next = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    buildEntry(builds[built]).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      built++</span><br><span class="line">      <span class="keyword">if</span> (built &lt; total) &#123;</span><br><span class="line">        next()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;).catch(logError)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  next()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buildEntry</span> (<span class="params">config</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> output = config.output</span><br><span class="line">  <span class="keyword">const</span> &#123; file, banner &#125; = output</span><br><span class="line">  <span class="keyword">const</span> isProd = <span class="regexp">/min\.js$/</span>.test(file)</span><br><span class="line">  <span class="keyword">return</span> rollup.rollup(config)</span><br><span class="line">    .then(<span class="function"><span class="params">bundle</span> =&gt;</span> bundle.generate(output))</span><br><span class="line">    .then(<span class="function">(<span class="params">&#123; code &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (isProd) &#123;</span><br><span class="line">        <span class="keyword">var</span> minified = (banner ? banner + <span class="string">'\n'</span> : <span class="string">''</span>) + uglify.minify(code, &#123;</span><br><span class="line">          output: &#123;</span><br><span class="line">            ascii_only: <span class="literal">true</span></span><br><span class="line">          &#125;,</span><br><span class="line">          compress: &#123;</span><br><span class="line">            pure_funcs: [<span class="string">'makeMap'</span>]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;).code</span><br><span class="line">        <span class="keyword">return</span> write(file, minified, <span class="literal">true</span>)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> write(file, code)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上述关键的代码是<code>return rollup.rollup(config)</code>，可以看出这是通过 rollup 打包的，对于单个配置，它是遵循 Rollup 的构建规则的。其中 entry 属性表示构建的入口 JS 文件地址，dest 属性表示构建后的输出的 JS 文件地址，format 属性表示构建的格式，cjs 表示构建出来的文件遵循<a href="http://wiki.commonjs.org/wiki/Modules/1.1" target="_blank" rel="noopener">CommonJS 规范</a>，es 表示构建出来的文件遵循<a href="http://exploringjs.com/es6/ch_modules.html" target="_blank" rel="noopener">ES Module 规范</a>，umd 表示构建出来的文件遵循<a href="https://github.com/umdjs/umd" target="_blank" rel="noopener">UMD 规范</a>。</p>
+<p><strong>下面我们以配置文件的<code>web-runtime-cjs</code>配置为例：</strong></p>
+<p>构建的入口 JS 文件地址：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> builds = &#123;</span><br><span class="line">  <span class="comment">// Runtime only (CommonJS). Used by bundlers e.g. Webpack &amp; Browserify</span></span><br><span class="line">    <span class="string">'web-runtime-cjs'</span>: &#123;</span><br><span class="line">        entry: resolve(<span class="string">'web/entry-runtime.js'</span>),</span><br><span class="line">        dest: resolve(<span class="string">'dist/vue.runtime.common.js'</span>),</span><br><span class="line">        format: <span class="string">'cjs'</span>,</span><br><span class="line">        banner</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>沿着<code>resolve</code>函数我们来看一下它的定义，在<code>scripts/config.js</code>中：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> aliases = <span class="built_in">require</span>(<span class="string">'./alias'</span>)</span><br><span class="line"><span class="keyword">const</span> resolve = <span class="function"><span class="params">p</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> base = p.split(<span class="string">'/'</span>)[<span class="number">0</span>]</span><br><span class="line">  <span class="keyword">if</span> (aliases[base]) &#123;</span><br><span class="line">    <span class="keyword">return</span> path.resolve(aliases[base], p.slice(base.length + <span class="number">1</span>))</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> path.resolve(__dirname, <span class="string">'../'</span>, p)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述<code>resolve</code>函数实现非常简单：<strong>它把传入的参数<code>p</code>通过<code>/</code>分割成数组并取数组第一个元素赋值给<code>base</code>。</strong>在我们这个例子中，参数<code>p</code>的值是<code>web/entry-runtime.js</code>，那么<code>base</code>的值则为<code>web</code>。这里的<code>base</code>并不是实际的路径，它的实际路径是借助别名获取的，接下来我们来看一下别名配置的代码，在<code>scripts/alias</code>中：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> resolve = <span class="function"><span class="params">p</span> =&gt;</span> path.resolve(__dirname, <span class="string">'../'</span>, p)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  vue: resolve(<span class="string">'src/platforms/web/entry-runtime-with-compiler'</span>),</span><br><span class="line">  compiler: resolve(<span class="string">'src/compiler'</span>),</span><br><span class="line">  core: resolve(<span class="string">'src/core'</span>),</span><br><span class="line">  shared: resolve(<span class="string">'src/shared'</span>),</span><br><span class="line">  web: resolve(<span class="string">'src/platforms/web'</span>),</span><br><span class="line">  weex: resolve(<span class="string">'src/platforms/weex'</span>),</span><br><span class="line">  server: resolve(<span class="string">'src/server'</span>),</span><br><span class="line">  entries: resolve(<span class="string">'src/entries'</span>),</span><br><span class="line">  sfc: resolve(<span class="string">'src/sfc'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>很显然，这里<code>web</code>对应的真实的路径是<code>path.resolve(__dirname, &#39;../&#39;, &#39;src/platforms/web&#39;)</code>，这个路径就是<code>src/platforms/web</code>，然后<code>resolve</code>函数通过<code>path.resolve(aliases[base], p.slice(base.length + 1))</code>就得到了<code>Vue</code>源码的最终路径，它就是<code>src/platforms/web/entry-runtime.js</code>，因此，<code>web-runtime-cjs</code>配置对应的入口文件就是<code>src/platforms/web/entry-runtime.js</code>。</p>
+<p>构建后的输出的 JS 文件地址：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> aliases = <span class="built_in">require</span>(<span class="string">'./alias'</span>)</span><br><span class="line"><span class="keyword">const</span> resolve = <span class="function"><span class="params">p</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> base = p.split(<span class="string">'/'</span>)[<span class="number">0</span>]</span><br><span class="line">  <span class="keyword">if</span> (aliases[base]) &#123;</span><br><span class="line">    <span class="keyword">return</span> path.resolve(aliases[base], p.slice(base.length + <span class="number">1</span>))</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> path.resolve(__dirname, <span class="string">'../'</span>, p)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> builds = &#123;</span><br><span class="line">  <span class="comment">// Runtime only (CommonJS). Used by bundlers e.g. Webpack &amp; Browserify</span></span><br><span class="line">    <span class="string">'web-runtime-cjs'</span>: &#123;</span><br><span class="line">        entry: resolve(<span class="string">'web/entry-runtime.js'</span>),</span><br><span class="line">        dest: resolve(<span class="string">'dist/vue.runtime.common.js'</span>),</span><br><span class="line">        format: <span class="string">'cjs'</span>,</span><br><span class="line">        banner</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// alias.js</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> resolve = <span class="function"><span class="params">p</span> =&gt;</span> path.resolve(__dirname, <span class="string">'../'</span>, p)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  vue: resolve(<span class="string">'src/platforms/web/entry-runtime-with-compiler'</span>),</span><br><span class="line">  compiler: resolve(<span class="string">'src/compiler'</span>),</span><br><span class="line">  core: resolve(<span class="string">'src/core'</span>),</span><br><span class="line">  shared: resolve(<span class="string">'src/shared'</span>),</span><br><span class="line">  web: resolve(<span class="string">'src/platforms/web'</span>),</span><br><span class="line">  weex: resolve(<span class="string">'src/platforms/weex'</span>),</span><br><span class="line">  server: resolve(<span class="string">'src/server'</span>),</span><br><span class="line">  entries: resolve(<span class="string">'src/entries'</span>),</span><br><span class="line">  sfc: resolve(<span class="string">'src/sfc'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于别名配置里并没有<code>dist</code>别名配置，因此<code>dest</code>直接返回<code>path.resolve(__dirname,&#39;../&#39;,dist/vue.runtime.common.js);</code>，因此构建后的输出的 JS 文件地址是<code>dist/vue.runtime.common.js</code>。</p>
+<h4 id="小结-3"><a href="#小结-3" class="headerlink" title="小结"></a>小结</h4><p>通过这一节的分析，我们可以了解到 Vue.js 的打包过程，也知道了不同作用和功能的 Vue.js 它们对应的入口以及最终编译生成的 JS 文件。尽管在实际开发过程中我们会用<code>Runtime Only</code>版本开发比较多，但为了分析 Vue 的编译过程，我们重点分析的源码是<code>Runtime + Compiler 的 Vue.js</code>。</p>
+<h3 id="源码入口"><a href="#源码入口" class="headerlink" title="源码入口"></a>源码入口</h3><h4 id="Vue-的定义"><a href="#Vue-的定义" class="headerlink" title="Vue 的定义"></a>Vue 的定义</h4><p>我们在源码构建一节讲到，在<code>web</code>应用下，我们来分析<code>Runtime + Compiler</code>构建出来的 Vue.js，它的入口是<code>src/platforms/web/entry-runtime-with-compiler.js</code>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* @flow */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> config <span class="keyword">from</span> <span class="string">'core/config'</span></span><br><span class="line"><span class="keyword">import</span> &#123; warn, cached &#125; <span class="keyword">from</span> <span class="string">'core/util/index'</span></span><br><span class="line"><span class="keyword">import</span> &#123; mark, measure &#125; <span class="keyword">from</span> <span class="string">'core/util/perf'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'./runtime/index'</span></span><br><span class="line"><span class="keyword">import</span> &#123; query &#125; <span class="keyword">from</span> <span class="string">'./util/index'</span></span><br><span class="line"><span class="keyword">import</span> &#123; compileToFunctions &#125; <span class="keyword">from</span> <span class="string">'./compiler/index'</span></span><br><span class="line"><span class="keyword">import</span> &#123; shouldDecodeNewlines, shouldDecodeNewlinesForHref &#125; <span class="keyword">from</span> <span class="string">'./util/compat'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> idToTemplate = cached(<span class="function"><span class="params">id</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> el = query(id)</span><br><span class="line">  <span class="keyword">return</span> el &amp;&amp; el.innerHTML</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> mount = Vue.prototype.$mount</span><br><span class="line">Vue.prototype.$mount = <span class="function"><span class="keyword">function</span> (<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  el?: string | Element,</span></span></span><br><span class="line"><span class="function"><span class="params">  hydrating?: boolean</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): <span class="title">Component</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> mount.call(<span class="keyword">this</span>, el, hydrating)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">Vue.compile = compileToFunctions</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Vue</span><br></pre></td></tr></table></figure>
+<p>由此可以看出，当我们在代码执行<code>import Vue from &#39;vue&#39;</code>时，就是从这个入口来初始化 Vue 的。在这个入口 JS 的上方我们可以找到 Vue 的来源：<code>import Vue from &#39;./runtime/index&#39;</code>，接下来我们来看一下这块儿的实现，在<code>src/platforms/web/runtime/index.js</code>中：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* @flow */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'core/index'</span></span><br><span class="line"><span class="keyword">import</span> config <span class="keyword">from</span> <span class="string">'core/config'</span></span><br><span class="line"><span class="keyword">import</span> &#123; extend, noop &#125; <span class="keyword">from</span> <span class="string">'shared/util'</span></span><br><span class="line"><span class="keyword">import</span> &#123; mountComponent &#125; <span class="keyword">from</span> <span class="string">'core/instance/lifecycle'</span></span><br><span class="line"><span class="keyword">import</span> &#123; devtools, inBrowser, isChrome &#125; <span class="keyword">from</span> <span class="string">'core/util/index'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  query,</span><br><span class="line">  mustUseProp,</span><br><span class="line">  isReservedTag,</span><br><span class="line">  isReservedAttr,</span><br><span class="line">  getTagNamespace,</span><br><span class="line">  isUnknownElement</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">'web/util/index'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; patch &#125; <span class="keyword">from</span> <span class="string">'./patch'</span></span><br><span class="line"><span class="keyword">import</span> platformDirectives <span class="keyword">from</span> <span class="string">'./directives/index'</span></span><br><span class="line"><span class="keyword">import</span> platformComponents <span class="keyword">from</span> <span class="string">'./components/index'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// install platform specific utils</span></span><br><span class="line">Vue.config.mustUseProp = mustUseProp</span><br><span class="line">Vue.config.isReservedTag = isReservedTag</span><br><span class="line">Vue.config.isReservedAttr = isReservedAttr</span><br><span class="line">Vue.config.getTagNamespace = getTagNamespace</span><br><span class="line">Vue.config.isUnknownElement = isUnknownElement</span><br><span class="line"></span><br><span class="line"><span class="comment">// install platform runtime directives &amp; components</span></span><br><span class="line">extend(Vue.options.directives, platformDirectives)</span><br><span class="line">extend(Vue.options.components, platformComponents)</span><br><span class="line"></span><br><span class="line"><span class="comment">// install platform patch function</span></span><br><span class="line">Vue.prototype.__patch__ = inBrowser ? patch : noop</span><br><span class="line"></span><br><span class="line"><span class="comment">// public mount method</span></span><br><span class="line">Vue.prototype.$mount = <span class="function"><span class="keyword">function</span> (<span class="params"></span></span></span><br><span class="line"><span class="function"><span class="params">  el?: string | Element,</span></span></span><br><span class="line"><span class="function"><span class="params">  hydrating?: boolean</span></span></span><br><span class="line"><span class="function"><span class="params"></span>): <span class="title">Component</span> </span>&#123;</span><br><span class="line">  el = el &amp;&amp; inBrowser ? query(el) : <span class="literal">undefined</span></span><br><span class="line">  <span class="keyword">return</span> mountComponent(<span class="keyword">this</span>, el, hydrating)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Vue</span><br></pre></td></tr></table></figure></p>
+<p>在这个 JS 的上方我们可以找到 Vue 的来源：<code>import Vue from &#39;core/index&#39;</code>，剩下的都是对 Vue 这个对象的扩展，我们暂且不去分析，我们先来看一下关键代码实现的文件，在<code>src/core/index.js</code>中：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'./instance/index'</span></span><br><span class="line"><span class="keyword">import</span> &#123; initGlobalAPI &#125; <span class="keyword">from</span> <span class="string">'./global-api/index'</span></span><br><span class="line"><span class="keyword">import</span> &#123; isServerRendering &#125; <span class="keyword">from</span> <span class="string">'core/util/env'</span></span><br><span class="line"><span class="keyword">import</span> &#123; FunctionalRenderContext &#125; <span class="keyword">from</span> <span class="string">'core/vdom/create-functional-component'</span></span><br><span class="line"></span><br><span class="line">initGlobalAPI(Vue)</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(Vue.prototype, <span class="string">'$isServer'</span>, &#123;</span><br><span class="line">  get: isServerRendering</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(Vue.prototype, <span class="string">'$ssrContext'</span>, &#123;</span><br><span class="line">  get () &#123;</span><br><span class="line">    <span class="comment">/* istanbul ignore next */</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.$vnode &amp;&amp; <span class="keyword">this</span>.$vnode.ssrContext</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// expose FunctionalRenderContext for ssr runtime helper installation</span></span><br><span class="line"><span class="built_in">Object</span>.defineProperty(Vue, <span class="string">'FunctionalRenderContext'</span>, &#123;</span><br><span class="line">  value: FunctionalRenderContext</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">Vue.version = <span class="string">'__VERSION__'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Vue</span><br></pre></td></tr></table></figure></p>
+<p>阿西吧，还没到！在这个 JS 的上方我们可以找到 Vue 的来源是<code>import Vue from &#39;./instance/index&#39;</code>，在<code>src/core/instance/index.js</code>中，不过这里有一点需要特别说明下：<code>initGlobalAPI(Vue)</code>用于初始化全局 Vue API（我们稍后介绍）：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; initMixin &#125; <span class="keyword">from</span> <span class="string">'./init'</span></span><br><span class="line"><span class="keyword">import</span> &#123; stateMixin &#125; <span class="keyword">from</span> <span class="string">'./state'</span></span><br><span class="line"><span class="keyword">import</span> &#123; renderMixin &#125; <span class="keyword">from</span> <span class="string">'./render'</span></span><br><span class="line"><span class="keyword">import</span> &#123; eventsMixin &#125; <span class="keyword">from</span> <span class="string">'./events'</span></span><br><span class="line"><span class="keyword">import</span> &#123; lifecycleMixin &#125; <span class="keyword">from</span> <span class="string">'./lifecycle'</span></span><br><span class="line"><span class="keyword">import</span> &#123; warn &#125; <span class="keyword">from</span> <span class="string">'../util/index'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Vue</span> (<span class="params">options</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">'production'</span> &amp;&amp;</span><br><span class="line">    !(<span class="keyword">this</span> <span class="keyword">instanceof</span> Vue)</span><br><span class="line">  ) &#123;</span><br><span class="line">    warn(<span class="string">'Vue is a constructor and should be called with the `new` keyword'</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">this</span>._init(options)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">initMixin(Vue)</span><br><span class="line">stateMixin(Vue)</span><br><span class="line">eventsMixin(Vue)</span><br><span class="line">lifecycleMixin(Vue)</span><br><span class="line">renderMixin(Vue)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Vue</span><br></pre></td></tr></table></figure>
+<p>至此，我们终于看到了 Vue 的定义，可以看出它实际上就是一个用 Function 实现的类，我们只能通过 new Vue 去实例化它。接下来我们来分析一下上面遗留下来的问题。</p>
+<h4 id="initGlobalAPI"><a href="#initGlobalAPI" class="headerlink" title="initGlobalAPI"></a>initGlobalAPI</h4><p>Vue.js 在整个初始化过程中，除了给它的原型 prototype 上扩展方法，还会给 Vue 这个对象本身扩展全局的静态方法，它的定义在<code>src/core/global-api/index.js</code>中：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">initGlobalAPI</span> (<span class="params">Vue: GlobalAPI</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// config</span></span><br><span class="line">  <span class="keyword">const</span> configDef = &#123;&#125;</span><br><span class="line">  configDef.get = <span class="function"><span class="params">()</span> =&gt;</span> config</span><br><span class="line">  <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">'production'</span>) &#123;</span><br><span class="line">    configDef.set = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      warn(</span><br><span class="line">        <span class="string">'Do not replace the Vue.config object, set individual fields instead.'</span></span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">Object</span>.defineProperty(Vue, <span class="string">'config'</span>, configDef)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// exposed util methods.</span></span><br><span class="line">  <span class="comment">// <span class="doctag">NOTE:</span> these are not considered part of the public API - avoid relying on</span></span><br><span class="line">  <span class="comment">// them unless you are aware of the risk.</span></span><br><span class="line">  Vue.util = &#123;</span><br><span class="line">    warn,</span><br><span class="line">    extend,</span><br><span class="line">    mergeOptions,</span><br><span class="line">    defineReactive</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Vue.set = set</span><br><span class="line">  Vue.delete = del</span><br><span class="line">  Vue.nextTick = nextTick</span><br><span class="line"></span><br><span class="line">  Vue.options = <span class="built_in">Object</span>.create(<span class="literal">null</span>)</span><br><span class="line">  ASSET_TYPES.forEach(<span class="function"><span class="params">type</span> =&gt;</span> &#123;</span><br><span class="line">    Vue.options[type + <span class="string">'s'</span>] = <span class="built_in">Object</span>.create(<span class="literal">null</span>)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// this is used to identify the "base" constructor to extend all plain-object</span></span><br><span class="line">  <span class="comment">// components with in Weex's multi-instance scenarios.</span></span><br><span class="line">  Vue.options._base = Vue</span><br><span class="line"></span><br><span class="line">  extend(Vue.options.components, builtInComponents)</span><br><span class="line"></span><br><span class="line">  initUse(Vue)</span><br><span class="line">  initMixin(Vue)</span><br><span class="line">  initExtend(Vue)</span><br><span class="line">  initAssetRegisters(Vue)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里是对 Vue 扩展的一些全局方法，有一点要注意的是，Vue.util 暴露的方法最好不要依赖，因为它可能经常会发生变化且不稳定的。</p>
+<h4 id="小结-4"><a href="#小结-4" class="headerlink" title="小结"></a>小结</h4><p>那么至此，我们应该对 Vue 是什么有一个直观的认识，它本质上就是一个用 Function 实现的 Class，然后在它的原型 prototype 以及它本身都扩展了一系列的方法和属性，至于 Vue 能做什么，它是怎么做的，我们会在后面的章节一一剖析它们。</p>
+<h2 id="本文不断更新中"><a href="#本文不断更新中" class="headerlink" title="本文不断更新中"></a>本文不断更新中</h2>
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="Weich 微信支付"/>
+        <p>微信打赏</p><!-- <p>微信支付</p> -->
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="Weich 支付宝"/>
+        <p>支付宝打赏</p><!-- <p>支付宝</p> -->
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Weich</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://sosout.com/2018/08/12/vue-source-analysis.html" title="Vue 源码全方位剖析">http://sosout.com/2018/08/12/vue-source-analysis.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/12/react-source-analysis.html" rel="next" title="React 源码全方位剖析">
+                <i class="fa fa-chevron-left"></i> React 源码全方位剖析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/13/markdown-table-transfer.html" rel="prev" title="markdown表格中转义 " | "符号">
+                markdown表格中转义 " | "符号 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Weich</p>
+              <p class="site-description motion-element" itemprop="description">看博客上一探</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/sosout" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:sosout@139.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://segmentfault.com/u/sosout" target="_blank" title="SegmentFault" rel="external nofollow"><i class="fa fa-fw fa-facebook"></i>SegmentFault</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-twitter"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.sosout.com/" title="工作笔记" target="_blank">工作笔记</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前置知识"><span class="nav-number">2.</span> <span class="nav-text">前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Flow-JavaScript静态类型检查工具"><span class="nav-number">2.1.</span> <span class="nav-text">Flow - JavaScript静态类型检查工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么用静态类型检查工具-Flow"><span class="nav-number">2.1.1.</span> <span class="nav-text">为什么用静态类型检查工具 Flow</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何用静态类型检查工具-Flow"><span class="nav-number">2.1.2.</span> <span class="nav-text">如何用静态类型检查工具 Flow</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Flow-的类型检查方式"><span class="nav-number">2.1.3.</span> <span class="nav-text">Flow 的类型检查方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Flow-在-Vue-js-源码中的应用"><span class="nav-number">2.1.4.</span> <span class="nav-text">Flow 在 Vue.js 源码中的应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">2.1.5.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rollup-另一个前端模块化的打包工具"><span class="nav-number">2.2.</span> <span class="nav-text">Rollup - 另一个前端模块化的打包工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么用前端模块化的打包工具-Rollup"><span class="nav-number">2.2.1.</span> <span class="nav-text">为什么用前端模块化的打包工具 Rollup</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何用前端模块化的打包工具-Rollup"><span class="nav-number">2.2.2.</span> <span class="nav-text">如何用前端模块化的打包工具 Rollup</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Webpack-和-Rollup-有什么不同"><span class="nav-number">2.2.3.</span> <span class="nav-text">Webpack 和 Rollup 有什么不同</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结-1"><span class="nav-number">2.2.4.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目介绍"><span class="nav-number">3.</span> <span class="nav-text">项目介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#项目目录"><span class="nav-number">3.1.</span> <span class="nav-text">项目目录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#compiler"><span class="nav-number">3.1.1.</span> <span class="nav-text">compiler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#core"><span class="nav-number">3.1.2.</span> <span class="nav-text">core</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#platform"><span class="nav-number">3.1.3.</span> <span class="nav-text">platform</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#server"><span class="nav-number">3.1.4.</span> <span class="nav-text">server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sfc"><span class="nav-number">3.1.5.</span> <span class="nav-text">sfc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shared"><span class="nav-number">3.1.6.</span> <span class="nav-text">shared</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结-2"><span class="nav-number">3.1.7.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源码构建"><span class="nav-number">3.2.</span> <span class="nav-text">源码构建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构建命令"><span class="nav-number">3.2.1.</span> <span class="nav-text">构建命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构建过程"><span class="nav-number">3.2.2.</span> <span class="nav-text">构建过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结-3"><span class="nav-number">3.2.3.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源码入口"><span class="nav-number">3.3.</span> <span class="nav-text">源码入口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-的定义"><span class="nav-number">3.3.1.</span> <span class="nav-text">Vue 的定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#initGlobalAPI"><span class="nav-number">3.3.2.</span> <span class="nav-text">initGlobalAPI</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结-4"><span class="nav-number">3.3.3.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本文不断更新中"><span class="nav-number">4.</span> <span class="nav-text">本文不断更新中</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Weich</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">145k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">2:12</span>
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Mist</a> v6.3.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("JDFztM3Lau0XOKEA9BQR0Gz7-gzGzoHsz", "F34SJfnI4FhcOUUqjd4u3Rps");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text(counter.get('time'));
+            
+            counter.save(null, {
+              success: function(counter) {
+                
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            
+              var newcounter = new Counter();
+              /* Set ACL */
+              var acl = new AV.ACL();
+              acl.setPublicReadAccess(true);
+              acl.setPublicWriteAccess(true);
+              newcounter.setACL(acl);
+              /* End Set ACL */
+              newcounter.set("title", title);
+              newcounter.set("url", url);
+              newcounter.set("time", 1);
+              newcounter.save(null, {
+                success: function(newcounter) {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                },
+                error: function(newcounter, error) {
+                  console.log('Failed to create');
+                }
+              });
+            
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

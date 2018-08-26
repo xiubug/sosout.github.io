@@ -1,0 +1,1667 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: true,
+    lazyload: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="版本：v0.63.5。 Rollup 是前端模块化的一个打包工具，可以将小块代码编译成大块复杂的代码，例如 library 或应用程序。简单地说，它可以从一个入口文件开始，将所有使用的模块根据命令或者根据 Rollup 配置文件打包成一个目标文件，并且 Rollup 会自动过滤掉那些没有被使用过的函数或变量，从而使代码最小化，如果想使用直接导入这一个目标文件即可，因此 Rollup 极其适合构建一">
+<meta name="keywords" content="rollup">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript模块打包工具Rollup——完全入门指南">
+<meta property="og:url" content="http://sosout.com/2018/08/04/rollup-tutorial.html">
+<meta property="og:site_name" content="每天一探">
+<meta property="og:description" content="版本：v0.63.5。 Rollup 是前端模块化的一个打包工具，可以将小块代码编译成大块复杂的代码，例如 library 或应用程序。简单地说，它可以从一个入口文件开始，将所有使用的模块根据命令或者根据 Rollup 配置文件打包成一个目标文件，并且 Rollup 会自动过滤掉那些没有被使用过的函数或变量，从而使代码最小化，如果想使用直接导入这一个目标文件即可，因此 Rollup 极其适合构建一">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-08-24T10:57:06.054Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript模块打包工具Rollup——完全入门指南">
+<meta name="twitter:description" content="版本：v0.63.5。 Rollup 是前端模块化的一个打包工具，可以将小块代码编译成大块复杂的代码，例如 library 或应用程序。简单地说，它可以从一个入口文件开始，将所有使用的模块根据命令或者根据 Rollup 配置文件打包成一个目标文件，并且 Rollup 会自动过滤掉那些没有被使用过的函数或变量，从而使代码最小化，如果想使用直接导入这一个目标文件即可，因此 Rollup 极其适合构建一">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="每天一探" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="http://sosout.com/2018/08/04/rollup-tutorial.html"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>JavaScript模块打包工具Rollup——完全入门指南 | 每天一探</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-123825183-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-123825183-1');
+</script>
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?aed6dded356af07f3b5991c346dc812d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">每天一探</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">无法停止探索的脚步</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-开源项目">
+    <a href="/project/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-github"></i> <br />开源项目</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-站点地图">
+    <a href="/sitemap.xml" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />站点地图</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sosout.com/2018/08/04/rollup-tutorial.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Weich">
+      <meta itemprop="description" content="看博客上一探">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="每天一探">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">JavaScript模块打包工具Rollup——完全入门指南
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-08-04 23:04:53" itemprop="dateCreated datePublished" datetime="2018-08-04T23:04:53+08:00">2018-08-04</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/rollup/" itemprop="url" rel="index"><span itemprop="name">rollup</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/08/04/rollup-tutorial.html" class="leancloud_visitors" data-flag-title="JavaScript模块打包工具Rollup——完全入门指南">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">18k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">16 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><code>版本：v0.63.5。</code></p>
+<p>Rollup 是前端模块化的一个打包工具，可以将小块代码编译成大块复杂的代码，例如 library 或应用程序。简单地说，它可以从一个入口文件开始，将所有使用的模块根据命令或者根据 Rollup 配置文件打包成一个目标文件，并且 Rollup 会自动过滤掉那些没有被使用过的函数或变量，从而使代码最小化，如果想使用直接导入这一个目标文件即可，因此 Rollup 极其适合构建一个工具库。</p>
+<p>这里提到 Rollup 的两个特别重要的特性，第一个就是它使用了 ES2015 的模板标准，这意味着你可以直接使用 import 和 export 而不需要引入 babel。另一个重要特性叫做 tree-shaking，这个特性可以帮助你将无用代码（即没有使用的代码）从最终的目标文件中过滤掉。举个简单的例子，我们在 foo.js 文件定义了 f1 和 f2 两个方法，然后在入口文件 index.js 只引入了 foo.js 文件中的 f1 方法，那么在最后打包 index.js 文件时，Rollup 就不会将 f2 方法打包到最终文件中。（这个特性是基于 ES6 模块的静态分析的，也就是说，只有 export 而没有 import 的变量是不会被打包到最终代码中的）。</p>
+<h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><h3 id="创建第一个-bundle"><a href="#创建第一个-bundle" class="headerlink" title="创建第一个 bundle"></a>创建第一个 bundle</h3><p>开始前，需要安装<a href="https://nodejs.org" target="_blank" rel="noopener">Node.js</a>，这样才可以使用<a href="https://npmjs.com" target="_blank" rel="noopener">npm</a>；还需要了解如何使用<a href="https://www.codecademy.com/learn/learn-the-command-line" target="_blank" rel="noopener">command line</a>。</p>
+<p>使用 Rollup 最简单的方法是通过 Command Line Interface （或 CLI）。先全局安装 Rollup （之后会介绍如何在项目中进行安装，更便于打包，但现在不用担心这个问题）。在命令行中输入以下内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install rollup --global</span><br></pre></td></tr></table></figure>
+<p>现在可以运行 rollup 命令了。试试吧~</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rollup</span><br></pre></td></tr></table></figure>
+<p>由于没有传递参数，所以 Rollup 打印出了使用说明。这和运行 rollup –help 或 rollup -h 的效果一样。</p>
+<p>我们来创建一个简单的项目：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir -p my-rollup-project/src</span><br><span class="line">$ <span class="built_in">cd</span> my-rollup-project</span><br></pre></td></tr></table></figure>
+<p>首先，我们需要个入口文件。将以下代码粘贴到新建的文件 src/main.js 中：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/main.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; foo1 &#125; <span class="keyword">from</span> <span class="string">'./foo.js'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  foo1();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>之后创建入口文件引用的 foo.js 模块:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/foo.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">foo1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'function foo1'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">foo2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'function foo2'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>现在可以创建 bundle 了：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rollup src/main.js -o bundle.js -f cjs</span><br></pre></td></tr></table></figure></p>
+<p>-o 表示打包后输出的文件路径，在 -o 后面的 bundle.js 就是我们最终生成的打包文件了（其实这里我们省略了参数 -i，用来表示入口文件的路径， Rollup 是会把没有加参数的文件默认是入口文件）；-f 选项（–output.format 的缩写）指定了所创建 bundle 的类型（默认使用 es 模块标准来对文件进行打包）——这里是 CommonJS（在 Node.js 中运行）。现在我们看一下输出文件 bundle.js：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'function foo1'</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// src/main.js</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">main</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  foo1();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = main;</span><br></pre></td></tr></table></figure></p>
+<p>恭喜，你已经用 Rollup 完成了第一个 bundle。</p>
+<h3 id="使用配置文件"><a href="#使用配置文件" class="headerlink" title="使用配置文件"></a>使用配置文件</h3><p>在项目中创建一个名为 rollup.config.js 的文件，增加如下代码：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// rollup.config.js </span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1. output 为对象</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  input: <span class="string">'src/main.js'</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    file: <span class="string">'bundle.js'</span>,</span><br><span class="line">    format: <span class="string">'cjs'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. output 为数组</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    input: <span class="string">'src/main.js'</span>,</span><br><span class="line">    output: [&#123;</span><br><span class="line">      file: <span class="string">'dist/bundle.cjs.js'</span>,</span><br><span class="line">      format: <span class="string">'cjs'</span></span><br><span class="line">    &#125;, &#123;</span><br><span class="line">      file: <span class="string">'dist/bundle.umd.js'</span>,</span><br><span class="line">      name: <span class="string">'moduleName'</span>,</span><br><span class="line">      format: <span class="string">'umd'</span></span><br><span class="line">    &#125;, &#123;</span><br><span class="line">      file: <span class="string">'dist/bundle.es.js'</span>,</span><br><span class="line">      format: <span class="string">'es'</span></span><br><span class="line">    &#125;]</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 整个配置为数组</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> [&#123;</span><br><span class="line">  input: <span class="string">'src/main.js'</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    file: <span class="string">'dist/bundle.cjs1.js'</span>,</span><br><span class="line">    format: <span class="string">'cjs'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;, &#123;</span><br><span class="line">  input: <span class="string">'src/main.js'</span>,</span><br><span class="line">  output: [&#123;</span><br><span class="line">    file: <span class="string">'dist/bundle.cjs2.js'</span>,</span><br><span class="line">    format: <span class="string">'cjs'</span></span><br><span class="line">  &#125;, &#123;</span><br><span class="line">    file: <span class="string">'dist/bundle.umd2.js'</span>,</span><br><span class="line">    name: <span class="string">'moduleName'</span>,</span><br><span class="line">    format: <span class="string">'umd'</span></span><br><span class="line">  &#125;, &#123;</span><br><span class="line">    file: <span class="string">'dist/bundle.es2.js'</span>,</span><br><span class="line">    format: <span class="string">'es'</span></span><br><span class="line">  &#125;]</span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure></p>
+<p>input 表示打包的入口文件，output 表示打包输出文件的配置（如果要输出多个，可以是一个数组，如果是数组，Rollup 会把每一个数组元素当成一个配置输出结果，因此可以在一个配置文件内设置多种输出配置），file 表示输出文件的名称路径，format 表示要打包成的模块类型。若使用 iife 或 umd 模块类型打包，需要添加属性moduleName，用来表示模块的名称；若用 amd 模块打包，可以配置 amd 相关的参数（使用 umd 模块模式时，也会使用到 amd 相关配置参数）：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">amd: &#123;</span><br><span class="line">    id: <span class="string">'amd-name'</span>,   <span class="comment">// amd具名函数名称</span></span><br><span class="line">    define: <span class="string">'def'</span>     <span class="comment">// 用来代替define函数的函数名称</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们用 –config 或 -c 来使用配置文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rollup -c</span><br></pre></td></tr></table></figure>
+<p>同样的命令行选项将会覆盖配置文件中的选项：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rollup -c -o bundle-2.js</span><br></pre></td></tr></table></figure></p>
+<p>在这里我们发现配置文件使用了 ES6 语法，这是因为 Rollup 本身会处理配置文件 ，所以可以使用 export default 语法——代码不会经过 Babel 等类似工具编译，所以只能使用所用 Node.js 版本支持的 ES2015 语法。</p>
+<p>如果愿意的话，也可以指定与默认 rollup.config.js 文件不同的配置文件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ rollup --config rollup.config.dev.js</span><br><span class="line">$ rollup --config rollup.config.prod.js</span><br></pre></td></tr></table></figure></p>
+<p>当然，我们也可以在 package.json 文件中编写 npm scripts 命令：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"build"</span>: <span class="string">"rollup -c"</span></span><br></pre></td></tr></table></figure>
+<p>针对不同模板类型我们简单编写几个命令：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"build:amd"</span>: <span class="string">"rollup index.js -f amd -o ./dist/dist.amd.js"</span>,</span><br><span class="line"><span class="string">"build:cjs"</span>: <span class="string">"rollup index.js -f cjs -o ./dist/dist.cjs.js"</span>,</span><br><span class="line"><span class="string">"build:es"</span>: <span class="string">"rollup index.js -f es -o ./dist/dist.es.js"</span>,</span><br><span class="line"><span class="string">"build:iife"</span>: <span class="string">"rollup index.js -f iife -n result -o ./dist/dist.iife.js"</span>,</span><br><span class="line"><span class="string">"build:umd"</span>: <span class="string">"rollup index.js -f umd -n result -o ./dist/dist.umd.js"</span>,</span><br><span class="line"><span class="string">"build"</span>: <span class="string">"npm run build:amd &amp;&amp; npm run build:cjs &amp;&amp; npm run build:es &amp;&amp; npm run build:iife &amp;&amp; npm run build:umd"</span></span><br></pre></td></tr></table></figure></p>
+<p>在这里我们发现在设置模块为 iife（立即执行函数）和 umd 时，还加上了一个参数 -n，这是为了事先设定模块的名称，才能让其他人通过这个模块名称引用。</p>
+<h3 id="使用ES6编写代码"><a href="#使用ES6编写代码" class="headerlink" title="使用ES6编写代码"></a>使用ES6编写代码</h3><p>许多开发人员在他们的项目中使用<a href="https://babeljs.io/" target="_blank" rel="noopener">Babel</a>，以便他们可以使用未被浏览器和 Node.js 支持的将来版本的 JavaScript 特性。Rollup 虽然支持了解析 import 和 export 两种语法，但是不会解析其他不被支持 JavaScript 特性，使用 Babel 和 Rollup 的最简单方法是使用<a href="https://github.com/rollup/rollup-plugin-babel" target="_blank" rel="noopener">rollup-plugin-babel</a>。 安装它：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm i -D babel-core rollup-plugin-babel rollup-plugin-node-resolve</span><br></pre></td></tr></table></figure></p>
+<p>编写 Rollup 配置文件 rollup.config.js:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// rollup.config.js</span></span><br><span class="line"><span class="keyword">import</span> json <span class="keyword">from</span> <span class="string">'rollup-plugin-json'</span>;</span><br><span class="line"><span class="keyword">import</span> resolve <span class="keyword">from</span> <span class="string">'rollup-plugin-node-resolve'</span>;</span><br><span class="line"><span class="keyword">import</span> babel <span class="keyword">from</span> <span class="string">'rollup-plugin-babel'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    input: <span class="string">'src/main.js'</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">      file: <span class="string">'dist/bundle.js'</span>,</span><br><span class="line">      format: <span class="string">'cjs'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">      json(),</span><br><span class="line">      resolve(),</span><br><span class="line">      babel(&#123;</span><br><span class="line">        exclude: <span class="string">'node_modules/**'</span> <span class="comment">// 只编译我们的源代码</span></span><br><span class="line">      &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>这里有几个特别注意的地方。首先，我们设置 “modules”: false，否则 Babel 会在 Rollup 有机会做处理之前，将我们的模块转成 CommonJS，导致 Rollup 的一些处理失败。</p>
+<p>其次，我们使用 external-helpers 插件，它允许 Rollup 在包的顶部只引用一次 “helpers”，而不是每个使用它们的模块中都引用一遍（这是默认行为）。</p>
+<p>第三，我们将 .babelrc 文件放在 src 中，而不是根目录下。 这允许我们对于不同的任务有不同的 .babelrc 配置，比如像测试，如果我们以后需要的话 - 通常为单独的任务单独配置会更好。</p>
+<p>现在，在我们运行 rollup 之前，我们需要安装 latest preset 和 external-helpers 插件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm i -D babel-preset-latest babel-plugin-external-helpers</span><br></pre></td></tr></table></figure>
+<p>现在我们用 es6 编辑 src / main.js：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/main.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; version &#125; <span class="keyword">from</span> <span class="string">'../package.json'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'version：'</span> + version);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行 Rollup npm run build，检查打包后的 bundle：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> version = <span class="string">"0.0.1"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// src/main.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> main$<span class="number">1</span> = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'version：'</span> + version);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = main$<span class="number">1</span>;</span><br></pre></td></tr></table></figure></p>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><h3 id="配置参数"><a href="#配置参数" class="headerlink" title="配置参数"></a>配置参数</h3><h4 id="external：为rollup设置外部模块和全局变量"><a href="#external：为rollup设置外部模块和全局变量" class="headerlink" title="external：为rollup设置外部模块和全局变量"></a>external：为rollup设置外部模块和全局变量</h4><p>平时开发中，我们经常会引入一些第三方模块，但是在使用的时候，我们又不想把它们打包到一个文件里，想让它们作为单独的模块（或文件）来使用，方便浏览器进行缓存，这个时候就需要使用配置文件中的 external 属性了。</p>
+<p>我们这边以 jquery 为例，在开始使用之前，我们先安装它：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm i jquery --save-dev</span><br></pre></td></tr></table></figure></p>
+<p>编写 Rollup 配置文件 rollup.config.js，加入external配置:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// rollup.config.js</span></span><br><span class="line"><span class="keyword">import</span> json <span class="keyword">from</span> <span class="string">'rollup-plugin-json'</span>;</span><br><span class="line"><span class="keyword">import</span> resolve <span class="keyword">from</span> <span class="string">'rollup-plugin-node-resolve'</span>;</span><br><span class="line"><span class="keyword">import</span> babel <span class="keyword">from</span> <span class="string">'rollup-plugin-babel'</span>;</span><br><span class="line"><span class="keyword">import</span> commonjs <span class="keyword">from</span> <span class="string">'rollup-plugin-commonjs'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    input: <span class="string">'src/main.js'</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">      file: <span class="string">'dist/bundle.js'</span>,</span><br><span class="line">      format: <span class="string">'cjs'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">      json(),</span><br><span class="line">      resolve(),</span><br><span class="line">      commonjs(),</span><br><span class="line">      babel(&#123;</span><br><span class="line">        exclude: <span class="string">'node_modules/**'</span> <span class="comment">// 只编译我们的源代码</span></span><br><span class="line">      &#125;)</span><br><span class="line">    ],</span><br><span class="line">    external: [<span class="string">'jquery'</span>]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>external 用来表示一个模块是否要被当成外部模块使用，属性的值可以是一个字符串数组或一个方法，当传入的是一个字符串数组时，所有数组内的模块名称都会被当成是外部模块，不会被打包到最终文件中。当传入的是一个方法时，方法有一个参数 id，表示解析的模块的名称，我们可以自定义解析方式，若是要当做外部模块不打包到最终文件中，则返回 true，若要一起打包到最终文件中，则返回 false。</p>
+<h4 id="globals"><a href="#globals" class="headerlink" title="globals"></a>globals</h4><p>globals 的值是一个对象，key表示使用的模块名称（npm 模块名），value 表示在打包文件中引用的全局变量名，在这里我们就是把jquery模块的全局变量名设置为jQuery，重新打包。</p>
+<p>编写 Rollup 配置文件 rollup.config.js，加入globals配置:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// rollup.config.js</span></span><br><span class="line"><span class="keyword">import</span> json <span class="keyword">from</span> <span class="string">'rollup-plugin-json'</span>;</span><br><span class="line"><span class="keyword">import</span> resolve <span class="keyword">from</span> <span class="string">'rollup-plugin-node-resolve'</span>;</span><br><span class="line"><span class="keyword">import</span> babel <span class="keyword">from</span> <span class="string">'rollup-plugin-babel'</span>;</span><br><span class="line"><span class="keyword">import</span> commonjs <span class="keyword">from</span> <span class="string">'rollup-plugin-commonjs'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    input: <span class="string">'src/main.js'</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">        file: <span class="string">'dist/bundle.js'</span>,</span><br><span class="line">        name: <span class="string">'result'</span>,</span><br><span class="line">        format: <span class="string">'iife'</span>,</span><br><span class="line">        globals: &#123;</span><br><span class="line">            jquery: <span class="string">'jQuery'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">      json(),</span><br><span class="line">      resolve(),</span><br><span class="line">      commonjs(),</span><br><span class="line">      babel(&#123;</span><br><span class="line">        exclude: <span class="string">'node_modules/**'</span> <span class="comment">// 只编译我们的源代码</span></span><br><span class="line">      &#125;)</span><br><span class="line">    ],</span><br><span class="line">    external: [<span class="string">'jquery'</span>]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>运行 Rollup npm run build，检查打包后的 bundle：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> result = (<span class="function"><span class="keyword">function</span> (<span class="params">jQuery</span>) </span>&#123;</span><br><span class="line"><span class="meta">  'use strict'</span>;</span><br><span class="line"></span><br><span class="line">  jQuery = jQuery &amp;&amp; jQuery.hasOwnProperty(<span class="string">'default'</span>) ? jQuery[<span class="string">'default'</span>] : jQuery;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> version = <span class="string">"0.0.1"</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// src/main.js</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> main$<span class="number">1</span> = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(jQuery);</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'version：'</span> + version);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> main$<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">&#125;(jQuery));</span><br></pre></td></tr></table></figure>
+<p>在重新打包出来的文件中，我们发现最后传入的参数已经由 $ 变为了 jQuery，而且 Rollup 也没有输出提示信息。</p>
+<h4 id="paths"><a href="#paths" class="headerlink" title="paths"></a>paths</h4><p>有时候我们可能会使用 CDN 上的 js 文件，但是又不想在本地安装一个相同的模块（也有可能没有对应的模块），可能在版本升级的时候会产生一些问题，这个时候我们就需要使用 Rollup 的 paths 属性了，这个属性可以帮你把依赖的文件地址注入到打包后的文件里。</p>
+<p>编写 Rollup 配置文件 rollup.config.js，加入 paths 配置:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// rollup.config.js</span></span><br><span class="line"><span class="keyword">import</span> json <span class="keyword">from</span> <span class="string">'rollup-plugin-json'</span>;</span><br><span class="line"><span class="keyword">import</span> resolve <span class="keyword">from</span> <span class="string">'rollup-plugin-node-resolve'</span>;</span><br><span class="line"><span class="keyword">import</span> babel <span class="keyword">from</span> <span class="string">'rollup-plugin-babel'</span>;</span><br><span class="line"><span class="keyword">import</span> commonjs <span class="keyword">from</span> <span class="string">'rollup-plugin-commonjs'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    input: <span class="string">'src/main.js'</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">        file: <span class="string">'dist/bundle.js'</span>,</span><br><span class="line">        name: <span class="string">'result'</span>,</span><br><span class="line">        format: <span class="string">'amd'</span>,</span><br><span class="line">        globals: &#123;</span><br><span class="line">            jquery: <span class="string">'jQuery'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        paths: &#123;</span><br><span class="line">            jquery: <span class="string">'https://cdn.bootcss.com/jquery/3.2.1/jquery.js'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">      json(),</span><br><span class="line">      resolve(),</span><br><span class="line">      commonjs(),</span><br><span class="line">      babel(&#123;</span><br><span class="line">        exclude: <span class="string">'node_modules/**'</span> <span class="comment">// 只编译我们的源代码</span></span><br><span class="line">      &#125;)</span><br><span class="line">    ],</span><br><span class="line">    external: [<span class="string">'jquery'</span>]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>运行 Rollup npm run build，检查打包后的 bundle：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">define([<span class="string">'https://cdn.bootcss.com/jquery/3.2.1/jquery.js'</span>], <span class="function"><span class="keyword">function</span> (<span class="params">jQuery</span>) </span>&#123; <span class="string">'use strict'</span>;</span><br><span class="line"></span><br><span class="line">  jQuery = jQuery &amp;&amp; jQuery.hasOwnProperty(<span class="string">'default'</span>) ? jQuery[<span class="string">'default'</span>] : jQuery;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> version = <span class="string">"0.0.1"</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// src/main.js</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> main$<span class="number">1</span> = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(jQuery);</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'version：'</span> + version);</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> main$<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>可以看到 Rollup 已经把我们需要的 CDN 地址作为依赖加入到了打包文件中。</p>
+<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><h3 id="使用插件"><a href="#使用插件" class="headerlink" title="使用插件"></a>使用插件</h3><p>随着构建更复杂的 bundle，通常需要更大的灵活性——引入 npm 安装的模块、通过 Babel 编译代码、和 JSON 文件打交道等。为此，我们可以用 插件(plugins) 在打包的关键过程中更改 Rollup 的行为。<a href="https://github.com/rollup/rollup/wiki/Plugins" target="_blank" rel="noopener">the Rollup wiki</a>维护了可用的插件列表。</p>
+<p>我们这边将以<a href="https://github.com/rollup/rollup-plugin-json" target="_blank" rel="noopener">rollup-plugin-json</a>的使用为例，它的作用是令 Rollup 从 JSON 文件中读取数据。</p>
+<p>将 rollup-plugin-json 安装为开发依赖：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install --save-dev rollup-plugin-json</span><br></pre></td></tr></table></figure></p>
+<p>我们用的是 –save-dev 而不是 –save，因为实际执行的代码并不依赖这个插件——只是在打包时使用。</p>
+<p>更新 src/main.js 文件，从 package.json 而非 src/foo.js 中读取数据：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/main.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; version &#125; <span class="keyword">from</span> <span class="string">'../package.json'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'version：'</span> + version);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编写 Rollup 配置文件 rollup.config.js，加入 JSON 插件：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// rollup.config.js</span></span><br><span class="line"><span class="keyword">import</span> json <span class="keyword">from</span> <span class="string">'rollup-plugin-json'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    input: <span class="string">'src/main.js'</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">      file: <span class="string">'dist/bundle.js'</span>,</span><br><span class="line">      format: <span class="string">'cjs'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [ json() ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>npm run build 执行 Rollup。结果如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> version = <span class="string">"0.0.1"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// src/main.js</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">main$1</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'version：'</span> + version);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = main$<span class="number">1</span>;</span><br></pre></td></tr></table></figure></p>
+<h3 id="插件列表"><a href="#插件列表" class="headerlink" title="插件列表"></a>插件列表</h3><h4 id="rollup-plugin-commonjs"><a href="#rollup-plugin-commonjs" class="headerlink" title="rollup-plugin-commonjs"></a>rollup-plugin-commonjs</h4><p>有时候我们会引入一些其他模块的文件（第三方的或是自己编写的），但是目前，npm 中的大多数包都是以 CommonJS 模块的形式出现的。在它们更改之前，我们需要将CommonJS模块转换为 ES2015 供 Rollup 解析。这个<a href="https://github.com/rollup/rollup-plugin-commonjs" target="_blank" rel="noopener">rollup-plugin-commonjs</a>插件就是用来将 CommonJS 转换成 ES2015 模块的。请注意，rollup-plugin-commonjs 应该用在其他插件转换你的模块之前 - 这是为了防止其他插件的改变破坏 CommonJS 的检测。</p>
+<p>在我们使用之前，需要先安装它：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm i rollup-plugin-commonjs --save-dev</span><br></pre></td></tr></table></figure></p>
+<p>编写 Rollup 配置文件 rollup.config.js:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// rollup.config.js</span></span><br><span class="line"><span class="keyword">import</span> json <span class="keyword">from</span> <span class="string">'rollup-plugin-json'</span>;</span><br><span class="line"><span class="keyword">import</span> resolve <span class="keyword">from</span> <span class="string">'rollup-plugin-node-resolve'</span>;</span><br><span class="line"><span class="keyword">import</span> babel <span class="keyword">from</span> <span class="string">'rollup-plugin-babel'</span>;</span><br><span class="line"><span class="keyword">import</span> commonjs <span class="keyword">from</span> <span class="string">'rollup-plugin-commonjs'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    input: <span class="string">'src/main.js'</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">      file: <span class="string">'dist/bundle.js'</span>,</span><br><span class="line">      format: <span class="string">'cjs'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">      json(),</span><br><span class="line">      resolve(),</span><br><span class="line">      commonjs(),</span><br><span class="line">      babel(&#123;</span><br><span class="line">        exclude: <span class="string">'node_modules/**'</span> <span class="comment">// 只编译我们的源代码</span></span><br><span class="line">      &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>编写 cjs 模块的文件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">exports.foo1 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'function foo1'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exports.foo2 = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'function foo2'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>npm run build 执行 Rollup。结果如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> version = <span class="string">"0.0.1"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// src/main.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> main$<span class="number">1</span> = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'version：'</span> + version);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = main$<span class="number">1</span>;</span><br></pre></td></tr></table></figure></p>
+<h4 id="rollup-plugin-uglify"><a href="#rollup-plugin-uglify" class="headerlink" title="rollup-plugin-uglify"></a>rollup-plugin-uglify</h4><p>代码发布时，我们经常会把自己的代码压缩到最小，以减少网络请求中的传输文件大小。Rollup rollup-plugin-uglify 就是来帮你压缩代码的，在使用之前，我们先安装它：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm i rollup-plugin-uglify --save-dev</span><br></pre></td></tr></table></figure></p>
+<p>编写 Rollup 配置文件 rollup.config.js，加入 uglify 插件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// rollup.config.js</span></span><br><span class="line"><span class="keyword">import</span> json <span class="keyword">from</span> <span class="string">'rollup-plugin-json'</span>;</span><br><span class="line"><span class="keyword">import</span> resolve <span class="keyword">from</span> <span class="string">'rollup-plugin-node-resolve'</span>;</span><br><span class="line"><span class="keyword">import</span> babel <span class="keyword">from</span> <span class="string">'rollup-plugin-babel'</span>;</span><br><span class="line"><span class="keyword">import</span> commonjs <span class="keyword">from</span> <span class="string">'rollup-plugin-commonjs'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; uglify &#125; <span class="keyword">from</span> <span class="string">'rollup-plugin-uglify'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    input: <span class="string">'src/main.js'</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">        file: <span class="string">'dist/bundle.js'</span>,</span><br><span class="line">        name: <span class="string">'result'</span>,</span><br><span class="line">        format: <span class="string">'amd'</span>,</span><br><span class="line">        globals: &#123;</span><br><span class="line">            jquery: <span class="string">'jQuery'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        paths: &#123;</span><br><span class="line">            jquery: <span class="string">'https://cdn.bootcss.com/jquery/3.2.1/jquery.js'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">      json(),</span><br><span class="line">      resolve(),</span><br><span class="line">      commonjs(),</span><br><span class="line">      babel(&#123;</span><br><span class="line">        exclude: <span class="string">'node_modules/**'</span> <span class="comment">// 只编译我们的源代码</span></span><br><span class="line">      &#125;),</span><br><span class="line">      uglify()</span><br><span class="line">    ],</span><br><span class="line">    external: [<span class="string">'jquery'</span>]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>运行打包命令，查看打包后的目标文件，发现代码已经被压缩了。但是，压缩过的代码在 debug 时会带来很大的不便，因此我们需要在压缩代码的同时生成一个 sourceMap 文件。幸运的是，Rollup 自己就支持 sourceMap 文件的生成，不需要我们去引入其他插件，只需要在配置文件中 output 选项加上以下代码即可：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// rollup.config.js</span></span><br><span class="line">sourcemap: <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>若是将 sourceMap 属性的值设置为 inline，则会将 sourceMap 的内容添加到打包文件的最后。</p>
+<h4 id="rollup-plugin-eslint"><a href="#rollup-plugin-eslint" class="headerlink" title="rollup-plugin-eslint"></a>rollup-plugin-eslint</h4><p>在大型工程的团队开发中，我们需要保证团队代码风格的一致性，因此需要引入 eslint，而且在打包时需要检测源文件是否符合 eslint 设置的规范，若是不符合则抛出异常并停止打包。Rollup rollup-plugin-eslint 就是用于设置代码规范，使用之前我们先安装它：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm i eslint rollup-plugin-eslint --save-dev</span><br></pre></td></tr></table></figure>
+<p>编写 eslint 配置文件 .eslintrc：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"env"</span>: &#123;</span><br><span class="line">        <span class="attr">"browser"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">"commonjs"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">"es6"</span>: <span class="literal">true</span>,</span><br><span class="line">        <span class="attr">"node"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"parserOptions"</span>: &#123;</span><br><span class="line">        <span class="attr">"ecmaFeatures"</span>: &#123;</span><br><span class="line">            <span class="attr">"jsx"</span>: <span class="literal">false</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">"sourceType"</span>: <span class="string">"module"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"rules"</span>: &#123;</span><br><span class="line">        <span class="attr">"semi"</span>: [<span class="string">"error"</span>,<span class="string">"never"</span>]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编写 Rollup 配置文件 rollup.config.js，加入 eslint 插件：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// rollup.config.js</span></span><br><span class="line"><span class="keyword">import</span> json <span class="keyword">from</span> <span class="string">'rollup-plugin-json'</span>;</span><br><span class="line"><span class="keyword">import</span> resolve <span class="keyword">from</span> <span class="string">'rollup-plugin-node-resolve'</span>;</span><br><span class="line"><span class="keyword">import</span> babel <span class="keyword">from</span> <span class="string">'rollup-plugin-babel'</span>;</span><br><span class="line"><span class="keyword">import</span> commonjs <span class="keyword">from</span> <span class="string">'rollup-plugin-commonjs'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; uglify &#125; <span class="keyword">from</span> <span class="string">'rollup-plugin-uglify'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; eslint &#125; <span class="keyword">from</span> <span class="string">'rollup-plugin-eslint'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    input: <span class="string">'src/main.js'</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">        file: <span class="string">'dist/bundle.js'</span>,</span><br><span class="line">        name: <span class="string">'result'</span>,</span><br><span class="line">        format: <span class="string">'amd'</span>,</span><br><span class="line">        globals: &#123;</span><br><span class="line">            jquery: <span class="string">'jQuery'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        paths: &#123;</span><br><span class="line">            jquery: <span class="string">'https://cdn.bootcss.com/jquery/3.2.1/jquery.js'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        sourcemap: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">        eslint(&#123;</span><br><span class="line">            throwOnError: <span class="literal">true</span>,</span><br><span class="line">            throwOnWarning: <span class="literal">true</span>,</span><br><span class="line">            include: [<span class="string">'src/**'</span>],</span><br><span class="line">            exclude: [<span class="string">'node_modules/**'</span>]</span><br><span class="line">        &#125;),</span><br><span class="line">        json(),</span><br><span class="line">        resolve(),</span><br><span class="line">        commonjs(),</span><br><span class="line">        babel(&#123;</span><br><span class="line">            exclude: <span class="string">'node_modules/**'</span> <span class="comment">// 只编译我们的源代码</span></span><br><span class="line">        &#125;),</span><br><span class="line">        uglify()</span><br><span class="line">    ],</span><br><span class="line">    external: [<span class="string">'jquery'</span>]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>这里有两个属性需要特别说明下：throwOnError 和 throwOnWarning 设置为 true 时，如果在 eslint 的检查过程中发现了 error 或 warning，就会抛出异常，阻止打包继续执行（如果设置为 false，就只会输出 eslint 检测结果，而不会停止打包）。</p>
+<p>如果我们使用IDE或编辑器的 eslint 插件，有时候这些插件会去检查打包完的文件，导致你的提示框里一直会有 eslint 检测到错误的消息，我们现在有两种解决方案，第一种是创建一个 .eslintignore 文件，将打包文件加进去，让 eslint 忽略这个文件，还有一种就是让 Rollup 在打包文件的开始和最后自动生成注释来阻止 eslint 检测代码，使用这种方法时，需要使用   Rollup 配置文件的两个属性：banner和footer，这两个属性会在生成文件的开头和结尾插入一段你自定义的字符串。我们利用这个属性，在打包文件的开头添加<code>/*eslint-disable */</code>注释，让 eslint 不检测这个文件。</p>
+<p>添加banner和footer属性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">banner: <span class="string">'/*eslint-disable */'</span></span><br></pre></td></tr></table></figure>
+<p>如果说 banner 和 footer 是在文件开始和结尾添加字符串，那么 intro 和 outro 就是在被打包的代码开头和结尾添加字符串了，以 iife 模式来举例，如果我们配置了这四个属性，那么输出结果就会是：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// banner字符串</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"><span class="comment">// intro字符串</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 被打包的代码</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// outro字符串</span></span><br><span class="line">&#125;());</span><br><span class="line"><span class="comment">// footer字符串</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="rollup-plugin-replace"><a href="#rollup-plugin-replace" class="headerlink" title="rollup-plugin-replace"></a>rollup-plugin-replace</h4><p>有时候我们会把开发/生产环境的信息直接写在源文件里面，这个时候用 intro/outro 来注入代码的方式就不适合了。这个时候我们就需要使用 rollup-plugin-replace 插件来对源代码的变量值进行替换，在使用之前，我们先安装它：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm i rollup-plugin-replace --save-dev</span><br></pre></td></tr></table></figure>
+<p>编写 Rollup 配置文件 rollup.config.js，加入 replace 插件：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// rollup.config.js</span></span><br><span class="line"><span class="keyword">import</span> json <span class="keyword">from</span> <span class="string">'rollup-plugin-json'</span>;</span><br><span class="line"><span class="keyword">import</span> resolve <span class="keyword">from</span> <span class="string">'rollup-plugin-node-resolve'</span>;</span><br><span class="line"><span class="keyword">import</span> babel <span class="keyword">from</span> <span class="string">'rollup-plugin-babel'</span>;</span><br><span class="line"><span class="keyword">import</span> commonjs <span class="keyword">from</span> <span class="string">'rollup-plugin-commonjs'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; uglify &#125; <span class="keyword">from</span> <span class="string">'rollup-plugin-uglify'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; eslint &#125; <span class="keyword">from</span> <span class="string">'rollup-plugin-eslint'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; version &#125; <span class="keyword">from</span> <span class="string">'../package.json'</span>;</span><br><span class="line"><span class="keyword">import</span> replace  <span class="keyword">from</span> <span class="string">'rollup-plugin-replace'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> VERSION = process.env.VERSION || version;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> copyright = <span class="keyword">new</span> <span class="built_in">Date</span>().getFullYear() &gt; <span class="number">2018</span> ? <span class="string">'2018-'</span> + <span class="keyword">new</span> <span class="built_in">Date</span>().getFullYear() : <span class="number">2018</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> banner =</span><br><span class="line">  <span class="string">'/*!\n'</span> +</span><br><span class="line">  <span class="string">' * idebug v'</span> + VERSION + <span class="string">'\n'</span> +</span><br><span class="line">  <span class="string">' * (c) '</span> + copyright + <span class="string">' Weich\n'</span> +</span><br><span class="line">  <span class="string">' * Released under the MIT License.\n'</span> +</span><br><span class="line">  <span class="string">' */'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// const weexFactoryPlugin = &#123;</span></span><br><span class="line"><span class="comment">//     intro () &#123;</span></span><br><span class="line"><span class="comment">//         return 'module.exports = function weexFactory (exports, document) &#123;'</span></span><br><span class="line"><span class="comment">//     &#125;,</span></span><br><span class="line"><span class="comment">//     outro () &#123;</span></span><br><span class="line"><span class="comment">//         return '&#125;'</span></span><br><span class="line"><span class="comment">//     &#125;</span></span><br><span class="line"><span class="comment">// &#125;;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    input: <span class="string">'src/main.js'</span>,</span><br><span class="line">    output: &#123;</span><br><span class="line">        banner: banner,</span><br><span class="line">        footer: <span class="string">'/* my-library version '</span> + VERSION + <span class="string">' */'</span>,</span><br><span class="line">        file: <span class="string">'dist/bundle.js'</span>,</span><br><span class="line">        name: <span class="string">'result'</span>,</span><br><span class="line">        format: <span class="string">'iife'</span>,</span><br><span class="line">        globals: &#123;</span><br><span class="line">            jquery: <span class="string">'jQuery'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        paths: &#123;</span><br><span class="line">            jquery: <span class="string">'https://cdn.bootcss.com/jquery/3.2.1/jquery.js'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        sourcemap: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="comment">// weexFactoryPlugin,</span></span><br><span class="line">        replace(&#123;</span><br><span class="line">            __VERSION__: VERSION</span><br><span class="line">        &#125;),</span><br><span class="line">        eslint(&#123;</span><br><span class="line">            throwOnError: <span class="literal">true</span>,</span><br><span class="line">            throwOnWarning: <span class="literal">true</span>,</span><br><span class="line">            include: [<span class="string">'src/**'</span>],</span><br><span class="line">            exclude: [<span class="string">'node_modules/**'</span>]</span><br><span class="line">        &#125;),</span><br><span class="line">        json(),</span><br><span class="line">        resolve(),</span><br><span class="line">        commonjs(),</span><br><span class="line">        babel(&#123;</span><br><span class="line">            exclude: <span class="string">'node_modules/**'</span> <span class="comment">// 只编译我们的源代码</span></span><br><span class="line">        &#125;),</span><br><span class="line">        uglify(&#123;</span><br><span class="line">            output: &#123;</span><br><span class="line">              comments: <span class="function"><span class="keyword">function</span>(<span class="params">node, comment</span>) </span>&#123;</span><br><span class="line">                  <span class="keyword">var</span> text = comment.value;</span><br><span class="line">                  <span class="keyword">var</span> type = comment.type;</span><br><span class="line">                  <span class="keyword">if</span> (type == <span class="string">"comment2"</span>) &#123;</span><br><span class="line">                      <span class="comment">// multiline comment</span></span><br><span class="line">                      <span class="keyword">return</span> <span class="regexp">/idebug|ENVIRONMENT/i</span>.test(text);</span><br><span class="line">                  &#125;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;)</span><br><span class="line">    ],</span><br><span class="line">    external: [<span class="string">'jquery'</span>]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>接下来就可以直接在源码中使用 <code>__VERSION__</code> 了，编写入口文件 index.js：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/main.js</span></span><br><span class="line"><span class="keyword">import</span> jQuery <span class="keyword">from</span> <span class="string">'jquery'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(jQuery)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'version：__VERSION__'</span> )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>执行打包命令，并检查源文件里有没有被替换。</p>
+<h2 id="命令行"><a href="#命令行" class="headerlink" title="命令行"></a>命令行</h2><h3 id="命令行的参数"><a href="#命令行的参数" class="headerlink" title="命令行的参数"></a>命令行的参数</h3><p><code>-v/--version</code>：打印已安装的Rollup版本号。</p>
+<p><code>-w/--watch</code>：我们在开发过程中，需要频繁对源文件进行修改，如果每次都自己手动输一遍打包命令，那真的是要烦死，因此，我们在 rollup 命令后面加上 -w/–watch 参数，就能让 rollup 监听文件变化，即时打包。</p>
+<h2 id="本文持续更新中"><a href="#本文持续更新中" class="headerlink" title="本文持续更新中"></a>本文持续更新中</h2>
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="Weich 微信支付"/>
+        <p>微信打赏</p><!-- <p>微信支付</p> -->
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="Weich 支付宝"/>
+        <p>支付宝打赏</p><!-- <p>支付宝</p> -->
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Weich</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://sosout.com/2018/08/04/rollup-tutorial.html" title="JavaScript模块打包工具Rollup——完全入门指南">http://sosout.com/2018/08/04/rollup-tutorial.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/rollup/" rel="tag"># rollup</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/03/mobile-rem-layout.html" rel="next" title="移动端(手机端)页面自适应解决方案—rem布局篇">
+                <i class="fa fa-chevron-left"></i> 移动端(手机端)页面自适应解决方案—rem布局篇
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/05/git-assign-version-fix.html" rel="prev" title="使用git修复线上指定版本的问题">
+                使用git修复线上指定版本的问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Weich</p>
+              <p class="site-description motion-element" itemprop="description">看博客上一探</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/sosout" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:sosout@139.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://segmentfault.com/u/sosout" target="_blank" title="SegmentFault" rel="external nofollow"><i class="fa fa-fw fa-facebook"></i>SegmentFault</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-twitter"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.sosout.com/" title="工作笔记" target="_blank">工作笔记</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#入门"><span class="nav-number">1.</span> <span class="nav-text">入门</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建第一个-bundle"><span class="nav-number">1.1.</span> <span class="nav-text">创建第一个 bundle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用配置文件"><span class="nav-number">1.2.</span> <span class="nav-text">使用配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用ES6编写代码"><span class="nav-number">1.3.</span> <span class="nav-text">使用ES6编写代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置文件"><span class="nav-number">2.</span> <span class="nav-text">配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置参数"><span class="nav-number">2.1.</span> <span class="nav-text">配置参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#external：为rollup设置外部模块和全局变量"><span class="nav-number">2.1.1.</span> <span class="nav-text">external：为rollup设置外部模块和全局变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#globals"><span class="nav-number">2.1.2.</span> <span class="nav-text">globals</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#paths"><span class="nav-number">2.1.3.</span> <span class="nav-text">paths</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插件"><span class="nav-number">3.</span> <span class="nav-text">插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用插件"><span class="nav-number">3.1.</span> <span class="nav-text">使用插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插件列表"><span class="nav-number">3.2.</span> <span class="nav-text">插件列表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#rollup-plugin-commonjs"><span class="nav-number">3.2.1.</span> <span class="nav-text">rollup-plugin-commonjs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rollup-plugin-uglify"><span class="nav-number">3.2.2.</span> <span class="nav-text">rollup-plugin-uglify</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rollup-plugin-eslint"><span class="nav-number">3.2.3.</span> <span class="nav-text">rollup-plugin-eslint</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rollup-plugin-replace"><span class="nav-number">3.2.4.</span> <span class="nav-text">rollup-plugin-replace</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令行"><span class="nav-number">4.</span> <span class="nav-text">命令行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行的参数"><span class="nav-number">4.1.</span> <span class="nav-text">命令行的参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本文持续更新中"><span class="nav-number">5.</span> <span class="nav-text">本文持续更新中</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Weich</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">145k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">2:12</span>
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Mist</a> v6.3.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("JDFztM3Lau0XOKEA9BQR0Gz7-gzGzoHsz", "F34SJfnI4FhcOUUqjd4u3Rps");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text(counter.get('time'));
+            
+            counter.save(null, {
+              success: function(counter) {
+                
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            
+              var newcounter = new Counter();
+              /* Set ACL */
+              var acl = new AV.ACL();
+              acl.setPublicReadAccess(true);
+              acl.setPublicWriteAccess(true);
+              newcounter.setACL(acl);
+              /* End Set ACL */
+              newcounter.set("title", title);
+              newcounter.set("url", url);
+              newcounter.set("time", 1);
+              newcounter.save(null, {
+                success: function(newcounter) {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                },
+                error: function(newcounter, error) {
+                  console.log('Failed to create');
+                }
+              });
+            
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

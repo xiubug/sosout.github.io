@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: true,
+    lazyload: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="貌似从前几年，前后端分离逐渐就开始流行起来，把一些渲染计算的工作抛向前端以便减轻服务端的压力，但为啥现在又开始流行在服务端渲染了呢？如vue全家桶或者react全家桶，都推荐通过服务端渲染来实现路由。搞得我们慌得不行，不禁让我想起一句话：从来没有任何一门语言的技术栈像Javascript一样，学习者拼尽全力也不让精通。没办法，流行，咱们就得学！ 前断时间写了一篇vuejs、react如何在服务器部">
+<meta name="keywords" content="spa,pm2,ssr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="next、nuxt等服务端渲染框架如何在服务器部署，并用PM2守护程序">
+<meta property="og:url" content="http://sosout.com/2018/08/03/linux-nginx-ssr-deploy.html">
+<meta property="og:site_name" content="每天一探">
+<meta property="og:description" content="貌似从前几年，前后端分离逐渐就开始流行起来，把一些渲染计算的工作抛向前端以便减轻服务端的压力，但为啥现在又开始流行在服务端渲染了呢？如vue全家桶或者react全家桶，都推荐通过服务端渲染来实现路由。搞得我们慌得不行，不禁让我想起一句话：从来没有任何一门语言的技术栈像Javascript一样，学习者拼尽全力也不让精通。没办法，流行，咱们就得学！ 前断时间写了一篇vuejs、react如何在服务器部">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://sosout.com/2018/08/03/linux-nginx-ssr-deploy/img1.png">
+<meta property="og:updated_time" content="2018-08-11T03:49:33.713Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="next、nuxt等服务端渲染框架如何在服务器部署，并用PM2守护程序">
+<meta name="twitter:description" content="貌似从前几年，前后端分离逐渐就开始流行起来，把一些渲染计算的工作抛向前端以便减轻服务端的压力，但为啥现在又开始流行在服务端渲染了呢？如vue全家桶或者react全家桶，都推荐通过服务端渲染来实现路由。搞得我们慌得不行，不禁让我想起一句话：从来没有任何一门语言的技术栈像Javascript一样，学习者拼尽全力也不让精通。没办法，流行，咱们就得学！ 前断时间写了一篇vuejs、react如何在服务器部">
+<meta name="twitter:image" content="http://sosout.com/2018/08/03/linux-nginx-ssr-deploy/img1.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="每天一探" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="http://sosout.com/2018/08/03/linux-nginx-ssr-deploy.html"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>next、nuxt等服务端渲染框架如何在服务器部署，并用PM2守护程序 | 每天一探</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-123825183-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-123825183-1');
+</script>
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?aed6dded356af07f3b5991c346dc812d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">每天一探</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">无法停止探索的脚步</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-开源项目">
+    <a href="/project/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-github"></i> <br />开源项目</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-站点地图">
+    <a href="/sitemap.xml" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />站点地图</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sosout.com/2018/08/03/linux-nginx-ssr-deploy.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Weich">
+      <meta itemprop="description" content="看博客上一探">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="每天一探">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">next、nuxt等服务端渲染框架如何在服务器部署，并用PM2守护程序
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-08-03 20:31:37" itemprop="dateCreated datePublished" datetime="2018-08-03T20:31:37+08:00">2018-08-03</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/nginx/" itemprop="url" rel="index"><span itemprop="name">nginx</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/08/03/linux-nginx-ssr-deploy.html" class="leancloud_visitors" data-flag-title="next、nuxt等服务端渲染框架如何在服务器部署，并用PM2守护程序">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">7.6k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">7 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>貌似从前几年，前后端分离逐渐就开始流行起来，把一些渲染计算的工作抛向前端以便减轻服务端的压力，但为啥现在又开始流行在服务端渲染了呢？如vue全家桶或者react全家桶，都推荐通过服务端渲染来实现路由。搞得我们慌得不行，不禁让我想起一句话：<code>从来没有任何一门语言的技术栈像Javascript一样，学习者拼尽全力也不让精通。</code>没办法，流行，咱们就得学！</p>
+<p>前断时间写了一篇<a href="http://www.sosout.com/2018/08/02/linux-nginx-spa-deploy.html" target="_blank" rel="noopener">vuejs、react如何在服务器部署？</a>，结果反响不错！最近好多朋友私信或邀请问很多关于next.js和nuxt.js的问题，比如<code>关于nextjs 和 nuxtjs如何部署</code>，<code>pm2如何配合</code>…在这里我们就一起讨论下在服务器上使用PM2守护next.js、nuxt.js等服务端渲染框架构建的项目！该篇我们只讨论<code>服务端渲染应用部署</code>，<code>静态应用部署</code>就是我前段时间写的<a href="http://www.sosout.com/2018/08/02/linux-nginx-spa-deploy.html" target="_blank" rel="noopener">vuejs、react如何在服务器部署？</a>。</p>
+<h4 id="Nginx配置"><a href="#Nginx配置" class="headerlink" title="Nginx配置"></a>Nginx配置</h4><p>既然是应用，我们就应该有域名，在这里我们以<code>nginx配置</code>为例，简单配置如下：<br><strong>Next域名：</strong><a href="http://next.sosout.com/" target="_blank" rel="noopener">http://next.sosout.com/</a><br><strong>Nuxt域名：</strong><a href="http://nuxt.sosout.com/" target="_blank" rel="noopener">http://nuxt.sosout.com/</a><br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">http</span> &#123;</span><br><span class="line">    ....  # 省略其他配置</span><br><span class="line">   </span><br><span class="line">    <span class="section">server</span> &#123;</span><br><span class="line">        <span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">        <span class="attribute">server_name</span>  <span class="regexp">*.sosout.com</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="attribute">if</span> (<span class="variable">$host</span> <span class="regexp">~* "^(.*?)\.sosout\.com$")</span> &#123;</span><br><span class="line">            <span class="attribute">set</span> <span class="variable">$domain</span> <span class="variable">$1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="attribute">location</span> / &#123;</span><br><span class="line">            <span class="attribute">if</span> (<span class="variable">$domain</span> <span class="regexp">~* "next")</span> &#123;</span><br><span class="line">                <span class="attribute">root</span> /mnt/html/next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="attribute">if</span> (<span class="variable">$domain</span> <span class="regexp">~* "nuxt")</span> &#123;</span><br><span class="line">                <span class="attribute">root</span> /mnt/html/nuxt;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="attribute">proxy_set_header</span>   Host             <span class="variable">$host</span>;</span><br><span class="line">            <span class="attribute">proxy_set_header</span>   X-Real-IP        <span class="variable">$remote_addr</span>;</span><br><span class="line">            <span class="attribute">proxy_set_header</span>   X-Forwarded-For  <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">            <span class="attribute">proxy_set_header</span>   X-Forwarded-Proto  <span class="variable">$scheme</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="attribute">access_log</span>  /mnt/logs/nginx/access.log  main;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">#tcp_nopush     on;</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">include</span> /etc/nginx/conf.d/<span class="regexp">*.conf</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="Nginx反向代理"><a href="#Nginx反向代理" class="headerlink" title="Nginx反向代理"></a>Nginx反向代理</h4><p>由于服务端渲染的各个应用端口号各不相同，因此这个时候我们就需要反向代理了，配置如下：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#通过upstream nodejs 可以配置多台nodejs节点，做负载均衡</span></span><br><span class="line"><span class="comment">#keepalive 设置存活时间。如果不设置可能会产生大量的timewait</span></span><br><span class="line"><span class="comment">#proxy_pass 反向代理转发 http://nodejs</span></span><br><span class="line"></span><br><span class="line"><span class="attribute">upstream</span> nodenext &#123;</span><br><span class="line">	<span class="attribute">server</span> <span class="number">127.0.0.1:3001</span>; <span class="comment">#next项目 监听端口</span></span><br><span class="line">	<span class="attribute">keepalive</span> <span class="number">64</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">	<span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">	<span class="attribute">server_name</span> next.sosout.com;</span><br><span class="line">	<span class="attribute">location</span> / &#123;</span><br><span class="line">		<span class="attribute">proxy_http_version</span> <span class="number">1</span>.<span class="number">1</span>;</span><br><span class="line">		<span class="attribute">proxy_set_header</span> Upgrade <span class="variable">$http_upgrade</span>;  </span><br><span class="line">		<span class="attribute">proxy_set_header</span> Connection <span class="string">"upgrade"</span>;</span><br><span class="line">		<span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</span><br><span class="line">		<span class="attribute">proxy_set_header</span> X-Nginx-Proxy <span class="literal">true</span>;</span><br><span class="line">        <span class="attribute">proxy_cache_bypass</span> <span class="variable">$http_upgrade</span>;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://nodenext; <span class="comment">#反向代理</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="attribute">upstream</span> nodenuxt &#123;</span><br><span class="line">	<span class="attribute">server</span> <span class="number">127.0.0.1:3002</span>; <span class="comment">#nuxt项目 监听端口</span></span><br><span class="line">	<span class="attribute">keepalive</span> <span class="number">64</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="section">server</span> &#123;</span><br><span class="line">	<span class="attribute">listen</span> <span class="number">80</span>;</span><br><span class="line">	<span class="attribute">server_name</span> nuxt.sosout.com;</span><br><span class="line">	<span class="attribute">location</span> / &#123;</span><br><span class="line">		<span class="attribute">proxy_http_version</span> <span class="number">1</span>.<span class="number">1</span>;</span><br><span class="line">		<span class="attribute">proxy_set_header</span> Upgrade <span class="variable">$http_upgrade</span>;  </span><br><span class="line">		<span class="attribute">proxy_set_header</span> Connection <span class="string">"upgrade"</span>;</span><br><span class="line">		<span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</span><br><span class="line">		<span class="attribute">proxy_set_header</span> X-Nginx-Proxy <span class="literal">true</span>;</span><br><span class="line">        <span class="attribute">proxy_cache_bypass</span> <span class="variable">$http_upgrade</span>;</span><br><span class="line">        <span class="attribute">proxy_pass</span> http://nodenuxt; <span class="comment">#反向代理</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>服务器的准备工作已完成，接下来我们就分别看看Next.js和Nuxt.js服务端渲染应用如何部署？</code></p>
+<h4 id="Next-js服务端渲染应用部署"><a href="#Next-js服务端渲染应用部署" class="headerlink" title="Next.js服务端渲染应用部署"></a>Next.js服务端渲染应用部署</h4><p>部署 Next.js 服务端渲染的应用不能直接使用<code>next</code>命令，而应该先进行编译构建，然后再启动 Next 服务，官方通过以下两个命令来完成：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ next build</span><br><span class="line">$ next start</span><br></pre></td></tr></table></figure></p>
+<p>官方推荐的 package.json 配置如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"my-app"</span>,</span><br><span class="line">  <span class="attr">"dependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"next"</span>: <span class="string">"latest"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"dev"</span>: <span class="string">"next"</span>,</span><br><span class="line">    <span class="attr">"build"</span>: <span class="string">"next build"</span>,</span><br><span class="line">    <span class="attr">"start"</span>: <span class="string">"next start"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而我更推荐如下配置，稍后你会发现这样和<code>pm2</code>一起使用更方便，自动化部署也方便:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"my-app"</span>,</span><br><span class="line">  <span class="attr">"dependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"next"</span>: <span class="string">"latest"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"dev"</span>: <span class="string">"next"</span>,</span><br><span class="line">    <span class="attr">"start"</span>: <span class="string">"next start -p $PORT"</span>,</span><br><span class="line">    <span class="attr">"build"</span>: <span class="string">"next build &amp;&amp; PORT=3001 npm start"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>next.js服务端渲染应用部署这样就完成了，官方先后执行<code>npm run build 、npm start</code>即可完成部署。而我这边只要执行<code>npm run build</code>，其实我只是把两个合并成一个，并设置了端口以便区别其他应用，避免端口占用！</p>
+<p><strong>接下来简单的说一下next这几个命令：</strong><br><code>next:</code>启动一个热加载的Web服务器（开发模式）<br><code>next build:</code>利用webpack编译应用，压缩JS和CSS资源（发布用）。<br><code>next start:</code>以生成模式启动一个Web服务器 (<code>next build</code> 会先被执行)。</p>
+<h4 id="Nuxt-js服务端渲染应用部署"><a href="#Nuxt-js服务端渲染应用部署" class="headerlink" title="Nuxt.js服务端渲染应用部署"></a>Nuxt.js服务端渲染应用部署</h4><p><strong>其实部署 Nuxt.js 服务端渲染的应用和<code>Next.js</code>极其相似！在这里我就把代码粘粘贴贴，复复制制，改改写写。。。。</strong><br>Nuxt.js 服务端渲染的应用不能直接使用<code>nuxt</code>命令，而应该先进行编译构建，然后再启动 Nuxt 服务，官方通过以下两个命令来完成：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ nuxt build</span><br><span class="line">$ nuxt start</span><br></pre></td></tr></table></figure>
+<p>官方推荐的 package.json 配置如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"my-app"</span>,</span><br><span class="line">  <span class="attr">"dependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"nuxt"</span>: <span class="string">"latest"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"dev"</span>: <span class="string">"nuxt"</span>,</span><br><span class="line">    <span class="attr">"build"</span>: <span class="string">"nuxt build"</span>,</span><br><span class="line">    <span class="attr">"start"</span>: <span class="string">"nuxt start"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而我更推荐如下配置，稍后你会发现这样和<code>pm2</code>一起使用更方便，自动化部署也方便:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"my-app"</span>,</span><br><span class="line">  <span class="attr">"dependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"nuxt"</span>: <span class="string">"latest"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"dev"</span>: <span class="string">"nuxt"</span>,</span><br><span class="line">    <span class="attr">"start"</span>: <span class="string">"PORT=3002 nuxt start"</span>,</span><br><span class="line">    <span class="attr">"build"</span>: <span class="string">"nuxt build &amp;&amp; npm start"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>nuxt.js服务端渲染应用部署这样就完成了，官方先后执行<code>npm run build 、npm start</code>即可完成部署。而我这边只要执行<code>npm run build</code>，其实我只是把两个合并成一个，并设置了端口以便区别其他应用，避免端口占用！</p>
+<p><strong>接下来简单的说一下nuxt这几个命令：</strong><br><code>nuxt:</code>启动一个热加载的Web服务器（开发模式）<br><code>nuxt build:</code>利用webpack编译应用，压缩JS和CSS资源（发布用）。<br><code>nuxt start:</code>以生成模式启动一个Web服务器 (<code>nuxt build</code> 会先被执行)。</p>
+<h4 id="PM2守护程序"><a href="#PM2守护程序" class="headerlink" title="PM2守护程序"></a>PM2守护程序</h4><p><strong>Next.js使用pm2，进入对应的应用目录，执行以下命令：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pm2 start npm --name <span class="string">"my-next"</span> -- run build</span><br></pre></td></tr></table></figure>
+<p><strong>Nuxt.js使用pm2，进入对应的应用目录，执行以下命令：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pm2 start npm --name <span class="string">"my-nuxt"</span> -- run build</span><br></pre></td></tr></table></figure>
+<p><code>使用pm2时，把两个部署命令合成一个更方便！</code>执行完pm2的启动命令后，我们用<code>pm2 list</code>查看一下进程列表，我截一下我个人服务器的pm2列表：</p>
+<p><img src="linux-nginx-ssr-deploy/img1.png" alt="img1.png"></p>
+<p>以后您就可以用pm2进行维护了，比如我们的next应用更改了代码，因为当时创建时给next应用命名的进程名称为<code>my-next</code>，因此我们可以直接使用<code>pm2 reload my-next</code>进行重载。接下来我就简单介绍一下pm2，如果有需要，我可以另写一篇关于pm2的文章！</p>
+<h4 id="pm2-简单介绍"><a href="#pm2-简单介绍" class="headerlink" title="pm2 简单介绍"></a>pm2 简单介绍</h4><p>pm2是nodejs的一个带有负载均衡功能的应用进程管理器的模块，类似有Supervisor，forever，用来进行进程管理。</p>
+<h5 id="一、安装："><a href="#一、安装：" class="headerlink" title="一、安装："></a>一、安装：</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install pm2 -g</span><br></pre></td></tr></table></figure>
+<h5 id="二、启动："><a href="#二、启动：" class="headerlink" title="二、启动："></a>二、启动：</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ pm2 start app.js</span><br><span class="line">$ pm2 start app.js --name my-api       <span class="comment">#my-api为PM2进程名称</span></span><br><span class="line">$ pm2 start app.js -i 0                <span class="comment">#根据CPU核数启动进程个数</span></span><br><span class="line">$ pm2 start app.js --watch             <span class="comment">#实时监控app.js的方式启动，当app.js文件有变动时，pm2会自动reload</span></span><br></pre></td></tr></table></figure>
+<h5 id="三、查看进程："><a href="#三、查看进程：" class="headerlink" title="三、查看进程："></a>三、查看进程：</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ pm2 list</span><br><span class="line">$ pm2 show 0 或者 <span class="comment"># pm2 info 0         #查看进程详细信息，0为PM2进程id</span></span><br></pre></td></tr></table></figure>
+<h5 id="四、监控："><a href="#四、监控：" class="headerlink" title="四、监控："></a>四、监控：</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pm2 monit</span><br></pre></td></tr></table></figure>
+<h5 id="五、停止："><a href="#五、停止：" class="headerlink" title="五、停止："></a>五、停止：</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ pm2 stop all                         <span class="comment">#停止PM2列表中所有的进程</span></span><br><span class="line">$ pm2 stop 0                           <span class="comment">#停止PM2列表中进程为0的进程</span></span><br></pre></td></tr></table></figure>
+<h5 id="六、重载："><a href="#六、重载：" class="headerlink" title="六、重载："></a>六、重载：</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ pm2 reload all                       <span class="comment">#重载PM2列表中所有的进程</span></span><br><span class="line">$ pm2 reload 0                         <span class="comment">#重载PM2列表中进程为0的进程</span></span><br></pre></td></tr></table></figure>
+<h5 id="七、重启："><a href="#七、重启：" class="headerlink" title="七、重启："></a>七、重启：</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ pm2 restart all                      <span class="comment">#重启PM2列表中所有的进程</span></span><br><span class="line">$ pm2 restart 0                        <span class="comment">#重启PM2列表中进程为0的进程</span></span><br></pre></td></tr></table></figure>
+<h5 id="八、删除PM2进程："><a href="#八、删除PM2进程：" class="headerlink" title="八、删除PM2进程："></a>八、删除PM2进程：</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ pm2 delete 0                         <span class="comment">#删除PM2列表中进程为0的进程</span></span><br><span class="line">$ pm2 delete all                       <span class="comment">#删除PM2列表中所有的进程</span></span><br></pre></td></tr></table></figure>
+<h5 id="九、日志操作："><a href="#九、日志操作：" class="headerlink" title="九、日志操作："></a>九、日志操作：</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ pm2 logs [--raw]                     <span class="comment">#Display all processes logs in streaming</span></span><br><span class="line">$ pm2 flush                            <span class="comment">#Empty all log file</span></span><br><span class="line">$ pm2 reloadLogs                       <span class="comment">#Reload all logs</span></span><br></pre></td></tr></table></figure>
+<h5 id="十、升级PM2："><a href="#十、升级PM2：" class="headerlink" title="十、升级PM2："></a>十、升级PM2：</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install pm2@lastest -g           <span class="comment">#安装最新的PM2版本</span></span><br><span class="line">$ pm2 updatePM2                        <span class="comment">#升级pm2</span></span><br></pre></td></tr></table></figure>
+<h5 id="十一、更多命令参数请查看帮助："><a href="#十一、更多命令参数请查看帮助：" class="headerlink" title="十一、更多命令参数请查看帮助："></a>十一、更多命令参数请查看帮助：</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pm2 --<span class="built_in">help</span></span><br></pre></td></tr></table></figure>
+<h5 id="十二、PM2目录结构："><a href="#十二、PM2目录结构：" class="headerlink" title="十二、PM2目录结构："></a>十二、PM2目录结构：</h5><ul>
+<li>1、默认的目录是：当前用于的家目录下的.pm2目录（此目录可以自定义，请参考：十三、自定义启动文件），详细信息如下：<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$HOME/.pm2                   #will contain all PM2 related files</span><br><span class="line">$HOME/.pm2/logs              #will contain all applications logs</span><br><span class="line">$HOME/.pm2/pids              #will contain all applications pids</span><br><span class="line">$HOME/.pm2/pm2.log           #PM2 logs</span><br><span class="line">$HOME/.pm2/pm2.pid           #PM2 pid</span><br><span class="line">$HOME/.pm2/rpc.sock          #Socket file for remote commands</span><br><span class="line">$HOME/.pm2/pub.sock          #Socket file for publishable events</span><br><span class="line">$HOME/.pm2/conf.js           #PM2 Configuration</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="十三、自定义启动文件："><a href="#十三、自定义启动文件：" class="headerlink" title="十三、自定义启动文件："></a>十三、自定义启动文件：</h5><ul>
+<li><p>1、创建一个test.json的示例文件，格式如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"apps"</span>:</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"name"</span>: <span class="string">"test"</span>,</span><br><span class="line">      <span class="attr">"cwd"</span>: <span class="string">"/data/wwwroot/nodejs"</span>,</span><br><span class="line">      <span class="attr">"script"</span>: <span class="string">"./test.sh"</span>,</span><br><span class="line">      <span class="attr">"exec_interpreter"</span>: <span class="string">"bash"</span>,</span><br><span class="line">      <span class="attr">"min_uptime"</span>: <span class="string">"60s"</span>,</span><br><span class="line">      <span class="attr">"max_restarts"</span>: <span class="number">30</span>,</span><br><span class="line">      <span class="attr">"exec_mode"</span> : <span class="string">"cluster_mode"</span>,</span><br><span class="line">      <span class="attr">"error_file"</span> : <span class="string">"./test-err.log"</span>,</span><br><span class="line">      <span class="attr">"out_file"</span>: <span class="string">"./test-out.log"</span>,</span><br><span class="line">      <span class="attr">"pid_file"</span>: <span class="string">"./test.pid"</span></span><br><span class="line">      <span class="string">"watch"</span>: <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2、参数说明：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">apps：json结构，apps是一个数组，每一个数组成员就是对应一个pm2中运行的应用</span><br><span class="line">name：应用程序的名称</span><br><span class="line">cwd：应用程序所在的目录</span><br><span class="line">script：应用程序的脚本路径</span><br><span class="line">exec_interpreter：应用程序的脚本类型，这里使用的shell，默认是nodejs</span><br><span class="line">min_uptime：最小运行时间，这里设置的是<span class="number">60</span>s即如果应用程序在<span class="number">60</span>s内退出，pm2会认为程序异常退出，此时触发重启max_restarts设置数量</span><br><span class="line">max_restarts：设置应用程序异常退出重启的次数，默认<span class="number">15</span>次（从<span class="number">0</span>开始计数）</span><br><span class="line">exec_mode：应用程序启动模式，这里设置的是cluster_mode（集群），默认是fork</span><br><span class="line">error_file：自定义应用程序的错误日志文件</span><br><span class="line">out_file：自定义应用程序日志文件</span><br><span class="line">pid_file：自定义应用程序的pid文件</span><br><span class="line">watch：是否启用监控模式，默认是<span class="literal">false</span>。如果设置成<span class="literal">true</span>，当应用程序变动时，pm2会自动重载。这里也可以设置你要监控的文件。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="部署（以nuxt为例）"><a href="#部署（以nuxt为例）" class="headerlink" title="部署（以nuxt为例）"></a>部署（以nuxt为例）</h4><h4 id="基础模板的部署方式"><a href="#基础模板的部署方式" class="headerlink" title="基础模板的部署方式"></a>基础模板的部署方式</h4><p>何为基础模板？使用了<code>vue init nuxt-community/starter-template &lt;project-name&gt;</code>进行搭建的！</p>
+<h5 id="第一步，打包"><a href="#第一步，打包" class="headerlink" title="第一步，打包"></a><strong>第一步，打包</strong></h5><p>在执行<code>npm run build</code>的时候，<code>nuxt</code>会自动打包。</p>
+<h5 id="第二步，选择要部署的文件（社友最关心的步骤）："><a href="#第二步，选择要部署的文件（社友最关心的步骤）：" class="headerlink" title="第二步，选择要部署的文件（社友最关心的步骤）："></a><strong>第二步，选择要部署的文件（社友最关心的步骤）：</strong></h5><ul>
+<li><code>.nuxt/</code>文件夹</li>
+<li><code>package.json</code>文件</li>
+<li><code>nuxt.config.js</code>文件(如果你配置proxy等，则需要上传这个文件，建议把它传上去)</li>
+</ul>
+<h5 id="第三步，启动你的nuxt："><a href="#第三步，启动你的nuxt：" class="headerlink" title="第三步，启动你的nuxt："></a><strong>第三步，启动你的nuxt：</strong></h5><p>使用pm2启动你的nuxt.js：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ npm install // or yarn install 如果未安装依赖或依赖有更改</span><br><span class="line">$ pm2 start npm --name <span class="string">"my-nuxt"</span> -- run start</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="Weich 微信支付"/>
+        <p>微信打赏</p><!-- <p>微信支付</p> -->
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="Weich 支付宝"/>
+        <p>支付宝打赏</p><!-- <p>支付宝</p> -->
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Weich</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://sosout.com/2018/08/03/linux-nginx-ssr-deploy.html" title="next、nuxt等服务端渲染框架如何在服务器部署，并用PM2守护程序">http://sosout.com/2018/08/03/linux-nginx-ssr-deploy.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/spa/" rel="tag"># spa</a>
+          
+            <a href="/tags/pm2/" rel="tag"># pm2</a>
+          
+            <a href="/tags/ssr/" rel="tag"># ssr</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/02/linux-nginx-spa-deploy.html" rel="next" title="vuejs、react如何在服务器部署？">
+                <i class="fa fa-chevron-left"></i> vuejs、react如何在服务器部署？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/03/mobile-rem-layout.html" rel="prev" title="移动端(手机端)页面自适应解决方案—rem布局篇">
+                移动端(手机端)页面自适应解决方案—rem布局篇 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Weich</p>
+              <p class="site-description motion-element" itemprop="description">看博客上一探</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/sosout" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:sosout@139.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://segmentfault.com/u/sosout" target="_blank" title="SegmentFault" rel="external nofollow"><i class="fa fa-fw fa-facebook"></i>SegmentFault</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-twitter"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://blog.sosout.com/" title="工作笔记" target="_blank">工作笔记</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Nginx配置"><span class="nav-number">1.</span> <span class="nav-text">Nginx配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Nginx反向代理"><span class="nav-number">2.</span> <span class="nav-text">Nginx反向代理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Next-js服务端渲染应用部署"><span class="nav-number">3.</span> <span class="nav-text">Next.js服务端渲染应用部署</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Nuxt-js服务端渲染应用部署"><span class="nav-number">4.</span> <span class="nav-text">Nuxt.js服务端渲染应用部署</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PM2守护程序"><span class="nav-number">5.</span> <span class="nav-text">PM2守护程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#pm2-简单介绍"><span class="nav-number">6.</span> <span class="nav-text">pm2 简单介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#一、安装："><span class="nav-number">6.1.</span> <span class="nav-text">一、安装：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二、启动："><span class="nav-number">6.2.</span> <span class="nav-text">二、启动：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#三、查看进程："><span class="nav-number">6.3.</span> <span class="nav-text">三、查看进程：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#四、监控："><span class="nav-number">6.4.</span> <span class="nav-text">四、监控：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#五、停止："><span class="nav-number">6.5.</span> <span class="nav-text">五、停止：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#六、重载："><span class="nav-number">6.6.</span> <span class="nav-text">六、重载：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#七、重启："><span class="nav-number">6.7.</span> <span class="nav-text">七、重启：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#八、删除PM2进程："><span class="nav-number">6.8.</span> <span class="nav-text">八、删除PM2进程：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#九、日志操作："><span class="nav-number">6.9.</span> <span class="nav-text">九、日志操作：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#十、升级PM2："><span class="nav-number">6.10.</span> <span class="nav-text">十、升级PM2：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#十一、更多命令参数请查看帮助："><span class="nav-number">6.11.</span> <span class="nav-text">十一、更多命令参数请查看帮助：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#十二、PM2目录结构："><span class="nav-number">6.12.</span> <span class="nav-text">十二、PM2目录结构：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#十三、自定义启动文件："><span class="nav-number">6.13.</span> <span class="nav-text">十三、自定义启动文件：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#部署（以nuxt为例）"><span class="nav-number">7.</span> <span class="nav-text">部署（以nuxt为例）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基础模板的部署方式"><span class="nav-number">8.</span> <span class="nav-text">基础模板的部署方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第一步，打包"><span class="nav-number">8.1.</span> <span class="nav-text">第一步，打包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第二步，选择要部署的文件（社友最关心的步骤）："><span class="nav-number">8.2.</span> <span class="nav-text">第二步，选择要部署的文件（社友最关心的步骤）：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第三步，启动你的nuxt："><span class="nav-number">8.3.</span> <span class="nav-text">第三步，启动你的nuxt：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Weich</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">145k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">2:12</span>
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Mist</a> v6.3.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("JDFztM3Lau0XOKEA9BQR0Gz7-gzGzoHsz", "F34SJfnI4FhcOUUqjd4u3Rps");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text(counter.get('time'));
+            
+            counter.save(null, {
+              success: function(counter) {
+                
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            
+              var newcounter = new Counter();
+              /* Set ACL */
+              var acl = new AV.ACL();
+              acl.setPublicReadAccess(true);
+              acl.setPublicWriteAccess(true);
+              newcounter.setACL(acl);
+              /* End Set ACL */
+              newcounter.set("title", title);
+              newcounter.set("url", url);
+              newcounter.set("time", 1);
+              newcounter.save(null, {
+                success: function(newcounter) {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                },
+                error: function(newcounter, error) {
+                  console.log('Failed to create');
+                }
+              });
+            
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
