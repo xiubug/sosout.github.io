@@ -141,20 +141,20 @@
 
 
 
-  <meta name="description" content="函数是一段可以反复调用的代码块。函数还能接受输入的参数，不同的参数会返回不同的值。 立即执行函数在 Javascript 中，圆括号()是一种运算符，跟在函数名之后，表示调用该函数。比如，print()就表示调用print函数。 有时，我们需要在定义函数之后，立即调用该函数。这时，你不能在函数的定义之后加上圆括号，这会产生语法错误。12function()&amp;#123; /* code */ &amp;#1">
+  <meta name="description" content="函数是一段可以反复调用的代码块。函数还能接受输入的参数，不同的参数会返回不同的值。 立即执行函数在 Javascript 中，圆括号()是一种运算符，跟在函数名之后，表示调用该函数。比如，print()就表示调用print函数。 有时，我们需要在定义函数之后，立即调用该函数。这时，我们不能在函数的定义之后加上圆括号，这会产生语法错误。12function()&amp;#123; /* code */ &amp;#">
 <meta name="keywords" content="function">
 <meta property="og:type" content="article">
 <meta property="og:title" content="javascript 函数">
 <meta property="og:url" content="http://sosout.com/2018/07/24/javascript-function.html">
 <meta property="og:site_name" content="每天一探">
-<meta property="og:description" content="函数是一段可以反复调用的代码块。函数还能接受输入的参数，不同的参数会返回不同的值。 立即执行函数在 Javascript 中，圆括号()是一种运算符，跟在函数名之后，表示调用该函数。比如，print()就表示调用print函数。 有时，我们需要在定义函数之后，立即调用该函数。这时，你不能在函数的定义之后加上圆括号，这会产生语法错误。12function()&amp;#123; /* code */ &amp;#1">
+<meta property="og:description" content="函数是一段可以反复调用的代码块。函数还能接受输入的参数，不同的参数会返回不同的值。 立即执行函数在 Javascript 中，圆括号()是一种运算符，跟在函数名之后，表示调用该函数。比如，print()就表示调用print函数。 有时，我们需要在定义函数之后，立即调用该函数。这时，我们不能在函数的定义之后加上圆括号，这会产生语法错误。12function()&amp;#123; /* code */ &amp;#">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://sosout.com/2018/07/24/javascript-function/img1.jpg">
 <meta property="og:image" content="http://sosout.com/2018/07/24/javascript-function/img2.jpg">
-<meta property="og:updated_time" content="2018-08-26T08:38:37.870Z">
+<meta property="og:updated_time" content="2018-08-27T11:24:46.913Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javascript 函数">
-<meta name="twitter:description" content="函数是一段可以反复调用的代码块。函数还能接受输入的参数，不同的参数会返回不同的值。 立即执行函数在 Javascript 中，圆括号()是一种运算符，跟在函数名之后，表示调用该函数。比如，print()就表示调用print函数。 有时，我们需要在定义函数之后，立即调用该函数。这时，你不能在函数的定义之后加上圆括号，这会产生语法错误。12function()&amp;#123; /* code */ &amp;#1">
+<meta name="twitter:description" content="函数是一段可以反复调用的代码块。函数还能接受输入的参数，不同的参数会返回不同的值。 立即执行函数在 Javascript 中，圆括号()是一种运算符，跟在函数名之后，表示调用该函数。比如，print()就表示调用print函数。 有时，我们需要在定义函数之后，立即调用该函数。这时，我们不能在函数的定义之后加上圆括号，这会产生语法错误。12function()&amp;#123; /* code */ &amp;#">
 <meta name="twitter:image" content="http://sosout.com/2018/07/24/javascript-function/img1.jpg">
 
 
@@ -549,7 +549,7 @@
       
         <p>函数是一段可以反复调用的代码块。函数还能接受输入的参数，不同的参数会返回不同的值。</p>
 <h2 id="立即执行函数"><a href="#立即执行函数" class="headerlink" title="立即执行函数"></a>立即执行函数</h2><p>在 Javascript 中，圆括号()是一种运算符，跟在函数名之后，表示调用该函数。比如，print()就表示调用print函数。</p>
-<p>有时，我们需要在定义函数之后，立即调用该函数。这时，你不能在函数的定义之后加上圆括号，这会产生语法错误。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">/* code */</span> &#125;();</span><br><span class="line"><span class="comment">// SyntaxError: Unexpected token (</span></span><br></pre></td></tr></table></figure></p>
+<p>有时，我们需要在定义函数之后，立即调用该函数。这时，我们不能在函数的定义之后加上圆括号，这会产生语法错误。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">/* code */</span> &#125;();</span><br><span class="line"><span class="comment">// SyntaxError: Unexpected token (</span></span><br></pre></td></tr></table></figure></p>
 <p>产生这个错误的原因是，function这个关键字即可以当作语句，也可以当作表达式。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 语句</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 表达式</span></span><br><span class="line"><span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;&#125;</span><br></pre></td></tr></table></figure></p>
 <p>为了避免解析上的歧义，JavaScript 引擎规定，如果function关键字出现在行首，一律解释成语句。因此，JavaScript 引擎看到行首是function关键字之后，认为这一段都是函数的定义，不应该以圆括号结尾，所以就报错了。</p>
 <p>解决方法就是不要让function出现在行首，让引擎将其理解成一个表达式。最简单的处理，就是将其放在一个圆括号里面。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">/* code */</span> &#125;());</span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">/* code */</span> &#125;)();</span><br></pre></td></tr></table></figure></p>
@@ -648,6 +648,10 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/07/23/webpack-analyze-packaged-file.html" rel="next" title="webpack 打包后文件分析">
+                <i class="fa fa-chevron-left"></i> webpack 打包后文件分析
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
@@ -726,7 +730,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-count">39</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -767,7 +771,25 @@
                     
                       
                     
-                    <span class="site-state-item-count">14</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -828,7 +850,33 @@
                     
                       
                     
-                    <span class="site-state-item-count">24</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">37</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -938,7 +986,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">145k</span>
+    <span title="站点总字数">177k</span>
   
 
   
@@ -949,7 +997,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">2:12</span>
+    <span title="站点阅读时长">2:41</span>
   
 </div>
 

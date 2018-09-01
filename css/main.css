@@ -1904,7 +1904,7 @@ img:hover {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff25ff;
+  background: #6703ff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2883,5 +2883,13 @@ hr {
   .footer-inner {
     width: auto;
     text-align: center;
+  }
+}
+body {
+  word-break: break-all;
+}
+@media (min-width: 992px) {
+  .posts-expand .post-body {
+    word-break: break-all;
   }
 }

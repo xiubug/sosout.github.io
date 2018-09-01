@@ -149,7 +149,7 @@
 <meta property="og:site_name" content="每天一探">
 <meta property="og:description" content="版本：v2.5.17-beta.0 前言随着这几年前端的快速发展，页面中需要实现的功能越来越复杂，DOM操作频繁，使用传统的jQuery库去频繁操作DOM时不仅消耗性能，而且各种DOM绑定后期维护时简直是一场噩梦，在开发大型项目时，模块间的依赖问题也变得十分复杂，在这个大背景下，以数据驱动和组件化思想开发的 Vue、React等JavaScript MVVM库应运而生。相比于其他库，Vue.js">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-24T10:57:06.055Z">
+<meta property="og:updated_time" content="2018-08-27T11:24:46.914Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue 源码全方位剖析">
 <meta name="twitter:description" content="版本：v2.5.17-beta.0 前言随着这几年前端的快速发展，页面中需要实现的功能越来越复杂，DOM操作频繁，使用传统的jQuery库去频繁操作DOM时不仅消耗性能，而且各种DOM绑定后期维护时简直是一场噩梦，在开发大型项目时，模块间的依赖问题也变得十分复杂，在这个大背景下，以数据驱动和组件化思想开发的 Vue、React等JavaScript MVVM库应运而生。相比于其他库，Vue.js">
@@ -553,7 +553,7 @@
         <p><code>版本：v2.5.17-beta.0</code></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>随着这几年前端的快速发展，页面中需要实现的功能越来越复杂，DOM操作频繁，使用传统的jQuery库去频繁操作DOM时不仅消耗性能，而且各种DOM绑定后期维护时简直是一场噩梦，在开发大型项目时，模块间的依赖问题也变得十分复杂，在这个大背景下，以数据驱动和组件化思想开发的 Vue、React等JavaScript MVVM库应运而生。相比于其他库，Vue.js 提供了更加简洁、更易于理解的 API，使得我们能够快速上手，一经推出，便迅速走红。现在 Vue.js 更是火得一塌糊涂，github star 数更是超越 React。既然 Vue 如此火，我们是不是很有必要了解一下 Vue.js 背后的实现原理。</p>
 <p>目前社区有很多 Vue.js 的源码剖析文章，当下质量比较好的有<a href="http://hcysun.me/vue-design/" target="_blank" rel="noopener">Vue技术内幕–逐行级别的 Vue 源码分析</a>、<a href="https://ustbhuangyi.github.io/vue-analysis/" target="_blank" rel="noopener">Vue.js 技术揭秘</a>，更是得到 Vue 作者本人的推荐。通过通读这两本电子书，我相信大家都能全方位了解 Vue.js 的实现原理。有人可能会有疑问，比如：既然人家写得这么好你为什么还写，直接看人家的不就好了吗，谁会看你的等等？我要说的是源码分析并不是为了彰显个人技术，更多的是为了学习，不管当下想法是否足够成熟，只要我们坚持，我们都会有收获。在开始之前我们先做以下几点约定：</p>
-<p><strong>第一：</strong>目前分析的版本是 Vue.js 的最新版本 Vue.js 2.5.17-beta.0。<br><strong>第二：</strong>我尽可能站在我自己的角度去剖析，当然我会借鉴社区比较优秀的文章，面对大家的拍砖，我无条件接受，也很乐意与大家一起交换意见，努力写好该 Vue 源码系列。<br><strong>第三：</strong>如果有幸您读到该 Vue 源码系列，感觉写得还行，还望收藏、分享或打赏。</p>
+<p><strong>第一：</strong>目前分析的版本是 Vue.js 的最新版本 Vue.js 2.5.17-beta.0；<br><strong>第二：</strong>Vue web应用是最常见的，也是最易于理解的，所以该源码均围绕 Vue web应用剖析；<br><strong>第三：</strong>我尽可能站在我自己的角度去剖析，当然我会借鉴社区比较优秀的文章，面对大家的拍砖，我无条件接受，也很乐意与大家一起交换意见，努力写好该 Vue 源码系列；<br><strong>第四：</strong>如果有幸您读到该 Vue 源码系列，感觉写得还行，还望收藏、分享或打赏。</p>
 <h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p>我们从这一章开始即将分析 Vue 的源码，在分析源码之前我们很有必要介绍一些前置知识如flow、Rollup等。除此之外，我们最好已经用过 Vue 做过实际项目，对 Vue 的思想有了一定的了解，对绝大部分的 API 都已经有使用，同时，我们应该有一定的HTML、CSS、JavaScript、ES6+、node &amp; npm等功底，并对代码调试有一定的了解。</p>
 <p>如果具备了以上条件，并且对 Vue 的实现原理很感兴趣，那么就可以开始 Vue 的底层学习了，对它的实现细节一探究竟。</p>
 <h3 id="Flow-JavaScript静态类型检查工具"><a href="#Flow-JavaScript静态类型检查工具" class="headerlink" title="Flow - JavaScript静态类型检查工具"></a>Flow - JavaScript静态类型检查工具</h3><p><a href="https://flow.org/" target="_blank" rel="noopener">Flow</a> 是 facebook 出品的 JavaScript 静态类型检查工具，它与 Typescript 不同的是，它可以部分引入，不需要完全重构整个项目，所以对于一个已有一定规模的项目来说，迁移成本更小，也更加可行。除此之外，Flow 可以提供实时增量的反馈，通过运行 Flow server 不需要在每次更改项目的时候完全从头运行类型检查，提高运行效率。可以简单总结为：<strong>对于新项目，可以考虑使用 TypeScript 或者 Flow，对于已有一定规模的项目则建议使用 Flow 进行较小成本的逐步迁移来引入类型检查。Vue 的源码利用了 Flow 做了静态类型检查，所以了解 Flow 有助于我们阅读源码。</strong></p>
@@ -842,7 +842,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-count">39</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -883,7 +883,25 @@
                     
                       
                     
-                    <span class="site-state-item-count">14</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -944,7 +962,33 @@
                     
                       
                     
-                    <span class="site-state-item-count">24</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">37</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1054,7 +1098,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">145k</span>
+    <span title="站点总字数">177k</span>
   
 
   
@@ -1065,7 +1109,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">2:12</span>
+    <span title="站点阅读时长">2:41</span>
   
 </div>
 
