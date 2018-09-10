@@ -141,18 +141,18 @@
 
 
 
-  <meta name="description" content="有时候项目涉及到的敏感数据比较多，为了信息安全，我们常常需要对一些数据进行接口加密处理，如编码、将明文转化为暗文、加密比对、AES + BASE64 算法加密等。接下来我们就分别说一下 CryptoJS 常用的一些方法。 CryptoJS文档 Base64 编码为什么要编码？ 由于一些网络通讯协议的限制, 又或者是出于信息加密的目的, 我们就需要将原信息转换为base64编码,然后才能进行传输.例">
-<meta name="keywords" content="cryptojs">
+  <meta name="description" content="前言redux 的核心概念很简单：将需要修改的 state 都储存在 store 里，发起一个 action 用来描述发生了什么，用 reducers 描述 action 如何改变 state tree，创建 store 的时候需要传入 reducer，真正能改变 store 中数据的是 API store.dispatch。纯粹使用 redux 时，我们需要 dispatch 的是一个 acti">
+<meta name="keywords" content="middleware">
 <meta property="og:type" content="article">
-<meta property="og:title" content="前端加密JS库--CryptoJS 使用指南">
-<meta property="og:url" content="http://sosout.com/2018/08/11/cryptojs-tutorial.html">
+<meta property="og:title" content="redux-thunk 源码全方位剖析">
+<meta property="og:url" content="http://sosout.com/2018/09/09/redux-thunk-source-analysis.html">
 <meta property="og:site_name" content="每天一探">
-<meta property="og:description" content="有时候项目涉及到的敏感数据比较多，为了信息安全，我们常常需要对一些数据进行接口加密处理，如编码、将明文转化为暗文、加密比对、AES + BASE64 算法加密等。接下来我们就分别说一下 CryptoJS 常用的一些方法。 CryptoJS文档 Base64 编码为什么要编码？ 由于一些网络通讯协议的限制, 又或者是出于信息加密的目的, 我们就需要将原信息转换为base64编码,然后才能进行传输.例">
+<meta property="og:description" content="前言redux 的核心概念很简单：将需要修改的 state 都储存在 store 里，发起一个 action 用来描述发生了什么，用 reducers 描述 action 如何改变 state tree，创建 store 的时候需要传入 reducer，真正能改变 store 中数据的是 API store.dispatch。纯粹使用 redux 时，我们需要 dispatch 的是一个 acti">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-31T13:29:13.509Z">
+<meta property="og:updated_time" content="2018-09-10T11:10:37.077Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="前端加密JS库--CryptoJS 使用指南">
-<meta name="twitter:description" content="有时候项目涉及到的敏感数据比较多，为了信息安全，我们常常需要对一些数据进行接口加密处理，如编码、将明文转化为暗文、加密比对、AES + BASE64 算法加密等。接下来我们就分别说一下 CryptoJS 常用的一些方法。 CryptoJS文档 Base64 编码为什么要编码？ 由于一些网络通讯协议的限制, 又或者是出于信息加密的目的, 我们就需要将原信息转换为base64编码,然后才能进行传输.例">
+<meta name="twitter:title" content="redux-thunk 源码全方位剖析">
+<meta name="twitter:description" content="前言redux 的核心概念很简单：将需要修改的 state 都储存在 store 里，发起一个 action 用来描述发生了什么，用 reducers 描述 action 如何改变 state tree，创建 store 的时候需要传入 reducer，真正能改变 store 中数据的是 API store.dispatch。纯粹使用 redux 时，我们需要 dispatch 的是一个 acti">
 
 
 
@@ -161,7 +161,7 @@
 
 
 
-  <link rel="canonical" href="http://sosout.com/2018/08/11/cryptojs-tutorial.html"/>
+  <link rel="canonical" href="http://sosout.com/2018/09/09/redux-thunk-source-analysis.html"/>
 
 
 
@@ -171,7 +171,7 @@
   };
 </script>
 
-  <title>前端加密JS库--CryptoJS 使用指南 | 每天一探</title>
+  <title>redux-thunk 源码全方位剖析 | 每天一探</title>
   
 
 
@@ -410,7 +410,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://sosout.com/2018/08/11/cryptojs-tutorial.html">
+    <link itemprop="mainEntityOfPage" href="http://sosout.com/2018/09/09/redux-thunk-source-analysis.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Weich">
@@ -427,7 +427,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">前端加密JS库--CryptoJS 使用指南
+          <h2 class="post-title" itemprop="name headline">redux-thunk 源码全方位剖析
               
             
           </h2>
@@ -453,7 +453,7 @@
                 
               
 
-              <time title="创建时间：2018-08-11 12:07:39" itemprop="dateCreated datePublished" datetime="2018-08-11T12:07:39+08:00">2018-08-11</time>
+              <time title="创建时间：2018-09-09 20:59:49" itemprop="dateCreated datePublished" datetime="2018-09-09T20:59:49+08:00">2018-09-09</time>
             
 
             
@@ -471,7 +471,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/redux/" itemprop="url" rel="index"><span itemprop="name">redux</span></a></span>
 
                 
                 
@@ -485,7 +485,7 @@
 
           
           
-             <span id="/2018/08/11/cryptojs-tutorial.html" class="leancloud_visitors" data-flag-title="前端加密JS库--CryptoJS 使用指南">
+             <span id="/2018/09/09/redux-thunk-source-analysis.html" class="leancloud_visitors" data-flag-title="redux-thunk 源码全方位剖析">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -510,7 +510,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">5.2k</span>
+                <span title="本文字数">5.7k</span>
               
 
               
@@ -544,29 +544,21 @@
       
 
       
-        <p>有时候项目涉及到的敏感数据比较多，为了信息安全，我们常常需要对一些数据进行接口加密处理，如编码、将明文转化为暗文、加密比对、AES + BASE64 算法加密等。<br>接下来我们就分别说一下 CryptoJS 常用的一些方法。</p>
-<p><a href="https://github.com/brix/crypto-js" target="_blank" rel="noopener">CryptoJS文档</a></p>
-<h3 id="Base64-编码"><a href="#Base64-编码" class="headerlink" title="Base64 编码"></a>Base64 编码</h3><p><strong>为什么要编码？</strong></p>
-<p>由于一些网络通讯协议的限制, 又或者是出于信息加密的目的, 我们就需要将原信息转换为base64编码,然后才能进行传输.例如，发送某些含有 ASCII 码表中0到31之间的控制字符的数据。</p>
-<p><strong>window.btoa 对字符串进行 base64编码（注意不能编码中文）;</strong><br><strong>winodw.atob 对 base64字符串 进行解码（对于包含中文的 base64编码，不能正确解码）;</strong></p>
-<p>通常的方法是通过 window.btoa() 方法对源数据进行编码, 然后接收方使用 window.atob() 方法对其进行解码, 从而得到原数据。但是这种方法存在的问题是：window.btoa() 不支持中文, window.atob() 转换含有中文的 base64编码 的时候中文部分会变为乱码。另一个存在的问题是解码github的readme数据的时候也是乱码。经过查找相关资料发现了 Base64的编码与解码转的最优方案:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 编码</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">utf8_to_b64</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">window</span>.btoa(<span class="built_in">unescape</span>(<span class="built_in">encodeURIComponent</span>(str)));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 解码</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">b64_to_utf8</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">decodeURIComponent</span>(<span class="built_in">escape</span>(<span class="built_in">window</span>.atob(str)));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Usage:</span></span><br><span class="line">utf8_to_b64(<span class="string">'✓ à la mode'</span>); <span class="comment">// 4pyTIMOgIGxhIG1vZGU=</span></span><br><span class="line">b64_to_utf8(<span class="string">'4pyTIMOgIGxhIG1vZGU='</span>); <span class="comment">// "✓ à la mode"</span></span><br><span class="line"></span><br><span class="line">utf8_to_b64(<span class="string">'I \u2661 Unicode!'</span>); <span class="comment">// SSDimaEgVW5pY29kZSE=</span></span><br><span class="line">b64_to_utf8(<span class="string">'SSDimaEgVW5pY29kZSE='</span>); <span class="comment">// "I ♡ Unicode!"</span></span><br><span class="line"></span><br><span class="line">utf8_to_b64(<span class="string">'我爱中国'</span>); <span class="comment">// 5oiR54ix5Lit5Zu9</span></span><br><span class="line">b64_to_utf8(<span class="string">'SSDimaEgVW5pY29kZSE='</span>); <span class="comment">// "我爱中国"</span></span><br><span class="line"></span><br><span class="line">utf8_to_b64(<span class="number">123456</span>); <span class="comment">// MTIzNDU2</span></span><br><span class="line">b64_to_utf8(<span class="string">"MTIzNDU2"</span>); <span class="comment">// 123456</span></span><br></pre></td></tr></table></figure>
-<h3 id="AES-加密"><a href="#AES-加密" class="headerlink" title="AES 加密"></a>AES 加密</h3><p><strong>安装</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install crypto-js</span><br></pre></td></tr></table></figure>
-<p><strong>aes加密: crypto.js</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> CryptoJS <span class="keyword">from</span> <span class="string">"crypto-js"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> key = CryptoJS.enc.Utf8.parse(<span class="string">"1234567890000000"</span>); <span class="comment">//16位</span></span><br><span class="line"><span class="keyword">const</span> iv = CryptoJS.enc.Utf8.parse(<span class="string">"1234567890000000"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="comment">//aes加密</span></span><br><span class="line">  encrypt(word) &#123;</span><br><span class="line">    <span class="keyword">let</span> encrypted = <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> word == <span class="string">"string"</span>) &#123;</span><br><span class="line">      <span class="keyword">const</span> srcs = CryptoJS.enc.Utf8.parse(word);</span><br><span class="line">      encrypted = CryptoJS.AES.encrypt(srcs, key, &#123;</span><br><span class="line">        iv: iv,</span><br><span class="line">        mode: CryptoJS.mode.CBC,</span><br><span class="line">        padding: CryptoJS.pad.Pkcs7</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> word == <span class="string">"object"</span>) &#123;</span><br><span class="line">      <span class="comment">//对象格式的转成json字符串</span></span><br><span class="line">      <span class="keyword">const</span> data = <span class="built_in">JSON</span>.stringify(word);</span><br><span class="line">      <span class="keyword">const</span> srcs = CryptoJS.enc.Utf8.parse(data);</span><br><span class="line">      encrypted = CryptoJS.AES.encrypt(srcs, key, &#123;</span><br><span class="line">        iv: iv,</span><br><span class="line">        mode: CryptoJS.mode.CBC,</span><br><span class="line">        padding: CryptoJS.pad.Pkcs7</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> encrypted.ciphertext.toString();</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// aes解密</span></span><br><span class="line">  decrypt(word) &#123;</span><br><span class="line">    <span class="keyword">const</span> encryptedHexStr = CryptoJS.enc.Hex.parse(word);</span><br><span class="line">    <span class="keyword">const</span> srcs = CryptoJS.enc.Base64.stringify(encryptedHexStr);</span><br><span class="line">    <span class="keyword">const</span> decrypt = CryptoJS.AES.decrypt(srcs, key, &#123;</span><br><span class="line">      iv: iv,</span><br><span class="line">      mode: CryptoJS.mode.CBC,</span><br><span class="line">      padding: CryptoJS.pad.Pkcs7</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">const</span> decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);</span><br><span class="line">    <span class="keyword">return</span> decryptedStr.toString();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<p><strong>使用</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Crypto <span class="keyword">from</span> <span class="string">"@/utils/crypto"</span>;</span><br><span class="line"></span><br><span class="line">Crypto.encrypt(<span class="string">"✓ à la mode"</span>); <span class="comment">// b915bf40c4795227488da86978f55fce</span></span><br><span class="line">Crypto.decrypt(userPwd); <span class="comment">// "✓ à la mode"</span></span><br><span class="line"></span><br><span class="line">Crypto.encrypt(<span class="string">"✓ à la mode"</span>); <span class="comment">// 6317313288b32bf1909f165ec530d60a</span></span><br><span class="line">Crypto.decrypt(userPwd); <span class="comment">// "I ♡ Unicode!"</span></span><br><span class="line"></span><br><span class="line">Crypto.encrypt(<span class="string">"我爱中国"</span>); <span class="comment">// 1898a34273855f55255437aa22f87504</span></span><br><span class="line">Crypto.decrypt(userPwd); <span class="comment">// "我爱中国"</span></span><br><span class="line"></span><br><span class="line">Crypto.encrypt(<span class="string">"123456"</span>); <span class="comment">// dd7a6c4edc68e683b700a7a2846a2bc6</span></span><br><span class="line">Crypto.decrypt(userPwd); <span class="comment">// "123456"</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="前后端数据通信参数加密"><a href="#前后端数据通信参数加密" class="headerlink" title="前后端数据通信参数加密"></a>前后端数据通信参数加密</h3><p>加密代码实现:</p>
-<p>项目中需要将所有传到后台的参数分5个步骤处理：</p>
-<p>第一步：排序</p>
-<p>第二步：将排序好的参数进行MD5加密作为接口的签名</p>
-<p>第三步：将排序好的参数和接口签名拼接上进行AES加密</p>
-<p>第四部：将AES加密后的密文Base64加密</p>
-<p>第五步：将最终的密文encodeURIComponent；</p>
-<p>代码如下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">encryption</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> strs=[];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i <span class="keyword">in</span> data)&#123;</span><br><span class="line">        strs.push(i+<span class="string">'='</span>+data[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    strs.sort();  <span class="comment">// 数组排序</span></span><br><span class="line">    strs=strs.join(<span class="string">'&amp;'</span>); <span class="comment">// 数组变字符串</span></span><br><span class="line">    <span class="keyword">let</span> endData=strs+<span class="string">'&amp;sign='</span>+CryptoJS.MD5(strs+<span class="string">'ADfj3kcadc2349akvm1CPFFCD84f'</span>).toString(); <span class="comment">// MD5加密</span></span><br><span class="line">    <span class="keyword">let</span> key = CryptoJS.enc.Utf8.parse(<span class="string">"0880076B18D7EE81"</span>); <span class="comment">// 加密秘钥</span></span><br><span class="line">    <span class="keyword">let</span> iv = CryptoJS.enc.Utf8.parse(<span class="string">"CB3EC842D7C69578"</span>);  <span class="comment">//  矢量</span></span><br><span class="line">    <span class="keyword">let</span> encryptResult = CryptoJS.AES.encrypt(endData,key, &#123;   <span class="comment">//  AES加密</span></span><br><span class="line">        iv: iv,</span><br><span class="line">        mode: CryptoJS.mode.CBC,</span><br><span class="line">        padding: CryptoJS.pad.Pkcs7  <span class="comment">// 后台用的是pad.Pkcs5,前台对应为Pkcs7</span></span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">encodeURIComponent</span>(CryptoJS.enc.Base64.stringify(encryptResult.ciphertext));  <span class="comment">// Base64加密encode;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>加密最终的密文拼接在接口地址后面，请求接口。后台返回的数据也是密文；解密方法如下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">decryption</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> key = CryptoJS.enc.Utf8.parse(<span class="string">"0880076B18D7EE81"</span>);  <span class="comment">// 加密秘钥</span></span><br><span class="line">    <span class="keyword">let</span> iv = CryptoJS.enc.Utf8.parse(<span class="string">"CB3EC842D7C69578"</span>);   <span class="comment">//  矢量</span></span><br><span class="line">    <span class="keyword">let</span> baseResult=CryptoJS.enc.Base64.parse(data);   <span class="comment">// Base64解密</span></span><br><span class="line">    <span class="keyword">let</span> ciphertext=CryptoJS.enc.Base64.stringify(baseResult);     <span class="comment">// Base64解密</span></span><br><span class="line">    <span class="keyword">let</span> decryptResult = CryptoJS.AES.decrypt(ciphertext,key, &#123;    <span class="comment">//  AES解密</span></span><br><span class="line">        iv: iv,</span><br><span class="line">        mode: CryptoJS.mode.CBC,</span><br><span class="line">        padding: CryptoJS.pad.Pkcs7</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">let</span> resData=decryptResult.toString(CryptoJS.enc.Utf8).toString();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">JSON</span>.parse(resData);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>备注：因为后台返回的数据是json格式；所以做种return的时候使用JSON.parse();如果解密的目标为字符串，比如说需要解密的是一个加密的token值。那就要做相应的改动：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">decryption</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> key = CryptoJS.enc.Utf8.parse(<span class="string">"0880076B18D7EE81"</span>);  <span class="comment">// 加密秘钥</span></span><br><span class="line">    <span class="keyword">let</span> iv = CryptoJS.enc.Utf8.parse(<span class="string">"CB3EC842D7C69578"</span>);   <span class="comment">//  矢量</span></span><br><span class="line">    <span class="keyword">let</span> baseResult=CryptoJS.enc.Base64.parse(data);   <span class="comment">// Base64解密</span></span><br><span class="line">    <span class="keyword">let</span> ciphertext=CryptoJS.enc.Base64.stringify(baseResult);     <span class="comment">// Base64解密</span></span><br><span class="line">    <span class="keyword">let</span> decryptResult = CryptoJS.AES.decrypt(ciphertext,key, &#123;    <span class="comment">//  AES解密</span></span><br><span class="line">        iv: iv,</span><br><span class="line">        mode: CryptoJS.mode.CBC,</span><br><span class="line">        padding: CryptoJS.pad.Pkcs7</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> CryptoJS.enc.Utf8.stringify(decryptResult);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>redux 的核心概念很简单：将需要修改的 state 都储存在 store 里，发起一个 action 用来描述发生了什么，用 reducers 描述 action 如何改变 state tree，创建 store 的时候需要传入 reducer，真正能改变 store 中数据的是 API store.dispatch。<br>纯粹使用 redux 时，我们需要 dispatch 的是一个 action 对象。当我们使用 redux-thunk 后，我们 dispatch 的是一个 function，redux-thunk 中间件会自动调用这个 function，并且传递 dispatch 方法作为其第一个参数，于是我们就能在这个 function 内根据我们的请求状态：开始，请求中，请求成功／失败，dispatch 我们期望的任何 action 了，这也是为什么它能支持异步 dispatch action，自然的请求的逻辑就需要放到这里面调用了。换言之，redux-thunk 改写了 dispatch API，使其具备接受一个函数作为参数的能力，从而达到 middleware 的效果，即在 redux 的 dispatch action =&gt; reducer =&gt; store 这个流程中，在 action 被发起之后，到达 reducer 之前的扩展点，加入相关操作，比如发生请求、log信息等。一句话：redux-thunk 就是对 store.dispatch() 的增强。</p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>以动态收藏功能为例:<br><strong>纯粹使用 redux：</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// action.js</span></span><br><span class="line"><span class="keyword">const</span> addFavor = <span class="function">(<span class="params">id</span>) =&gt;</span> (&#123;</span><br><span class="line">  type: <span class="string">'FAVOR'</span>,</span><br><span class="line">  id:id</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// component</span></span><br><span class="line">fetchFavor(&#123;<span class="attr">id</span>: id&#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123; dispatch(addFavor(id)) &#125;)</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，我们在请求以后的回调函数中 dispatch action 去同步 redux store 中的状态。</p>
+<p><strong>使用 redux-thunk：</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// store.js</span></span><br><span class="line"><span class="keyword">import</span> &#123;createStore, combineReducers, applyMiddleware&#125; <span class="keyword">from</span> <span class="string">'redux'</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> reducers <span class="keyword">from</span> <span class="string">'./reducers'</span>;</span><br><span class="line"><span class="keyword">import</span> thunk <span class="keyword">from</span> <span class="string">'redux-thunk'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> store = createStore(</span><br><span class="line">	combineReducers(reducers),</span><br><span class="line">	applyMiddleware(thunk)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store;</span><br><span class="line"></span><br><span class="line"><span class="comment">// action.js</span></span><br><span class="line"><span class="keyword">const</span> addFavor = <span class="function">(<span class="params">id</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">dispatch, getState</span>) </span>&#123;</span><br><span class="line">    reqFavor(&#123;<span class="attr">id</span>: id&#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123; </span><br><span class="line">      dispatch(&#123;</span><br><span class="line">        type: <span class="string">"FAVOR"</span>,</span><br><span class="line">        id:id</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// component</span></span><br><span class="line">dispatch(addFavor(id))</span><br></pre></td></tr></table></figure></p>
+<p>改变以后，从功能层面上来说，两者并无差别，都可以满足业务场景需求。但除此之外我们可以发现:<br><strong>一：</strong>dispatch 接受的参数由一个 PlainObject 变为一个函数<br><strong>二：</strong>我们把请求的异步操作从 dispatch action 这个 redux 流程外塞到的流程里，这看起来将异步操作内聚到这个流程中，无论是从逻辑上理解（这很 middleware！）还是项目代码开发维护（区分异步与同步状态管理流程进行维护管理）上都是很大的改进<br><strong>三：</strong>如果项目中有多处需要实现收藏功能，我们可以节省很多冗余代码，不用到处在 dispatch 外层套上 reqLike(id).then。。。</p>
+<p>直接将 thunk 中间件引入，作为 applyMiddleware 参数，然后传入 createStore 方法，就完成了 store.dispatch() 的功能增强，这样就可以进行一些异步的操作了。其中 applyMiddleware 是 Redux 的一个原生方法，将所有中间件组成一个数组，依次执行，中间件多了可以当做参数依次传进去。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> store = createStore(</span><br><span class="line">    reducers, </span><br><span class="line">    applyMiddleware(thunk, logger)</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<h3 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h3><p>了解了 redux-thunk 的基本概念以及应用后，我们一起看看源码加深下理解，源码十分精巧。在了解 redux-thunk 源码之前，我们很有必要先看看 redux 源码中 applyMiddleware 的部分：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">applyMiddleware</span>(<span class="params">...middlewares</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="params">createStore</span> =&gt;</span> (...args) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> store = createStore(...args)</span><br><span class="line">    <span class="keyword">let</span> dispatch = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(</span><br><span class="line">        <span class="string">`Dispatching while constructing your middleware is not allowed. `</span> +</span><br><span class="line">          <span class="string">`Other middleware would not be applied to this dispatch.`</span></span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> middlewareAPI = &#123;</span><br><span class="line">      getState: store.getState,</span><br><span class="line">      dispatch: <span class="function">(<span class="params">...args</span>) =&gt;</span> dispatch(...args)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> chain = middlewares.map(<span class="function"><span class="params">middleware</span> =&gt;</span> middleware(middlewareAPI))</span><br><span class="line">    dispatch = compose(...chain)(store.dispatch)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      ...store,</span><br><span class="line">      dispatch</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们将 thunk 作为参数传入之后，直接返回了一个函数，这个函数作为 enhancer 传入 redux 源码中的 createStore 函数中：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">createStore</span>(<span class="params">reducer, preloadedState, enhancer</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> preloadedState === <span class="string">'function'</span> &amp;&amp; <span class="keyword">typeof</span> enhancer === <span class="string">'undefined'</span>) &#123;</span><br><span class="line">    enhancer = preloadedState</span><br><span class="line">    preloadedState = <span class="literal">undefined</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> enhancer !== <span class="string">'undefined'</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> enhancer !== <span class="string">'function'</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Expected the enhancer to be a function.'</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> enhancer(createStore)(reducer, preloadedState)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在 redux 源码中的 createStore 函数中，enhancer 被执行，传入参数 createStore，又紧接着执行其返回的函数，传入 reducer 和 preloadedState。接下来，我们进入 applyMiddleware 和 thunk 的关键部分，上面 applyMiddleware 接受的最初的 (…middlewares) 参数其实就是 thunk，thunk 会被执行，并且传入参数 getState 和 dispatch：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//传入到 thunk 的参数</span></span><br><span class="line"><span class="keyword">const</span> middlewareAPI = &#123;</span><br><span class="line">  getState: store.getState,</span><br><span class="line">  dispatch: <span class="function">(<span class="params">action</span>) =&gt;</span> dispatch(action)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//在 map 中执行 thunk</span></span><br><span class="line">chain = middlewares.map(<span class="function"><span class="params">middleware</span> =&gt;</span> middleware(middlewareAPI))</span><br><span class="line"><span class="comment">//重新改写 dispatch</span></span><br><span class="line">dispatch = compose(...chain)(store.dispatch)</span><br></pre></td></tr></table></figure></p>
+<p>那么上面的chain是什么呢，我们现在就可以去看 redux-thunk 的源码了：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createThunkMiddleware</span>(<span class="params">extraArgument</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">&#123; dispatch, getState &#125;</span>) =&gt;</span> next =&gt; <span class="function"><span class="params">action</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> action === <span class="string">'function'</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> action(dispatch, getState, extraArgument);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> next(action);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> thunk = createThunkMiddleware();</span><br><span class="line">thunk.withExtraArgument = createThunkMiddleware;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> thunk;</span><br></pre></td></tr></table></figure></p>
+<p>redux-thunk 中间件 export default 的就是 createThunkMiddleware() 过的 thunk，再看 createThunkMiddleware 这个函数，返回的是一个柯里化过的函数。我们将上述代码编译成ES5的代码看一看：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createThunkMiddleware</span>(<span class="params">extraArgument</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">&#123; dispatch, getState &#125;</span>) </span>&#123;</span><br><span class="line">      <span class="comment">// 这里返回的函数就是chain</span></span><br><span class="line">      <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">next</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 这里返回的函数就是改写的dispatch</span></span><br><span class="line">        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">action</span>) </span>&#123;</span><br><span class="line">          <span class="keyword">if</span> (<span class="keyword">typeof</span> action === <span class="string">'function'</span>) &#123;</span><br><span class="line">              <span class="keyword">return</span> action(dispatch, getState, extraArgument);</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          <span class="keyword">return</span> next(action);</span><br><span class="line">        &#125;;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>从源码我们可以看出，chain 就是以 next 作为形参的匿名函数，至于 compose 只是不断传递每个函数的返回值给下一个执行函数，然后依次去执行它所有传入的函数而已，它源码中的注释说的很清楚：<code>For example, compose(f, g, h) is identical to doing (...args) =&gt; f(g(h(...args)))</code>。<br>我们这里的 chain 只是一个函数而已，所以很简单，就是执行 chain，并且传入 store.dispatch 作为 next 就行。</p>
+<p>接下来，进入最后一步，改写了 dispatch，最终变为:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> (<span class="params">action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> action === <span class="string">'function'</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> action(dispatch, getState, extraArgument);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// next为之前传入的store.dispatch,即改写前的dispatch</span></span><br><span class="line">  <span class="keyword">return</span> next(action);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>如果传入的参数是函数，则执行函数，否则还是跟之前一样 dispatch(PlainObject)。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>redux-thunk 实现了相关异步流程内聚到 redux 的流程中，实现 middleware 的功能，也便于项目的开发与维护，避免冗余代码。而实现的方式便是改写 redux 中的 dispatch API，使其可以除 PlainObject 外，接受一个函数作为参数。</p>
 
       
     </div>
@@ -621,7 +613,7 @@
     <strong>本文作者： </strong>Weich</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://sosout.com/2018/08/11/cryptojs-tutorial.html" title="前端加密JS库--CryptoJS 使用指南">http://sosout.com/2018/08/11/cryptojs-tutorial.html</a>
+    <a href="http://sosout.com/2018/09/09/redux-thunk-source-analysis.html" title="redux-thunk 源码全方位剖析">http://sosout.com/2018/09/09/redux-thunk-source-analysis.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -634,7 +626,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/cryptojs/" rel="tag"># cryptojs</a>
+            <a href="/tags/middleware/" rel="tag"># middleware</a>
           
         </div>
       
@@ -647,8 +639,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/11/macos-tutorial.html" rel="next" title="Mac OS系统使用指南">
-                <i class="fa fa-chevron-left"></i> Mac OS系统使用指南
+              <a href="/2018/09/05/cryptojs-tutorial.html" rel="next" title="前端加密JS库--CryptoJS 使用指南">
+                <i class="fa fa-chevron-left"></i> 前端加密JS库--CryptoJS 使用指南
               </a>
             
           </div>
@@ -656,10 +648,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/12/react-source-analysis.html" rel="prev" title="React 源码全方位剖析">
-                React 源码全方位剖析 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -729,7 +717,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-count">42</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -786,9 +774,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -875,7 +861,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">37</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">39</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -951,7 +941,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Base64-编码"><span class="nav-number">1.</span> <span class="nav-text">Base64 编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AES-加密"><span class="nav-number">2.</span> <span class="nav-text">AES 加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前后端数据通信参数加密"><span class="nav-number">3.</span> <span class="nav-text">前后端数据通信参数加密</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例"><span class="nav-number">2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源码"><span class="nav-number">3.</span> <span class="nav-text">源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -985,7 +975,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">177k</span>
+    <span title="站点总字数">232k</span>
   
 
   
@@ -996,7 +986,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">2:41</span>
+    <span title="站点阅读时长">3:31</span>
   
 </div>
 

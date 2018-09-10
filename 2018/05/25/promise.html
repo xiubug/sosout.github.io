@@ -141,18 +141,18 @@
 
 
 
-  <meta name="description" content="今天团队内部一起回顾之前项目时，发现两个记忆中相同配置的项目，但其中一个项目可以直接用这样的代码注册组件：1Vue.component(&apos;Menu&apos;, require(&quot;./components/common/Menu.vue&quot;)); 然而另外一个项目却需要这样注册组件：1Vue.component(&apos;Menu&apos;, require(&quot;./components/common/Menu.vue&quot;).d">
-<meta name="keywords" content="require">
+  <meta name="description" content="Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理和更强大。它由社区最早提出和实现，ES6 将其写进了语言标准，统一了用法，原生提供了Promise对象。 所谓Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。Promise 提供统一的 API，各">
+<meta name="keywords" content="promise">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vue 组件注册时什么情况在require后面加上default">
-<meta property="og:url" content="http://sosout.com/2018/08/20/vue-require-component-way.html">
+<meta property="og:title" content="promise">
+<meta property="og:url" content="http://sosout.com/2018/05/25/promise.html">
 <meta property="og:site_name" content="每天一探">
-<meta property="og:description" content="今天团队内部一起回顾之前项目时，发现两个记忆中相同配置的项目，但其中一个项目可以直接用这样的代码注册组件：1Vue.component(&apos;Menu&apos;, require(&quot;./components/common/Menu.vue&quot;)); 然而另外一个项目却需要这样注册组件：1Vue.component(&apos;Menu&apos;, require(&quot;./components/common/Menu.vue&quot;).d">
+<meta property="og:description" content="Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理和更强大。它由社区最早提出和实现，ES6 将其写进了语言标准，统一了用法，原生提供了Promise对象。 所谓Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。Promise 提供统一的 API，各">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-20T14:55:48.315Z">
+<meta property="og:updated_time" content="2018-09-10T11:10:37.073Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Vue 组件注册时什么情况在require后面加上default">
-<meta name="twitter:description" content="今天团队内部一起回顾之前项目时，发现两个记忆中相同配置的项目，但其中一个项目可以直接用这样的代码注册组件：1Vue.component(&apos;Menu&apos;, require(&quot;./components/common/Menu.vue&quot;)); 然而另外一个项目却需要这样注册组件：1Vue.component(&apos;Menu&apos;, require(&quot;./components/common/Menu.vue&quot;).d">
+<meta name="twitter:title" content="promise">
+<meta name="twitter:description" content="Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理和更强大。它由社区最早提出和实现，ES6 将其写进了语言标准，统一了用法，原生提供了Promise对象。 所谓Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。Promise 提供统一的 API，各">
 
 
 
@@ -161,7 +161,7 @@
 
 
 
-  <link rel="canonical" href="http://sosout.com/2018/08/20/vue-require-component-way.html"/>
+  <link rel="canonical" href="http://sosout.com/2018/05/25/promise.html"/>
 
 
 
@@ -171,7 +171,7 @@
   };
 </script>
 
-  <title>Vue 组件注册时什么情况在require后面加上default | 每天一探</title>
+  <title>promise | 每天一探</title>
   
 
 
@@ -410,7 +410,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://sosout.com/2018/08/20/vue-require-component-way.html">
+    <link itemprop="mainEntityOfPage" href="http://sosout.com/2018/05/25/promise.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Weich">
@@ -427,7 +427,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Vue 组件注册时什么情况在require后面加上default
+          <h2 class="post-title" itemprop="name headline">promise
               
             
           </h2>
@@ -453,7 +453,7 @@
                 
               
 
-              <time title="创建时间：2018-08-20 22:20:51" itemprop="dateCreated datePublished" datetime="2018-08-20T22:20:51+08:00">2018-08-20</time>
+              <time title="创建时间：2018-05-25 23:32:08" itemprop="dateCreated datePublished" datetime="2018-05-25T23:32:08+08:00">2018-05-25</time>
             
 
             
@@ -471,7 +471,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/nodejs/" itemprop="url" rel="index"><span itemprop="name">nodejs</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/es6/" itemprop="url" rel="index"><span itemprop="name">es6</span></a></span>
 
                 
                 
@@ -485,7 +485,7 @@
 
           
           
-             <span id="/2018/08/20/vue-require-component-way.html" class="leancloud_visitors" data-flag-title="Vue 组件注册时什么情况在require后面加上default">
+             <span id="/2018/05/25/promise.html" class="leancloud_visitors" data-flag-title="promise">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -510,7 +510,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">667</span>
+                <span title="本文字数">220</span>
               
 
               
@@ -544,11 +544,8 @@
       
 
       
-        <p>今天团队内部一起回顾之前项目时，发现两个记忆中相同配置的项目，但其中一个项目可以直接用这样的代码注册组件：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'Menu'</span>, <span class="built_in">require</span>(<span class="string">"./components/common/Menu.vue"</span>));</span><br></pre></td></tr></table></figure></p>
-<p>然而另外一个项目却需要这样注册组件：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'Menu'</span>, <span class="built_in">require</span>(<span class="string">"./components/common/Menu.vue"</span>).default);</span><br></pre></td></tr></table></figure></p>
-<p>否则的话就会报错:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Failed to mount component: template or render function not defined</span><br></pre></td></tr></table></figure></p>
-<p><strong>这到底是怎么回事？</strong></p>
-<p>首先 webpack 支持 CommonJS、AMD 和 ES6模块打包。当我们用 .vue 单文件写组件时，在 script 标签内使用的是 ES6 的语法且使用 export default 进行默认导出。然而，require 是 CommonJS 的模块导入方式，不支持模块的默认导出，因此导入的结果其实是一个含 default 属性的对象，因此需要使用 .default 来获取实际的组件，当然我们也可以使用 ES6 的 import 语句，如果使用 import，需要给定一个变量名，所有 import 语句必须统一放在模块的开头。相反，如果 .vue 文件中使用 CommonJS 或 AMD 模块化语法，使用 module.exports 对象进行导出，那么使用 require 导入时就不需要使用 .default 来获取。</p>
+        <p>Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理和更强大。它由社区最早提出和实现，ES6 将其写进了语言标准，统一了用法，原生提供了Promise对象。</p>
+<p>所谓Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。Promise 提供统一的 API，各种异步操作都可以用同样的方法进行处理。</p>
 
       
     </div>
@@ -603,7 +600,7 @@
     <strong>本文作者： </strong>Weich</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://sosout.com/2018/08/20/vue-require-component-way.html" title="Vue 组件注册时什么情况在require后面加上default">http://sosout.com/2018/08/20/vue-require-component-way.html</a>
+    <a href="http://sosout.com/2018/05/25/promise.html" title="promise">http://sosout.com/2018/05/25/promise.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -616,7 +613,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/require/" rel="tag"># require</a>
+            <a href="/tags/promise/" rel="tag"># promise</a>
           
         </div>
       
@@ -629,8 +626,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/16/let-for-together-used.html" rel="next" title="由 let 和 for 引起的血案">
-                <i class="fa fa-chevron-left"></i> 由 let 和 for 引起的血案
+              <a href="/2018/05/20/vue-require-component-way.html" rel="next" title="Vue 组件注册时什么情况在require后面加上default">
+                <i class="fa fa-chevron-left"></i> Vue 组件注册时什么情况在require后面加上default
               </a>
             
           </div>
@@ -638,6 +635,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/01/awesome-software-development-resources.html" rel="prev" title="每天两分钟，了解一个流行 NPM 库">
+                每天两分钟，了解一个流行 NPM 库 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -698,7 +699,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-count">42</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -755,9 +756,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -844,7 +843,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">37</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">39</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -938,7 +941,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">177k</span>
+    <span title="站点总字数">232k</span>
   
 
   
@@ -949,7 +952,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">2:41</span>
+    <span title="站点阅读时长">3:31</span>
   
 </div>
 
