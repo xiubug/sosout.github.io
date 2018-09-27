@@ -149,16 +149,16 @@
 <meta property="og:site_name" content="每天一探">
 <meta property="og:description" content="作为一个码农，bug 就像家常便饭一样。有了 bug 就需要修复，在 git 中，由于分支是如此的强大，所以，每个 bug 都可以通过一个新的临时分支来修复，修复后，合并分支，然后将临时分支删除。今天我们就来聊聊如何使用git修复线上指定版本的问题？第一步：查看远程分支，并确定要修复的分支，如图，远程分支为origin/V1.2.0. 如果没有远程分支或不清楚是哪个分支，那我相信在您每开发完一个版">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://sosout.com/2018/08/05/git-assign-version-fix/img1.png">
-<meta property="og:image" content="http://sosout.com/2018/08/05/git-assign-version-fix/img2.png">
-<meta property="og:image" content="http://sosout.com/2018/08/05/git-assign-version-fix/img3.png">
-<meta property="og:image" content="http://sosout.com/2018/08/05/git-assign-version-fix/img4.png">
-<meta property="og:image" content="http://sosout.com/2018/08/05/git-assign-version-fix/img5.png">
-<meta property="og:updated_time" content="2018-08-24T10:57:06.043Z">
+<meta property="og:image" content="http://sosout.com/images/git-assign-version-fix/img1.png">
+<meta property="og:image" content="http://sosout.com/images/git-assign-version-fix/img2.png">
+<meta property="og:image" content="http://sosout.com/images/git-assign-version-fix/img3.png">
+<meta property="og:image" content="http://sosout.com/images/git-assign-version-fix/img4.png">
+<meta property="og:image" content="http://sosout.com/images/git-assign-version-fix/img5.png">
+<meta property="og:updated_time" content="2018-09-25T11:39:02.756Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用git修复线上指定版本的问题">
 <meta name="twitter:description" content="作为一个码农，bug 就像家常便饭一样。有了 bug 就需要修复，在 git 中，由于分支是如此的强大，所以，每个 bug 都可以通过一个新的临时分支来修复，修复后，合并分支，然后将临时分支删除。今天我们就来聊聊如何使用git修复线上指定版本的问题？第一步：查看远程分支，并确定要修复的分支，如图，远程分支为origin/V1.2.0. 如果没有远程分支或不清楚是哪个分支，那我相信在您每开发完一个版">
-<meta name="twitter:image" content="http://sosout.com/2018/08/05/git-assign-version-fix/img1.png">
+<meta name="twitter:image" content="http://sosout.com/images/git-assign-version-fix/img1.png">
 
 
 
@@ -550,12 +550,12 @@
       
 
       
-        <p>作为一个码农，bug 就像家常便饭一样。有了 bug 就需要修复，在 git 中，由于分支是如此的强大，所以，每个 bug 都可以通过一个新的临时分支来修复，修复后，合并分支，然后将临时分支删除。<br>今天我们就来聊聊如何使用<strong>git修复线上指定版本的问题</strong>？<br><strong>第一步：查看远程分支，并确定要修复的分支，如图，远程分支为origin/V1.2.0.</strong><br><img src="git-assign-version-fix/img1.png" alt="img1.png"></p>
-<p>如果没有远程分支或不清楚是哪个分支，那我相信在您每开发完一个版本发布生产时都会打包一个标签，就比如我们团队用的 gitlab 管理的项目：<br><img src="git-assign-version-fix/img2.png" alt="img2.png"></p>
+        <p>作为一个码农，bug 就像家常便饭一样。有了 bug 就需要修复，在 git 中，由于分支是如此的强大，所以，每个 bug 都可以通过一个新的临时分支来修复，修复后，合并分支，然后将临时分支删除。<br>今天我们就来聊聊如何使用<strong>git修复线上指定版本的问题</strong>？<br><strong>第一步：查看远程分支，并确定要修复的分支，如图，远程分支为origin/V1.2.0.</strong><br><img src="/images/git-assign-version-fix/img1.png" alt="img1.png"></p>
+<p>如果没有远程分支或不清楚是哪个分支，那我相信在您每开发完一个版本发布生产时都会打包一个标签，就比如我们团队用的 gitlab 管理的项目：<br><img src="/images/git-assign-version-fix/img2.png" alt="img2.png"></p>
 <p>这边很清楚的能够看到我们有 3 个远程分支，59 个标签，找到对应的标签生成对应的分支即可。如果您们目前尚未使用 gitlab，那只能用 git 命令了，不懂的伙伴，强烈推荐去看<a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">廖大神git教程</a>。</p>
-<p><strong>第二步：创建本地分支V1.2.0，并拉取远程分支代码，同时切换到本地分支，如图</strong><br><img src="git-assign-version-fix/img3.png" alt="img3.png"></p>
-<p><strong>第三步：开发新代码，比如我这边测试代码空格，如图</strong><br><img src="git-assign-version-fix/img4.png" alt="img4.png"></p>
-<p><strong>第四步：开发完成，正常提交流程：git status、git add -A、git commit -m “修复某某问题”，如图</strong><br><img src="git-assign-version-fix/img5.png" alt="img5.png"></p>
+<p><strong>第二步：创建本地分支V1.2.0，并拉取远程分支代码，同时切换到本地分支，如图</strong><br><img src="/images/git-assign-version-fix/img3.png" alt="img3.png"></p>
+<p><strong>第三步：开发新代码，比如我这边测试代码空格，如图</strong><br><img src="/images/git-assign-version-fix/img4.png" alt="img4.png"></p>
+<p><strong>第四步：开发完成，正常提交流程：git status、git add -A、git commit -m “修复某某问题”，如图</strong><br><img src="/images/git-assign-version-fix/img5.png" alt="img5.png"></p>
 <p><strong>第五步：提交完成，把本地分支推送到远程分支git push origin V1.2.0:V1.2.0</strong></p>
 <p><strong>第六步：切换到开发分支：git checkout dev，然后合并刚才修改的代码：git merge V1.2.0</strong> </p>
 <p><strong>最后：删除新创建的分支：git branch -D V1.2.0</strong> </p>
@@ -586,14 +586,14 @@
 
     
       <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.png" alt="Weich 微信支付"/>
+        <img id="wechat_qr" src="/images/config/wechatpay.png" alt="Weich 微信支付"/>
         <p>微信打赏</p><!-- <p>微信支付</p> -->
       </div>
     
 
     
       <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/images/alipay.png" alt="Weich 支付宝"/>
+        <img id="alipay_qr" src="/images/config/alipay.png" alt="Weich 支付宝"/>
         <p>支付宝打赏</p><!-- <p>支付宝</p> -->
       </div>
     
@@ -712,7 +712,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">42</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -769,7 +769,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -860,7 +866,25 @@
                     
                       
                     
-                    <span class="site-state-item-count">39</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -911,7 +935,11 @@
               <ul class="links-of-blogroll-list">
                 
                   <li class="links-of-blogroll-item">
-                    <a href="http://blog.sosout.com/" title="工作笔记" target="_blank">工作笔记</a>
+                    <a href="http://es6.ruanyifeng.com/" title="ECMAScript 6 入门" target="_blank">ECMAScript 6 入门</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://wangdoc.com/javascript/stdlib/index.html" title="JavaScript 教程" target="_blank">JavaScript 教程</a>
                   </li>
                 
               </ul>
@@ -954,7 +982,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">242k</span>
+    <span title="站点总字数">322k</span>
   
 
   
@@ -965,7 +993,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">3:40</span>
+    <span title="站点阅读时长">4:53</span>
   
 </div>
 

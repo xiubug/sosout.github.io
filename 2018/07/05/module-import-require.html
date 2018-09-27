@@ -149,12 +149,12 @@
 <meta property="og:site_name" content="每天一探">
 <meta property="og:description" content="前言ES6标准发布后，module成为标准，标准的使用是以export指令导出接口，以import引入模块，但是在我们一贯的node模块中，我们采用的是CommonJS规范，使用require引入模块，使用module.exports导出接口，甚至有时候也会常常看到两者互用的场景。只有把这些语法搞清楚才能在未来的标准编程游刃有余。 webpack 模块化webpack 本身维护了一套模块系统，这套">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://sosout.com/2018/07/05/module-import-require/img1.jpeg">
-<meta property="og:updated_time" content="2018-09-07T11:25:30.948Z">
+<meta property="og:image" content="http://sosout.com/images/module-import-require/img1.jpeg">
+<meta property="og:updated_time" content="2018-09-25T11:39:02.763Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深聊import、require、export、module.exports">
 <meta name="twitter:description" content="前言ES6标准发布后，module成为标准，标准的使用是以export指令导出接口，以import引入模块，但是在我们一贯的node模块中，我们采用的是CommonJS规范，使用require引入模块，使用module.exports导出接口，甚至有时候也会常常看到两者互用的场景。只有把这些语法搞清楚才能在未来的标准编程游刃有余。 webpack 模块化webpack 本身维护了一套模块系统，这套">
-<meta name="twitter:image" content="http://sosout.com/2018/07/05/module-import-require/img1.jpeg">
+<meta name="twitter:image" content="http://sosout.com/images/module-import-require/img1.jpeg">
 
 
 
@@ -593,7 +593,7 @@
 <p>在使用<code>require</code>进行引用时，我们也会误以为引入的是a文件的默认输出。结果这里需要改成<code>var foo = require(&#39;./a.js&#39;).default</code>。</p>
 <p>这个场景在写 webpack 代码分割逻辑时经常会遇到。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>.ensure([], (<span class="built_in">require</span>) =&gt; &#123;</span><br><span class="line">   callback(<span class="literal">null</span>, [</span><br><span class="line">     <span class="built_in">require</span>(<span class="string">'./src/pages/profitList'</span>).default,</span><br><span class="line">   ]);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>这是 babel6 的变更，在 babel5 的时候可不是这样的。</p>
-<p><img src="module-import-require/img1.jpeg" alt="img1.jpeg"></p>
+<p><img src="/images/module-import-require/img1.jpeg" alt="img1.jpeg"></p>
 <p>在 babel5 时代，大部分人在用 require 去引用 es6 输出的 default，只是把 default 输出看作是一个模块的默认输出，所以 babel5 对这个逻辑做了 hack，如果一个 es6 模块只有一个 default 输出，那么在转换成 commonjs 的时候也一起赋值给 module.exports，即整个导出对象被赋值了 default 所对应的值。</p>
 <p>这样就不需要加 default，require(‘./a.js’) 的值就是想要的 default值。但这样做是不符合 es6 的定义的，在es6 的定义里，default 只是个名字，没有任何意义。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> = <span class="number">123</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> a = <span class="number">123</span>;</span><br></pre></td></tr></table></figure>
@@ -628,14 +628,14 @@
 
     
       <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.png" alt="Weich 微信支付"/>
+        <img id="wechat_qr" src="/images/config/wechatpay.png" alt="Weich 微信支付"/>
         <p>微信打赏</p><!-- <p>微信支付</p> -->
       </div>
     
 
     
       <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/images/alipay.png" alt="Weich 支付宝"/>
+        <img id="alipay_qr" src="/images/config/alipay.png" alt="Weich 支付宝"/>
         <p>支付宝打赏</p><!-- <p>支付宝</p> -->
       </div>
     
@@ -763,7 +763,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">42</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -820,7 +820,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -911,7 +917,25 @@
                     
                       
                     
-                    <span class="site-state-item-count">39</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -962,7 +986,11 @@
               <ul class="links-of-blogroll-list">
                 
                   <li class="links-of-blogroll-item">
-                    <a href="http://blog.sosout.com/" title="工作笔记" target="_blank">工作笔记</a>
+                    <a href="http://es6.ruanyifeng.com/" title="ECMAScript 6 入门" target="_blank">ECMAScript 6 入门</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://wangdoc.com/javascript/stdlib/index.html" title="JavaScript 教程" target="_blank">JavaScript 教程</a>
                   </li>
                 
               </ul>
@@ -1021,7 +1049,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">242k</span>
+    <span title="站点总字数">322k</span>
   
 
   
@@ -1032,7 +1060,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">3:40</span>
+    <span title="站点阅读时长">4:53</span>
   
 </div>
 

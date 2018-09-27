@@ -149,14 +149,14 @@
 <meta property="og:site_name" content="每天一探">
 <meta property="og:description" content="概述JavaScript中，相等运算符（==）是一个很让人头痛的运算符，它的语法行为多变，不符合直觉。比如下面这个表达式，它的值是什么？想知道答案或语言内部怎么处理，我们可以去查看规格。规格对每一种语法行为的描述，都分成两部分：先是总体的行为描述，然后是实现的算法细节。相等运算符的总体的行为描述：相等运算符用于比较两个值，返回true或false。 抽象比较算法 在执行抽象相等比较算法的过程中，会">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://sosout.com/2018/07/26/javascript-equality-operator/img1.png">
-<meta property="og:image" content="http://sosout.com/2018/07/26/javascript-equality-operator/img2.png">
-<meta property="og:image" content="http://sosout.com/2018/07/26/javascript-equality-operator/img3.png">
-<meta property="og:updated_time" content="2018-08-26T15:11:46.398Z">
+<meta property="og:image" content="http://sosout.com/images/javascript-equality-operator/img1.png">
+<meta property="og:image" content="http://sosout.com/images/javascript-equality-operator/img2.png">
+<meta property="og:image" content="http://sosout.com/images/javascript-equality-operator/img3.png">
+<meta property="og:updated_time" content="2018-09-25T11:39:02.758Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javascript 相等运算符">
 <meta name="twitter:description" content="概述JavaScript中，相等运算符（==）是一个很让人头痛的运算符，它的语法行为多变，不符合直觉。比如下面这个表达式，它的值是什么？想知道答案或语言内部怎么处理，我们可以去查看规格。规格对每一种语法行为的描述，都分成两部分：先是总体的行为描述，然后是实现的算法细节。相等运算符的总体的行为描述：相等运算符用于比较两个值，返回true或false。 抽象比较算法 在执行抽象相等比较算法的过程中，会">
-<meta name="twitter:image" content="http://sosout.com/2018/07/26/javascript-equality-operator/img1.png">
+<meta name="twitter:image" content="http://sosout.com/images/javascript-equality-operator/img1.png">
 
 
 
@@ -549,11 +549,11 @@
 
       
         <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>JavaScript中，相等运算符（==）是一个很让人头痛的运算符，它的语法行为多变，不符合直觉。比如下面这个表达式，它的值是什么？想知道答案或语言内部怎么处理，我们可以去查看规格。规格对每一种语法行为的描述，都分成两部分：先是总体的行为描述，然后是实现的算法细节。相等运算符的总体的行为描述：相等运算符用于比较两个值，返回true或false。</p>
-<h2 id="抽象比较算法"><a href="#抽象比较算法" class="headerlink" title="抽象比较算法"></a>抽象比较算法</h2><p><img src="javascript-equality-operator/img1.png" alt="img1.png"></p>
+<h2 id="抽象比较算法"><a href="#抽象比较算法" class="headerlink" title="抽象比较算法"></a>抽象比较算法</h2><p><img src="/images/javascript-equality-operator/img1.png" alt="img1.png"></p>
 <p>在执行抽象相等比较算法的过程中，会发现会将xy操作数进行隐式类型转化的，这也是==运算符副作用的体现。</p>
-<h3 id="ToPrimitive"><a href="#ToPrimitive" class="headerlink" title="ToPrimitive()"></a>ToPrimitive()</h3><p><img src="javascript-equality-operator/img2.png" alt="img2.png"></p>
+<h3 id="ToPrimitive"><a href="#ToPrimitive" class="headerlink" title="ToPrimitive()"></a>ToPrimitive()</h3><p><img src="/images/javascript-equality-operator/img2.png" alt="img2.png"></p>
 <p>toPrimitive方法的目的就是将输入的参数转化成非对象类型。</p>
-<h3 id="DefaultValue"><a href="#DefaultValue" class="headerlink" title="DefaultValue()"></a>DefaultValue()</h3><p><img src="javascript-equality-operator/img3.png" alt="img3.png"></p>
+<h3 id="DefaultValue"><a href="#DefaultValue" class="headerlink" title="DefaultValue()"></a>DefaultValue()</h3><p><img src="/images/javascript-equality-operator/img3.png" alt="img3.png"></p>
 <p>由于0的类型是数值，null的类型是 Null（这是规格4.3.13 小节的规定，是内部 Type 运算的结果，跟typeof运算符无关）。因此上面的前 11 步都得不到结果，要到第 12 步才能得到false。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span> == <span class="literal">null</span> <span class="comment">// 输出结果：false  解析：0 数值 null 对象  返回 false</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="false"><a href="#false" class="headerlink" title="[] == false"></a>[] == false</h2><p><strong>正确输出结果：</strong>true</p>
 <p>当js引擎解析到[] == false 的时候，会解析执行左右表达式，并分别取出执行结果的值，上述分别为数组对象和false。然后将数组设置为x，false设置为y按抽象比较算法执行。在执行抽象相等比较算法的过程中，会发现会将xy操作数进行隐式类型转化的，这也是==运算符副作用的体现。</p>
@@ -590,14 +590,14 @@
 
     
       <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.png" alt="Weich 微信支付"/>
+        <img id="wechat_qr" src="/images/config/wechatpay.png" alt="Weich 微信支付"/>
         <p>微信打赏</p><!-- <p>微信支付</p> -->
       </div>
     
 
     
       <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/images/alipay.png" alt="Weich 支付宝"/>
+        <img id="alipay_qr" src="/images/config/alipay.png" alt="Weich 支付宝"/>
         <p>支付宝打赏</p><!-- <p>支付宝</p> -->
       </div>
     
@@ -725,7 +725,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">42</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -782,7 +782,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -873,7 +879,25 @@
                     
                       
                     
-                    <span class="site-state-item-count">39</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -924,7 +948,11 @@
               <ul class="links-of-blogroll-list">
                 
                   <li class="links-of-blogroll-item">
-                    <a href="http://blog.sosout.com/" title="工作笔记" target="_blank">工作笔记</a>
+                    <a href="http://es6.ruanyifeng.com/" title="ECMAScript 6 入门" target="_blank">ECMAScript 6 入门</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://wangdoc.com/javascript/stdlib/index.html" title="JavaScript 教程" target="_blank">JavaScript 教程</a>
                   </li>
                 
               </ul>
@@ -983,7 +1011,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">242k</span>
+    <span title="站点总字数">322k</span>
   
 
   
@@ -994,7 +1022,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">3:40</span>
+    <span title="站点阅读时长">4:53</span>
   
 </div>
 
