@@ -5,7 +5,7 @@
     
   <url>
     <loc>http://sosout.com/2018/08/12/react-source-analysis.html</loc>
-    <lastmod>2018-09-28T15:57:22.232Z</lastmod>
+    <lastmod>2018-09-29T15:48:33.625Z</lastmod>
     <data>
         <display>
         <title>React 源码全方位剖析</title>
@@ -226,6 +226,26 @@
 
     
   <url>
+    <loc>http://sosout.com/2018/08/11/macos-tutorial.html</loc>
+    <lastmod>2018-09-25T11:39:02.762Z</lastmod>
+    <data>
+        <display>
+        <title>Mac OS系统使用指南</title>
+        <pubTime>2018-08-10T23:25:20.000Z</pubTime>
+        
+        <tag>mac</tag>
+         
+         
+           
+             
+              <breadCrumb title="mac" url="http://sosout.com/categories/mac/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://sosout.com/2018/08/03/linux-nginx-ssr-deploy.html</loc>
     <lastmod>2018-09-25T11:39:02.762Z</lastmod>
     <data>
@@ -243,26 +263,6 @@
            
              
               <breadCrumb title="nginx" url="http://sosout.com/categories/nginx/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://sosout.com/2018/08/11/macos-tutorial.html</loc>
-    <lastmod>2018-09-25T11:39:02.762Z</lastmod>
-    <data>
-        <display>
-        <title>Mac OS系统使用指南</title>
-        <pubTime>2018-08-10T23:25:20.000Z</pubTime>
-        
-        <tag>mac</tag>
-         
-         
-           
-             
-              <breadCrumb title="mac" url="http://sosout.com/categories/mac/"/>
           
         </display>
     </data>
@@ -310,14 +310,14 @@
 
     
   <url>
-    <loc>http://sosout.com/2018/07/24/javascript-function.html</loc>
+    <loc>http://sosout.com/2018/07/26/javascript-equality-operator.html</loc>
     <lastmod>2018-09-25T11:39:02.758Z</lastmod>
     <data>
         <display>
-        <title>javascript 函数</title>
-        <pubTime>2018-07-24T13:02:47.000Z</pubTime>
+        <title>javascript 相等运算符</title>
+        <pubTime>2018-07-26T14:50:45.000Z</pubTime>
         
-        <tag>function</tag>
+        <tag>equality</tag>
          
          
            
@@ -330,14 +330,14 @@
 
     
   <url>
-    <loc>http://sosout.com/2018/07/26/javascript-equality-operator.html</loc>
+    <loc>http://sosout.com/2018/07/24/javascript-function.html</loc>
     <lastmod>2018-09-25T11:39:02.758Z</lastmod>
     <data>
         <display>
-        <title>javascript 相等运算符</title>
-        <pubTime>2018-07-26T14:50:45.000Z</pubTime>
+        <title>javascript 函数</title>
+        <pubTime>2018-07-24T13:02:47.000Z</pubTime>
         
-        <tag>equality</tag>
+        <tag>function</tag>
          
          
            
@@ -570,26 +570,6 @@
 
     
   <url>
-    <loc>http://sosout.com/2018/05/20/vue-require-component-way.html</loc>
-    <lastmod>2018-09-10T11:10:37.077Z</lastmod>
-    <data>
-        <display>
-        <title>Vue 组件注册时什么情况在require后面加上default</title>
-        <pubTime>2018-05-20T14:20:51.000Z</pubTime>
-        
-        <tag>component</tag>
-         
-         
-           
-             
-              <breadCrumb title="vue" url="http://sosout.com/categories/vue/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://sosout.com/2018/09/09/redux-thunk-source-analysis.html</loc>
     <lastmod>2018-09-10T11:10:37.077Z</lastmod>
     <data>
@@ -603,6 +583,26 @@
            
              
               <breadCrumb title="redux" url="http://sosout.com/categories/redux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://sosout.com/2018/05/20/vue-require-component-way.html</loc>
+    <lastmod>2018-09-10T11:10:37.077Z</lastmod>
+    <data>
+        <display>
+        <title>Vue 组件注册时什么情况在require后面加上default</title>
+        <pubTime>2018-05-20T14:20:51.000Z</pubTime>
+        
+        <tag>component</tag>
+         
+         
+           
+             
+              <breadCrumb title="vue" url="http://sosout.com/categories/vue/"/>
           
         </display>
     </data>
