@@ -141,18 +141,18 @@
 
 
 
-  <meta name="description" content="使用指南require.contextrequire.context：创建自己的（模块）上下文，这个方法有 3 个参数：要搜索的文件夹目录，是否还应该搜索它的子目录，以及一个匹配文件的正则表达式。1require.context(directory, useSubdirectories = false, regExp = /^\.\//) 1234567891011121314151617/***">
-<meta name="keywords" content="webpack">
+  <meta name="description" content="位运算是直接对二进制位进行计算，它直接处理每一个比特位，是非常底层的运算，好处是速度极快，缺点是很不直观，许多场合不能够使用。位运算只对整数起作用，如果一个运算数不是整数，会自动转为整数后再运行。在JavaScript内部，数值都是以64位浮点数的形式储存，但是做位运算的时候，是以32位带符号的整数进行运算的，并且返回值也是一个32位带符号的整数。     运算符 用法 描述     按位与（A">
+<meta name="keywords" content="javascript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="webpack 使用指南">
-<meta property="og:url" content="http://sosout.com/2018/07/13/webpack-tutorial.html">
+<meta property="og:title" content="巧用 JS 位运算">
+<meta property="og:url" content="http://sosout.com/2018/10/09/javascript-bits-op.html">
 <meta property="og:site_name" content="每天一探">
-<meta property="og:description" content="使用指南require.contextrequire.context：创建自己的（模块）上下文，这个方法有 3 个参数：要搜索的文件夹目录，是否还应该搜索它的子目录，以及一个匹配文件的正则表达式。1require.context(directory, useSubdirectories = false, regExp = /^\.\//) 1234567891011121314151617/***">
+<meta property="og:description" content="位运算是直接对二进制位进行计算，它直接处理每一个比特位，是非常底层的运算，好处是速度极快，缺点是很不直观，许多场合不能够使用。位运算只对整数起作用，如果一个运算数不是整数，会自动转为整数后再运行。在JavaScript内部，数值都是以64位浮点数的形式储存，但是做位运算的时候，是以32位带符号的整数进行运算的，并且返回值也是一个32位带符号的整数。     运算符 用法 描述     按位与（A">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-21T16:09:38.441Z">
+<meta property="og:updated_time" content="2018-10-09T11:01:36.593Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="webpack 使用指南">
-<meta name="twitter:description" content="使用指南require.contextrequire.context：创建自己的（模块）上下文，这个方法有 3 个参数：要搜索的文件夹目录，是否还应该搜索它的子目录，以及一个匹配文件的正则表达式。1require.context(directory, useSubdirectories = false, regExp = /^\.\//) 1234567891011121314151617/***">
+<meta name="twitter:title" content="巧用 JS 位运算">
+<meta name="twitter:description" content="位运算是直接对二进制位进行计算，它直接处理每一个比特位，是非常底层的运算，好处是速度极快，缺点是很不直观，许多场合不能够使用。位运算只对整数起作用，如果一个运算数不是整数，会自动转为整数后再运行。在JavaScript内部，数值都是以64位浮点数的形式储存，但是做位运算的时候，是以32位带符号的整数进行运算的，并且返回值也是一个32位带符号的整数。     运算符 用法 描述     按位与（A">
 
 
 
@@ -161,7 +161,7 @@
 
 
 
-  <link rel="canonical" href="http://sosout.com/2018/07/13/webpack-tutorial.html"/>
+  <link rel="canonical" href="http://sosout.com/2018/10/09/javascript-bits-op.html"/>
 
 
 
@@ -171,7 +171,7 @@
   };
 </script>
 
-  <title>webpack 使用指南 | 每天一探</title>
+  <title>巧用 JS 位运算 | 每天一探</title>
   
 
 
@@ -410,7 +410,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://sosout.com/2018/07/13/webpack-tutorial.html">
+    <link itemprop="mainEntityOfPage" href="http://sosout.com/2018/10/09/javascript-bits-op.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Weich">
@@ -427,7 +427,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">webpack 使用指南
+          <h2 class="post-title" itemprop="name headline">巧用 JS 位运算
               
             
           </h2>
@@ -453,7 +453,7 @@
                 
               
 
-              <time title="创建时间：2018-07-13 22:11:50" itemprop="dateCreated datePublished" datetime="2018-07-13T22:11:50+08:00">2018-07-13</time>
+              <time title="创建时间：2018-10-09 22:08:44" itemprop="dateCreated datePublished" datetime="2018-10-09T22:08:44+08:00">2018-10-09</time>
             
 
             
@@ -471,7 +471,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/webpack/" itemprop="url" rel="index"><span itemprop="name">webpack</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
 
                 
                 
@@ -485,7 +485,7 @@
 
           
           
-             <span id="/2018/07/13/webpack-tutorial.html" class="leancloud_visitors" data-flag-title="webpack 使用指南">
+             <span id="/2018/10/09/javascript-bits-op.html" class="leancloud_visitors" data-flag-title="巧用 JS 位运算">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -510,7 +510,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.4k</span>
+                <span title="本文字数">4.4k</span>
               
 
               
@@ -524,7 +524,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">2 分钟</span>
+                <span title="阅读时长">4 分钟</span>
               
             </div>
           
@@ -544,16 +544,80 @@
       
 
       
-        <h2 id="使用指南"><a href="#使用指南" class="headerlink" title="使用指南"></a>使用指南</h2><h3 id="require-context"><a href="#require-context" class="headerlink" title="require.context"></a>require.context</h3><p><strong>require.context：</strong>创建自己的（模块）上下文，这个方法有 3 个参数：要搜索的文件夹目录，是否还应该搜索它的子目录，以及一个匹配文件的正则表达式。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>.context(directory, useSubdirectories = <span class="literal">false</span>, regExp = <span class="regexp">/^\.\//</span>)</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 创建一个</span></span><br><span class="line"><span class="comment">* 包含了 test 文件夹</span></span><br><span class="line"><span class="comment">* 不包含子目录下面的</span></span><br><span class="line"><span class="comment">* 所有文件名以 `.test.js` 结尾的、</span></span><br><span class="line"><span class="comment">* 能被 require 请求到的文件的上下文。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="built_in">require</span>.context(<span class="string">"./test"</span>, <span class="literal">false</span>, /\.test\.js$/);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 创建一个</span></span><br><span class="line"><span class="comment">* 包含了父级文件夹</span></span><br><span class="line"><span class="comment">* 包含子目录下面的</span></span><br><span class="line"><span class="comment">* 所有文件名以 `.stories.js` 结尾的</span></span><br><span class="line"><span class="comment">* 能被 require 请求到的文件的上下文。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="built_in">require</span>.context(<span class="string">"../"</span>, <span class="literal">true</span>, /\.stories\.js$/);</span><br></pre></td></tr></table></figure>
-<p>require.context模块导出（返回）一个（require）函数，这个函数可以接收一个参数：request 函数 – 这里的 request 应该是指在 require() 语句中的表达式。require.context 第一个参数不能是变量，webpack在编译阶段无法定位目录。导出的方法有 3 个属性： resolve, keys, id。<br><strong>resolve：</strong>函数，它返回请求被解析后得到的模块 id。<br><strong>keys：</strong>函数，它返回一个数组，由所有可能被上下文模块处理的请求组成。<br><strong>id：</strong>上下文模块里面所包含的模块 id. 它可能在你使用 module.hot.accept 的时候被用到。</p>
-<h4 id="示例一：引入多张图片"><a href="#示例一：引入多张图片" class="headerlink" title="示例一：引入多张图片"></a>示例一：引入多张图片</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> img1 <span class="keyword">from</span> <span class="string">'../../assets/img1.jpeg'</span>;</span><br><span class="line"><span class="keyword">import</span> img2 <span class="keyword">from</span> <span class="string">'../../assets/img2.jpeg'</span>;</span><br><span class="line"><span class="keyword">import</span> img3 <span class="keyword">from</span> <span class="string">'../../assets/img3.jpeg'</span>;</span><br></pre></td></tr></table></figure>
-<p>上面页面上需要的图片很多，这样做太麻烦了，有没有批量引入的办法呢？<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> requireContext = <span class="built_in">require</span>.context(<span class="string">"../../assets"</span>, <span class="literal">false</span>, /^\.\/.*\.jpeg$/);</span><br><span class="line"><span class="keyword">const</span> images = requireContext.keys().map(requireContext);</span><br></pre></td></tr></table></figure></p>
-<h4 id="示例二：多个js文件"><a href="#示例二：多个js文件" class="headerlink" title="示例二：多个js文件"></a>示例二：多个js文件</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> context = <span class="built_in">require</span>.context(<span class="string">'./'</span>, <span class="literal">false</span>, /\.js$/);</span><br><span class="line"><span class="keyword">const</span> models = context.keys().filter(<span class="function"><span class="params">item</span> =&gt;</span> item !== <span class="string">'./index.js'</span>).map(context);</span><br></pre></td></tr></table></figure>
-<h2 id="问题指南"><a href="#问题指南" class="headerlink" title="问题指南"></a>问题指南</h2><h3 id="webpack-cli（v4）"><a href="#webpack-cli（v4）" class="headerlink" title="webpack-cli（v4）"></a>webpack-cli（v4）</h3><p><strong>Q：</strong>由于webpack-cli从webpack包里面分离出来了，未安装webpack-cli会产生以下错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">One CLI for webpack must be installed. These are recommended choices, delivered as separate packages:</span><br><span class="line"> - webpack-cli (https://github.com/webpack/webpack-cli)</span><br><span class="line">   The original webpack full-featured CLI.</span><br><span class="line"> - webpack-command (https://github.com/webpack-contrib/webpack-command)</span><br><span class="line">   A lightweight, opinionated webpack CLI.</span><br><span class="line">We will use &quot;npm&quot; to install the CLI via &quot;npm install -D&quot;.</span><br><span class="line">Which one do you like to install (webpack-cli/webpack-command):</span><br></pre></td></tr></table></figure></p>
-<p><strong>A：</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install webpack-cli -D</span><br></pre></td></tr></table></figure></p>
-<h3 id="mode（v4）"><a href="#mode（v4）" class="headerlink" title="mode（v4）"></a>mode（v4）</h3><p><strong>Q：</strong>未设置mode属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">WARNING in configuration</span><br><span class="line">The &apos;mode&apos; option has not been set, webpack will fallback to &apos;production&apos; for this value. Set &apos;mode&apos; option to &apos;development&apos; or &apos;production&apos; to enable defaults for each environment.</span><br><span class="line">You can also set it to &apos;none&apos; to disable any default behavior. Learn more: https://webpack.js.org/concepts/mode/</span><br></pre></td></tr></table></figure></p>
-<p><strong>A：</strong><br>development：开发模式，webpack会默认配置常用于开发的参数，如输出运行时的错误信息等<br>production：产品模式，webpack会默认配置常用语产品构建的餐宿，如压缩代码等<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 配置文件</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    mode: <span class="string">'development'</span></span><br><span class="line">    <span class="comment">// mode: 'production'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 命令行</span></span><br><span class="line">webpack --mode development</span><br><span class="line">webpack --mode production</span><br></pre></td></tr></table></figure></p>
+        <blockquote>
+<p>位运算是直接对二进制位进行计算，它直接处理每一个比特位，是非常底层的运算，好处是速度极快，缺点是很不直观，许多场合不能够使用。<br>位运算只对整数起作用，如果一个运算数不是整数，会自动转为整数后再运行。<br>在JavaScript内部，数值都是以64位浮点数的形式储存，但是做位运算的时候，是以32位带符号的整数进行运算的，并且返回值也是一个32位带符号的整数。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>用法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>按位与（AND）</td>
+<td>a &amp; b</td>
+<td>对于每一个比特位，只有两个操作数相应的比特位都是1时，结果才为1，否则为0。</td>
+</tr>
+<tr>
+<td>按位或（OR）</td>
+<td>a &#124; b</td>
+<td>对于每一个比特位，当两个操作数相应的比特位至少有一个1时，结果为1，否则为0。</td>
+</tr>
+<tr>
+<td>按位异或（XOR）</td>
+<td>a ^ b</td>
+<td>对于每一个比特位，当两个操作数相应的比特位有且只有一个1时，结果为1，否则为0。</td>
+</tr>
+<tr>
+<td>按位非（NOT）</td>
+<td>~ a</td>
+<td>反转操作数的比特位，即0变成1，1变成0。</td>
+</tr>
+<tr>
+<td>左移（Left shift）</td>
+<td>a &lt;&lt; b</td>
+<td>将 a 的二进制形式向左移 b (&lt; 32) 比特位，右边用0填充。</td>
+</tr>
+<tr>
+<td>有符号右移</td>
+<td>a &gt;&gt; b</td>
+<td>将 a 的二进制表示向右移 b (&lt; 32) 位，丢弃被移出的位。</td>
+</tr>
+<tr>
+<td>无符号右移</td>
+<td>a &gt;&gt;&gt; b</td>
+<td>对于每一个比特位，只有两个操作数相应的比特位都是1时，结果才为1，否则为0。</td>
+</tr>
+</tbody>
+</table>
+<p>位运算是非常底层的运算，由于速度极快，借助位运算的特性还能实现一些算法，因此恰当地使用运算有很多好处。下面搜集了比较常用的例子：</p>
+<h3 id="类型转化"><a href="#类型转化" class="headerlink" title="类型转化"></a>类型转化</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myVar = <span class="string">"3.14"</span>;</span><br><span class="line">str = <span class="string">""</span> + myVar; <span class="comment">// 转化为 字符串</span></span><br><span class="line">int = ~~myVar; <span class="comment">// 转化为整数</span></span><br><span class="line">bool = !!myVar; <span class="comment">// 转化为布尔</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用-gt-gt-lt-lt-gt-gt-gt-来取整"><a href="#使用-gt-gt-lt-lt-gt-gt-gt-来取整" class="headerlink" title="使用~, &gt;&gt;, &lt;&lt;, &gt;&gt;&gt;, |来取整"></a>使用~, &gt;&gt;, &lt;&lt;, &gt;&gt;&gt;, |来取整</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(~~<span class="number">8.88</span>)    <span class="comment">// 8</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">8.88</span> &gt;&gt; <span class="number">0</span>)  <span class="comment">// 8</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">8.88</span> &lt;&lt; <span class="number">0</span>)  <span class="comment">// 8</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">8.88</span> | <span class="number">0</span>)   <span class="comment">// 8</span></span><br><span class="line"><span class="comment">// &gt;&gt;&gt;不可对负数取整</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">8.88</span> &gt;&gt;&gt; <span class="number">0</span>)   <span class="comment">// 8</span></span><br></pre></td></tr></table></figure>
+<h3 id="切换变量-0-或-1"><a href="#切换变量-0-或-1" class="headerlink" title="切换变量 0 或 1"></a>切换变量 0 或 1</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/ 一般方法：</span><br><span class="line"><span class="keyword">if</span> (toggle) &#123;</span><br><span class="line">    toggle = <span class="number">0</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    toggle = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 一般方法的简写：</span></span><br><span class="line">togle = toggle ? <span class="number">0</span> : <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用位运算的方法：</span></span><br><span class="line">toggle ^= <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="使用-amp-运算符判断一个数的奇偶"><a href="#使用-amp-运算符判断一个数的奇偶" class="headerlink" title="使用&amp;运算符判断一个数的奇偶"></a>使用&amp;运算符判断一个数的奇偶</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 偶数 &amp; 1 = 0</span></span><br><span class="line"><span class="comment">// 奇数 &amp; 1 = 1</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">2</span> &amp; <span class="number">1</span>)    <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">3</span> &amp; <span class="number">1</span>)    <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用按位非-判断索引存在"><a href="#使用按位非-判断索引存在" class="headerlink" title="使用按位非 ~ 判断索引存在"></a>使用按位非 ~ 判断索引存在</h3><p>这是一个很常用的技巧，如判断一个数是否在数组里面：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果url含有?号，则后面拼上&amp;符号，否则加上?号</span></span><br><span class="line">url += ~url.indexOf(<span class="string">"?"</span>) ? <span class="string">"&amp;"</span> : <span class="string">"?"</span>;</span><br></pre></td></tr></table></figure></p>
+<p>其中 ~ 满足<code>-(X+1)</code>这个规律。 </p>
+<h3 id="使用-异或-交换两个数"><a href="#使用-异或-交换两个数" class="headerlink" title="使用 异或^ 交换两个数"></a>使用 异或^ 交换两个数</h3><p>交换两个整数的值，最直观的做法是借助一个临时变量：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">5</span>,</span><br><span class="line">  b = <span class="number">6</span>;</span><br><span class="line"><span class="comment">// 交换a, b的值 </span></span><br><span class="line"><span class="keyword">let</span> c = a;</span><br><span class="line">a = b;</span><br><span class="line">b = c;</span><br></pre></td></tr></table></figure></p>
+<p>现在要求不能使用额外的变量或内容空间来交换两个整数的值。这个时候就得借助位运算，使用异或可以达到这个目的：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">5</span>,</span><br><span class="line">  b = <span class="number">6</span>;</span><br><span class="line"></span><br><span class="line">a = a ^ b; <span class="comment">// 1 式</span></span><br><span class="line">b = a ^ b; <span class="comment">// 2 式 b 等于 5</span></span><br><span class="line">a = a ^ b; <span class="comment">// 3 式 a 等于 6</span></span><br></pre></td></tr></table></figure></p>
+<p>这个是为什么呢？很简单，把1、2式：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = a ^ b;</span><br><span class="line">b = a ^ b;</span><br></pre></td></tr></table></figure></p>
+<p>连起来就等价于：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b = (a ^ b) ^ b = a ^ (b ^ b) = a ^ <span class="number">0</span> = a;</span><br></pre></td></tr></table></figure></p>
+<p>同理连同第3式可得：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = (a ^ b) ^ a  <span class="comment">// 在执行第3式的时候b已经变成a了，而a是第1式的a ^ b</span></span><br><span class="line">  = a ^ a ^ b = <span class="number">0</span> ^ b = b;</span><br></pre></td></tr></table></figure></p>
+<p>异或还经常被用于加密。</p>
+<h3 id="使用按位与-amp-去掉高位"><a href="#使用按位与-amp-去掉高位" class="headerlink" title="使用按位与&amp;去掉高位"></a>使用按位与&amp;去掉高位</h3><p>按位与有很多作用，其中一个就是去操作数的高位，只保留低位，例如有a, b两个数：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">0b01000110</span>; <span class="comment">// 十进制为70</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">0b10000101</span>; <span class="comment">// 十进制为133</span></span><br></pre></td></tr></table></figure></p>
+<p>现在认为他们的高位是没用的，只有低4位是有用的，即最后面4位，为了比较a，b后4位的大小，可以这样比较：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a &amp; <span class="number">0b00001111</span> &lt; b &amp; <span class="number">0b00001111</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>a, b的前4位和0000与一下之后就都变成0了，而后四位和1111与一下之后还是原来的数。这个实际的作用是有一个数字它的前几位被当作A用途，而后几位被用当B用途，为了去掉前几位对B用途的影响，就可以这样与一下。</p>
+<p>另外一个例子是子网掩码，假设现在我是网络管理员，我能够管理的IP地址是从192.168.1.0到192.168.1.255，即只能调配最后面8位。现在把这些IP地址分成6个子网，通过IP地址进行区分，由于6等于二进制的110，所以最后面8位的前3位用来表示子网，而后5位用来表示主机（即总的主机数的范围为00001 ~ 11111， 共30个）。当前网络的子网掩码取为255.255.255.111 00000即255.255.255.224，假设某台主机的IP地址为192.168.1.120，现在要知道它处于哪个子网，可以用它IP地址与子网掩码与一下：120 &amp; 224 = 96 = 0b 011 00000，就知道它所在的子网为011即3号子网。</p>
+<p>这个是保留高位去掉低位的例子，刚好与上面的例子相反。</p>
+<h3 id="使用-amp-gt-gt-来完成rgb值和16进制颜色值之间的转换"><a href="#使用-amp-gt-gt-来完成rgb值和16进制颜色值之间的转换" class="headerlink" title="使用&amp;, &gt;&gt;, |来完成rgb值和16进制颜色值之间的转换"></a>使用&amp;, &gt;&gt;, |来完成rgb值和16进制颜色值之间的转换</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 16进制颜色值转RGB</span></span><br><span class="line"><span class="comment"> * @param  &#123;String&#125; hex 16进制颜色字符串</span></span><br><span class="line"><span class="comment"> * @return &#123;String&#125;     RGB颜色字符串</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">hexToRGB</span>(<span class="params">hex</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> hexx = hex.replace(<span class="string">'#'</span>, <span class="string">'0x'</span>)</span><br><span class="line">    <span class="keyword">var</span> r = hexx &gt;&gt; <span class="number">16</span></span><br><span class="line">    <span class="keyword">var</span> g = hexx &gt;&gt; <span class="number">8</span> &amp; <span class="number">0xff</span></span><br><span class="line">    <span class="keyword">var</span> b = hexx &amp; <span class="number">0xff</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">`rgb(<span class="subst">$&#123;r&#125;</span>, <span class="subst">$&#123;g&#125;</span>, <span class="subst">$&#123;b&#125;</span>)`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * RGB颜色转16进制颜色</span></span><br><span class="line"><span class="comment"> * @param  &#123;String&#125; rgb RGB进制颜色字符串</span></span><br><span class="line"><span class="comment"> * @return &#123;String&#125;     16进制颜色字符串</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">RGBToHex</span>(<span class="params">rgb</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> rgbArr = rgb.split(<span class="regexp">/[^\d]+/</span>)</span><br><span class="line">    <span class="keyword">var</span> color = rgbArr[<span class="number">1</span>]&lt;&lt;<span class="number">16</span> | rgbArr[<span class="number">2</span>]&lt;&lt;<span class="number">8</span> | rgbArr[<span class="number">3</span>]</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'#'</span>+ color.toString(<span class="number">16</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// -------------------------------------------------</span></span><br><span class="line">hexToRGB(<span class="string">'#ffffff'</span>)               <span class="comment">// 'rgb(255,255,255)'</span></span><br><span class="line">RGBToHex(<span class="string">'rgb(255,255,255)'</span>)      <span class="comment">// '#ffffff</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用按位与-amp-进行标志位判断"><a href="#使用按位与-amp-进行标志位判断" class="headerlink" title="使用按位与&amp;进行标志位判断"></a>使用按位与&amp;进行标志位判断</h3><p>现在有个后台管理系统，操作权限分为一级、二级、三级管理员，其中一级管理员拥有最高的权限，二、三级较低，有些操作只允许一、二级管理员操作，有些操作只允许一、三级管理员操作。现在已经登陆的某权限的用户要进行某个操作，要用怎样的数据结构能很方便地判断他能不能进行这个操作呢？</p>
+<p>我们用位来表示管理权限，一级用第3位，二级用第2位，三级用第1位，即一级的权限表示为0b100 = 4，二级权限表示为0b010 = 2，三级权限表示为0b001 = 1。如果A操作只能由一级和二级操作，那么这个权限值表示为6 = 0b110，它和一级权限与一下：6 &amp; 4 = 0b110 &amp; 0b100 = 4，得到的值不为0，所以认为有权限，同理和二级权限与一下6 &amp; 2 = 2也不为0，而与三级权限与一下6 &amp; 1 = 0，所以三级没有权限。这里标志位的1表示打开，0表示关闭。</p>
+<p>这样的好处在于，我们可以用一个数字，而不是一个数组来表示某个操作的权限集，同时在进行权限判断的时候也很方便。</p>
+<h3 id="使用按位-构造属性集"><a href="#使用按位-构造属性集" class="headerlink" title="使用按位|构造属性集"></a>使用按位|构造属性集</h3><p>上面构造了一个权限的属性集，属性集的例子还有很多，例如我在《Google地图开发总结》里面就提到一个边界判断的例子——要在当前鼠标的位置往上弹一个悬浮框，但是当鼠标比较靠边的时候就会导致悬浮框超出边界了。</p>
+<p>为此，需要做边界判断，总共有3种超出情况：右、上、左，并且可能会叠加，如鼠标在左上角的时候会导致左边和上面同时超出。需要记录超出的情况进行调整，用001表示右边超出，010表示上方超出，100表示左边超出，如下代码计算：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> postFlag = <span class="number">0</span>;</span><br><span class="line"><span class="comment">//右边超出</span></span><br><span class="line"><span class="keyword">if</span>(pos.right &lt; maxLen) posFlag |= <span class="number">1</span>;</span><br><span class="line"><span class="comment">//上面超出</span></span><br><span class="line"><span class="keyword">if</span>(pos.top &lt; maxLen) posFlag |= <span class="number">2</span>;</span><br><span class="line"><span class="comment">//左边超出</span></span><br><span class="line"><span class="keyword">if</span>(pos.left &lt; maxLeftLen) posFlag |= <span class="number">4</span>;</span><br><span class="line"><span class="comment">//对超出的情况进行处理，代码略</span></span><br><span class="line"><span class="keyword">switch</span>(posFlag)&#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="number">1</span>: <span class="comment">//右</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">2</span>: <span class="comment">//上</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">3</span>: <span class="comment">//右上</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">4</span>: <span class="comment">//左</span></span><br><span class="line">  <span class="keyword">case</span> <span class="number">6</span>: <span class="comment">//左上</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果左边和上面同时超出，那么通过或运算2 | 4 = 6，得到6 = 0b110. 就知道了超出的情况，这样的代码相对于在if里面写两个判断要好一些。</p>
 
       
     </div>
@@ -608,7 +672,7 @@
     <strong>本文作者： </strong>Weich</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://sosout.com/2018/07/13/webpack-tutorial.html" title="webpack 使用指南">http://sosout.com/2018/07/13/webpack-tutorial.html</a>
+    <a href="http://sosout.com/2018/10/09/javascript-bits-op.html" title="巧用 JS 位运算">http://sosout.com/2018/10/09/javascript-bits-op.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -621,7 +685,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/webpack/" rel="tag"># webpack</a>
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
           
         </div>
       
@@ -634,8 +698,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/12/software-programm-method.html" rel="next" title="软件编程">
-                <i class="fa fa-chevron-left"></i> 软件编程
+              <a href="/2018/09/14/the-super-tiny-compiler.html" rel="next" title="有史以来最小的编译器源码解析">
+                <i class="fa fa-chevron-left"></i> 有史以来最小的编译器源码解析
               </a>
             
           </div>
@@ -644,8 +708,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/07/14/danger-tutorial.html" rel="prev" title="danger 入门教程">
-                danger 入门教程 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/10/19/sketch-tutorial.html" rel="prev" title="Sketch 教程">
+                Sketch 教程 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -716,7 +780,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">53</span>
+                    <span class="site-state-item-count">58</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -779,7 +843,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">25</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -888,7 +956,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">48</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">51</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -968,7 +1042,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用指南"><span class="nav-number">1.</span> <span class="nav-text">使用指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#require-context"><span class="nav-number">1.1.</span> <span class="nav-text">require.context</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#示例一：引入多张图片"><span class="nav-number">1.1.1.</span> <span class="nav-text">示例一：引入多张图片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例二：多个js文件"><span class="nav-number">1.1.2.</span> <span class="nav-text">示例二：多个js文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题指南"><span class="nav-number">2.</span> <span class="nav-text">问题指南</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#webpack-cli（v4）"><span class="nav-number">2.1.</span> <span class="nav-text">webpack-cli（v4）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mode（v4）"><span class="nav-number">2.2.</span> <span class="nav-text">mode（v4）</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#类型转化"><span class="nav-number">1.</span> <span class="nav-text">类型转化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-gt-gt-lt-lt-gt-gt-gt-来取整"><span class="nav-number">2.</span> <span class="nav-text">使用~, &gt;&gt;, &lt;&lt;, &gt;&gt;&gt;, |来取整</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#切换变量-0-或-1"><span class="nav-number">3.</span> <span class="nav-text">切换变量 0 或 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-amp-运算符判断一个数的奇偶"><span class="nav-number">4.</span> <span class="nav-text">使用&amp;运算符判断一个数的奇偶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用按位非-判断索引存在"><span class="nav-number">5.</span> <span class="nav-text">使用按位非 ~ 判断索引存在</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-异或-交换两个数"><span class="nav-number">6.</span> <span class="nav-text">使用 异或^ 交换两个数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用按位与-amp-去掉高位"><span class="nav-number">7.</span> <span class="nav-text">使用按位与&amp;去掉高位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-amp-gt-gt-来完成rgb值和16进制颜色值之间的转换"><span class="nav-number">8.</span> <span class="nav-text">使用&amp;, &gt;&gt;, |来完成rgb值和16进制颜色值之间的转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用按位与-amp-进行标志位判断"><span class="nav-number">9.</span> <span class="nav-text">使用按位与&amp;进行标志位判断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用按位-构造属性集"><span class="nav-number">10.</span> <span class="nav-text">使用按位|构造属性集</span></a></li></ol></div>
             
 
           </div>
@@ -1002,7 +1076,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">363k</span>
+    <span title="站点总字数">378k</span>
   
 
   
@@ -1013,7 +1087,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">5:30</span>
+    <span title="站点阅读时长">5:44</span>
   
 </div>
 
@@ -1037,7 +1111,7 @@
 
         
 <div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
     <span class="site-uv" title="总访客量">

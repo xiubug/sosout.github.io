@@ -149,7 +149,7 @@
 <meta property="og:site_name" content="每天一探">
 <meta property="og:description" content="版本：v2.5.17-beta.0 前言随着这几年前端的快速发展，页面中需要实现的功能越来越复杂，DOM操作频繁，使用传统的jQuery库去频繁操作DOM时不仅消耗性能，而且各种DOM绑定后期维护时简直是一场噩梦，在开发大型项目时，模块间的依赖问题也变得十分复杂，在这个大背景下，以数据驱动和组件化思想开发的 Vue、React等JavaScript MVVM库应运而生。相比于其他库，Vue.js">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-07T13:39:13.631Z">
+<meta property="og:updated_time" content="2018-10-10T11:11:26.785Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue 源码全方位剖析">
 <meta name="twitter:description" content="版本：v2.5.17-beta.0 前言随着这几年前端的快速发展，页面中需要实现的功能越来越复杂，DOM操作频繁，使用传统的jQuery库去频繁操作DOM时不仅消耗性能，而且各种DOM绑定后期维护时简直是一场噩梦，在开发大型项目时，模块间的依赖问题也变得十分复杂，在这个大背景下，以数据驱动和组件化思想开发的 Vue、React等JavaScript MVVM库应运而生。相比于其他库，Vue.js">
@@ -516,7 +516,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">28k</span>
+                <span title="本文字数">29k</span>
               
 
               
@@ -680,7 +680,9 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">initGlobalAPI</span> (<span class="params">Vue: GlobalAPI</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// config</span></span><br><span class="line">  <span class="keyword">const</span> configDef = &#123;&#125;</span><br><span class="line">  configDef.get = <span class="function"><span class="params">()</span> =&gt;</span> config</span><br><span class="line">  <span class="keyword">if</span> (process.env.NODE_ENV !== <span class="string">'production'</span>) &#123;</span><br><span class="line">    configDef.set = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      warn(</span><br><span class="line">        <span class="string">'Do not replace the Vue.config object, set individual fields instead.'</span></span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">Object</span>.defineProperty(Vue, <span class="string">'config'</span>, configDef)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// exposed util methods.</span></span><br><span class="line">  <span class="comment">// <span class="doctag">NOTE:</span> these are not considered part of the public API - avoid relying on</span></span><br><span class="line">  <span class="comment">// them unless you are aware of the risk.</span></span><br><span class="line">  Vue.util = &#123;</span><br><span class="line">    warn,</span><br><span class="line">    extend,</span><br><span class="line">    mergeOptions,</span><br><span class="line">    defineReactive</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Vue.set = set</span><br><span class="line">  Vue.delete = del</span><br><span class="line">  Vue.nextTick = nextTick</span><br><span class="line"></span><br><span class="line">  Vue.options = <span class="built_in">Object</span>.create(<span class="literal">null</span>)</span><br><span class="line">  ASSET_TYPES.forEach(<span class="function"><span class="params">type</span> =&gt;</span> &#123;</span><br><span class="line">    Vue.options[type + <span class="string">'s'</span>] = <span class="built_in">Object</span>.create(<span class="literal">null</span>)</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// this is used to identify the "base" constructor to extend all plain-object</span></span><br><span class="line">  <span class="comment">// components with in Weex's multi-instance scenarios.</span></span><br><span class="line">  Vue.options._base = Vue</span><br><span class="line"></span><br><span class="line">  extend(Vue.options.components, builtInComponents)</span><br><span class="line"></span><br><span class="line">  initUse(Vue)</span><br><span class="line">  initMixin(Vue)</span><br><span class="line">  initExtend(Vue)</span><br><span class="line">  initAssetRegisters(Vue)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这里是对 Vue 扩展的一些全局方法，有一点要注意的是，Vue.util 暴露的方法最好不要依赖，因为它可能经常会发生变化且不稳定的。</p>
 <h4 id="小结-4"><a href="#小结-4" class="headerlink" title="小结"></a>小结</h4><p>那么至此，我们应该对 Vue 是什么有一个直观的认识，它本质上就是一个用 Function 实现的 Class，然后在它的原型 prototype 以及它本身都扩展了一系列的方法和属性，至于 Vue 能做什么，它是怎么做的，我们会在后面的章节一一剖析它们。</p>
-<h2 id="本文不断更新中"><a href="#本文不断更新中" class="headerlink" title="本文不断更新中"></a>本文不断更新中</h2>
+<h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><h2 id="组件化"><a href="#组件化" class="headerlink" title="组件化"></a>组件化</h2><p>在<code>Vue.js</code>中，除了它内置的组件如<code>keep-alive</code>、<code>component</code>、<code>transition</code>、<code>transition-group</code>等，其它自定义组件在使用前必须注册。我们在开发过程中可能会遇到如下报错信息：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'Unknown custom element: &lt;xxx&gt; - did you register the component correctly?</span></span><br><span class="line"><span class="string"> For recursive components, make sure to provide the "name" option.'</span></span><br></pre></td></tr></table></figure></p>
+<p>一般报这个错的原因都是我们使用了未注册的组件。Vue.js 提供了 2 种组件的注册方式：全局注册和局部注册。接下来我们从源码分析的角度来分析这两种注册方式。</p>
+<h3 id="组件注册"><a href="#组件注册" class="headerlink" title="组件注册"></a>组件注册</h3><h2 id="本文不断更新中"><a href="#本文不断更新中" class="headerlink" title="本文不断更新中"></a>本文不断更新中</h2>
       
     </div>
 
@@ -842,7 +844,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">53</span>
+                    <span class="site-state-item-count">58</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -905,7 +907,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">25</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1014,7 +1020,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">48</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">51</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1094,7 +1106,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前置知识"><span class="nav-number">2.</span> <span class="nav-text">前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Flow-JavaScript静态类型检查工具"><span class="nav-number">2.1.</span> <span class="nav-text">Flow - JavaScript静态类型检查工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么用静态类型检查工具-Flow"><span class="nav-number">2.1.1.</span> <span class="nav-text">为什么用静态类型检查工具 Flow</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何用静态类型检查工具-Flow"><span class="nav-number">2.1.2.</span> <span class="nav-text">如何用静态类型检查工具 Flow</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Flow-的类型检查方式"><span class="nav-number">2.1.3.</span> <span class="nav-text">Flow 的类型检查方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Flow-在-Vue-js-源码中的应用"><span class="nav-number">2.1.4.</span> <span class="nav-text">Flow 在 Vue.js 源码中的应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">2.1.5.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rollup-另一个前端模块化的打包工具"><span class="nav-number">2.2.</span> <span class="nav-text">Rollup - 另一个前端模块化的打包工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么用前端模块化的打包工具-Rollup"><span class="nav-number">2.2.1.</span> <span class="nav-text">为什么用前端模块化的打包工具 Rollup</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何用前端模块化的打包工具-Rollup"><span class="nav-number">2.2.2.</span> <span class="nav-text">如何用前端模块化的打包工具 Rollup</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Webpack-和-Rollup-有什么不同"><span class="nav-number">2.2.3.</span> <span class="nav-text">Webpack 和 Rollup 有什么不同</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结-1"><span class="nav-number">2.2.4.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目介绍"><span class="nav-number">3.</span> <span class="nav-text">项目介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#项目目录"><span class="nav-number">3.1.</span> <span class="nav-text">项目目录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#compiler"><span class="nav-number">3.1.1.</span> <span class="nav-text">compiler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#core"><span class="nav-number">3.1.2.</span> <span class="nav-text">core</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#platform"><span class="nav-number">3.1.3.</span> <span class="nav-text">platform</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#server"><span class="nav-number">3.1.4.</span> <span class="nav-text">server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sfc"><span class="nav-number">3.1.5.</span> <span class="nav-text">sfc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shared"><span class="nav-number">3.1.6.</span> <span class="nav-text">shared</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结-2"><span class="nav-number">3.1.7.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源码构建"><span class="nav-number">3.2.</span> <span class="nav-text">源码构建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构建命令"><span class="nav-number">3.2.1.</span> <span class="nav-text">构建命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构建过程"><span class="nav-number">3.2.2.</span> <span class="nav-text">构建过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结-3"><span class="nav-number">3.2.3.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源码入口"><span class="nav-number">3.3.</span> <span class="nav-text">源码入口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-的定义"><span class="nav-number">3.3.1.</span> <span class="nav-text">Vue 的定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#initGlobalAPI"><span class="nav-number">3.3.2.</span> <span class="nav-text">initGlobalAPI</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结-4"><span class="nav-number">3.3.3.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本文不断更新中"><span class="nav-number">4.</span> <span class="nav-text">本文不断更新中</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前置知识"><span class="nav-number">2.</span> <span class="nav-text">前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Flow-JavaScript静态类型检查工具"><span class="nav-number">2.1.</span> <span class="nav-text">Flow - JavaScript静态类型检查工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么用静态类型检查工具-Flow"><span class="nav-number">2.1.1.</span> <span class="nav-text">为什么用静态类型检查工具 Flow</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何用静态类型检查工具-Flow"><span class="nav-number">2.1.2.</span> <span class="nav-text">如何用静态类型检查工具 Flow</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Flow-的类型检查方式"><span class="nav-number">2.1.3.</span> <span class="nav-text">Flow 的类型检查方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Flow-在-Vue-js-源码中的应用"><span class="nav-number">2.1.4.</span> <span class="nav-text">Flow 在 Vue.js 源码中的应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">2.1.5.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Rollup-另一个前端模块化的打包工具"><span class="nav-number">2.2.</span> <span class="nav-text">Rollup - 另一个前端模块化的打包工具</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么用前端模块化的打包工具-Rollup"><span class="nav-number">2.2.1.</span> <span class="nav-text">为什么用前端模块化的打包工具 Rollup</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何用前端模块化的打包工具-Rollup"><span class="nav-number">2.2.2.</span> <span class="nav-text">如何用前端模块化的打包工具 Rollup</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Webpack-和-Rollup-有什么不同"><span class="nav-number">2.2.3.</span> <span class="nav-text">Webpack 和 Rollup 有什么不同</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结-1"><span class="nav-number">2.2.4.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目介绍"><span class="nav-number">3.</span> <span class="nav-text">项目介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#项目目录"><span class="nav-number">3.1.</span> <span class="nav-text">项目目录</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#compiler"><span class="nav-number">3.1.1.</span> <span class="nav-text">compiler</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#core"><span class="nav-number">3.1.2.</span> <span class="nav-text">core</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#platform"><span class="nav-number">3.1.3.</span> <span class="nav-text">platform</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#server"><span class="nav-number">3.1.4.</span> <span class="nav-text">server</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sfc"><span class="nav-number">3.1.5.</span> <span class="nav-text">sfc</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shared"><span class="nav-number">3.1.6.</span> <span class="nav-text">shared</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结-2"><span class="nav-number">3.1.7.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源码构建"><span class="nav-number">3.2.</span> <span class="nav-text">源码构建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#构建命令"><span class="nav-number">3.2.1.</span> <span class="nav-text">构建命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构建过程"><span class="nav-number">3.2.2.</span> <span class="nav-text">构建过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结-3"><span class="nav-number">3.2.3.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源码入口"><span class="nav-number">3.3.</span> <span class="nav-text">源码入口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Vue-的定义"><span class="nav-number">3.3.1.</span> <span class="nav-text">Vue 的定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#initGlobalAPI"><span class="nav-number">3.3.2.</span> <span class="nav-text">initGlobalAPI</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结-4"><span class="nav-number">3.3.3.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础"><span class="nav-number">4.</span> <span class="nav-text">基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件化"><span class="nav-number">5.</span> <span class="nav-text">组件化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#组件注册"><span class="nav-number">5.1.</span> <span class="nav-text">组件注册</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本文不断更新中"><span class="nav-number">6.</span> <span class="nav-text">本文不断更新中</span></a></li></ol></div>
             
 
           </div>
@@ -1128,7 +1140,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">363k</span>
+    <span title="站点总字数">378k</span>
   
 
   
@@ -1139,7 +1151,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">5:30</span>
+    <span title="站点阅读时长">5:44</span>
   
 </div>
 
@@ -1163,7 +1175,7 @@
 
         
 <div class="busuanzi-count">
-  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
   
     <span class="site-uv" title="总访客量">
