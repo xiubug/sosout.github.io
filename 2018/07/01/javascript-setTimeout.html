@@ -149,7 +149,7 @@
 <meta property="og:site_name" content="每天一探">
 <meta property="og:description" content="基本使用1setTimeout(function|string, number); setTimeout 方法接收两个参数，第一个参数为回调函数或字符串，第二个参数为触发时间（单位：毫秒） 123setTimeout( function() &amp;#123;  console.log(&apos;console after 1 second&apos;);&amp;#125;, 1000); 上面这段代码将会在 1 秒后在控制台">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-31T12:39:45.772Z">
+<meta property="og:updated_time" content="2018-11-03T03:12:52.177Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入探究 setTimeout">
 <meta name="twitter:description" content="基本使用1setTimeout(function|string, number); setTimeout 方法接收两个参数，第一个参数为回调函数或字符串，第二个参数为触发时间（单位：毫秒） 123setTimeout( function() &amp;#123;  console.log(&apos;console after 1 second&apos;);&amp;#125;, 1000); 上面这段代码将会在 1 秒后在控制台">
@@ -510,7 +510,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">4.4k</span>
+                <span title="本文字数">6.5k</span>
               
 
               
@@ -524,7 +524,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">4 分钟</span>
+                <span title="阅读时长">6 分钟</span>
               
             </div>
           
@@ -588,6 +588,23 @@
 <p>执行代码后，打开控制台，分别输入函数名test1和test2</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">test1</span><br><span class="line"><span class="comment">// Uncaught ReferenceError: test1 is not defined</span></span><br><span class="line"></span><br><span class="line">test2</span><br><span class="line"><span class="comment">// ... (打印出 test2 的函数体)</span></span><br></pre></td></tr></table></figure>
 <p>会发现，当第一个参数为函数时，回调函数执行完毕后，test1函数被销毁，其所使用内存也被释放；当第一个参数为字符串时，test2却始终存在，它没有被销毁，始终占据着内存，也就造成了内存泄漏，所以让我们需要使用 setTimeout时，一定要注意，第一个参数必须传入一个函数。</p>
+<h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><p>以下代码的运行结果：</p>
+<h3 id="题目一："><a href="#题目一：" class="headerlink" title="题目一："></a>题目一：</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(i);</span><br><span class="line">  &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(i);</span><br></pre></td></tr></table></figure>
+<p>运行结果：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">5</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="题目二："><a href="#题目二：" class="headerlink" title="题目二："></a>题目二：</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">	setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(i);</span><br><span class="line">	&#125;, <span class="number">0</span>);</span><br><span class="line">	<span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure></p>
+<p>我们来简化此题：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">2</span>);</span><br></pre></td></tr></table></figure></p>
+<p>先打印2，后打印1。<br>因为是setTimeout是异步的。<br>正确的理解setTimeout的方式(注册事件)：<br>有两个参数，第一个参数是函数，第二参数是时间值。<br>调用setTimeout时，把函数参数，放到事件队列中。等主程序运行完，再调用。<br>没啥不好理解的。就像我们给按钮绑定事件一样：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">btn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="number">1</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>这么写完，会弹出1吗。不会！！只是绑定事件而已！<br>必须等我们去触发事件，比如去点击这个按钮，才会弹出1。<br>setTimeout也是这样的！只是绑定事件，等主程序运行完毕后，再去调用。<br>setTimeout的时间值是怎么回事呢？<br>比如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(fn, <span class="number">2000</span>)</span><br></pre></td></tr></table></figure></p>
+<p>我们可以理解为2000之后，再放入事件队列中，如果此时队列为空，那么就直接调用fn。如果前面还有其他的事件，那就等待。<br>因此setTimeout是一个约会从来都不准时的童鞋。<br>继续看：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"><span class="keyword">var</span> i = <span class="number">1</span>;</span><br></pre></td></tr></table></figure></p>
+<p>程序会不会报错？<br>不会！而且还会准确得打印1。<br>为什么？<br>因为真正去执行console.log(i)这句代码时，var i = 1已经执行完毕了！<br>所以我们进行dom操作。可以先绑定事件，然后再去写其他逻辑。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  fn();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> fn = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">'hello'</span>)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>这么写，完全是可以的。因为异步！</p>
+<p>es5中是没有块级作用域的<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;&#125;</span><br><span class="line"><span class="built_in">console</span>.log(i);</span><br></pre></td></tr></table></figure></p>
+<p>也就说i可以在for循环体外访问到。所以是没有块级作用域。<br>但此问题在es6里终结了，因为es6，发明了let。</p>
+<p>这回我们再来看看原题。<br>原题使用了for循环。循环的本质是干嘛的？<br>是为了方便我们程序员，少写重复代码。<br>让我们倒退50年，原题等价于：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"><span class="built_in">console</span>.log(i);</span><br><span class="line">i++;</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"><span class="built_in">console</span>.log(i);</span><br><span class="line">i++;</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"><span class="built_in">console</span>.log(i);</span><br><span class="line">i++;</span><br></pre></td></tr></table></figure></p>
+<p>因为setTimeout是注册事件。根据前面的讨论，可以都放在后面。<br>原题又等价于如下的写法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> i = <span class="number">0</span>;</span><br><span class="line"><span class="built_in">console</span>.log(i);</span><br><span class="line">i++;</span><br><span class="line"><span class="built_in">console</span>.log(i);</span><br><span class="line">i++;</span><br><span class="line"><span class="built_in">console</span>.log(i);</span><br><span class="line">i++;</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br></pre></td></tr></table></figure></p>
+<p>这回你明白了为啥结果是0 1 2 3 3 3了吧。</p>
+<p>如果原题也想setTimeout也弹出0，1，2的话，改成如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">	setTimeout((<span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">			<span class="built_in">console</span>.log(i);</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;)(i), <span class="number">0</span>);</span><br><span class="line">	<span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -750,7 +767,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-count">93</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -817,7 +834,49 @@
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -932,7 +991,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">51</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">54</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1012,7 +1077,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本使用"><span class="nav-number">1.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#返回值"><span class="nav-number">2.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何结束-阻止一个-setTimeout-的执行"><span class="nav-number">3.</span> <span class="nav-text">如何结束/阻止一个 setTimeout 的执行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现异步编程"><span class="nav-number">4.</span> <span class="nav-text">实现异步编程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#setTimeout-回调函数的执行时机"><span class="nav-number">5.</span> <span class="nav-text">setTimeout 回调函数的执行时机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过-setTimeout-优化用户体验"><span class="nav-number">6.</span> <span class="nav-text">通过 setTimeout 优化用户体验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不易察觉的危险——内存泄漏"><span class="nav-number">7.</span> <span class="nav-text">不易察觉的危险——内存泄漏</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本使用"><span class="nav-number">1.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#返回值"><span class="nav-number">2.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何结束-阻止一个-setTimeout-的执行"><span class="nav-number">3.</span> <span class="nav-text">如何结束/阻止一个 setTimeout 的执行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现异步编程"><span class="nav-number">4.</span> <span class="nav-text">实现异步编程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#setTimeout-回调函数的执行时机"><span class="nav-number">5.</span> <span class="nav-text">setTimeout 回调函数的执行时机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过-setTimeout-优化用户体验"><span class="nav-number">6.</span> <span class="nav-text">通过 setTimeout 优化用户体验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不易察觉的危险——内存泄漏"><span class="nav-number">7.</span> <span class="nav-text">不易察觉的危险——内存泄漏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面试题"><span class="nav-number">8.</span> <span class="nav-text">面试题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题目一："><span class="nav-number">8.1.</span> <span class="nav-text">题目一：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题目二："><span class="nav-number">8.2.</span> <span class="nav-text">题目二：</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1032,7 +1097,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -1046,7 +1111,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">378k</span>
+    <span title="站点总字数">494k</span>
   
 
   
@@ -1057,7 +1122,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">5:44</span>
+    <span title="站点阅读时长">7:29</span>
   
 </div>
 

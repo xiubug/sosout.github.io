@@ -142,14 +142,14 @@
 
 
   <meta name="description" content="前言redux 的核心概念很简单：将需要修改的 state 都储存在 store 里，发起一个 action 用来描述发生了什么，用 reducers 描述 action 如何改变 state tree，创建 store 的时候需要传入 reducer，真正能改变 store 中数据的是 API store.dispatch。纯粹使用 redux 时，我们需要 dispatch 的是一个 acti">
-<meta name="keywords" content="middleware">
+<meta name="keywords" content="source">
 <meta property="og:type" content="article">
 <meta property="og:title" content="redux-thunk 源码全方位剖析">
 <meta property="og:url" content="http://sosout.com/2018/09/09/redux-thunk-source-analysis.html">
 <meta property="og:site_name" content="每天一探">
 <meta property="og:description" content="前言redux 的核心概念很简单：将需要修改的 state 都储存在 store 里，发起一个 action 用来描述发生了什么，用 reducers 描述 action 如何改变 state tree，创建 store 的时候需要传入 reducer，真正能改变 store 中数据的是 API store.dispatch。纯粹使用 redux 时，我们需要 dispatch 的是一个 acti">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-10T11:10:37.077Z">
+<meta property="og:updated_time" content="2018-11-03T03:12:52.190Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redux-thunk 源码全方位剖析">
 <meta name="twitter:description" content="前言redux 的核心概念很简单：将需要修改的 state 都储存在 store 里，发起一个 action 用来描述发生了什么，用 reducers 描述 action 如何改变 state tree，创建 store 的时候需要传入 reducer，真正能改变 store 中数据的是 API store.dispatch。纯粹使用 redux 时，我们需要 dispatch 的是一个 acti">
@@ -471,7 +471,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/redux/" itemprop="url" rel="index"><span itemprop="name">redux</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/redux-thunk/" itemprop="url" rel="index"><span itemprop="name">redux-thunk</span></a></span>
 
                 
                 
@@ -626,7 +626,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/middleware/" rel="tag"># middleware</a>
+            <a href="/tags/source/" rel="tag"># source</a>
           
         </div>
       
@@ -721,7 +721,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-count">93</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -788,7 +788,49 @@
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -903,7 +945,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">51</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">54</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1003,7 +1051,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -1017,7 +1065,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">378k</span>
+    <span title="站点总字数">494k</span>
   
 
   
@@ -1028,7 +1076,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">5:44</span>
+    <span title="站点阅读时长">7:29</span>
   
 </div>
 

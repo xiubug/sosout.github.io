@@ -142,7 +142,7 @@
 
 
   <meta name="description" content="Mac OS是一套运行于苹果Macintosh系列电脑上的操作系统。Mac OS是首个在商用领域成功的图形用户界面操作系统。现行的最新的系统版本是OS X 10.12 ，且网上也有在PC上运行的Mac系统，简称 Mac PC。Mac系统是基于Unix内核的图形化操作系统；一般情况下在普通PC上无法安装的操作系统。由苹果公司自行开发。苹果机的操作系统已经到了OS 10，代号为MAC OS X(X为1">
-<meta name="keywords" content="mac">
+<meta name="keywords" content="note">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mac OS系统使用指南">
 <meta property="og:url" content="http://sosout.com/2018/08/11/macos-tutorial.html">
@@ -154,7 +154,7 @@
 <meta property="og:image" content="http://sosout.com/images/macos-tutorial/img3.png">
 <meta property="og:image" content="http://sosout.com/images/macos-tutorial/img4.png">
 <meta property="og:image" content="http://sosout.com/images/macos-tutorial/img5.png">
-<meta property="og:updated_time" content="2018-09-25T11:39:02.762Z">
+<meta property="og:updated_time" content="2018-11-03T03:12:52.180Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mac OS系统使用指南">
 <meta name="twitter:description" content="Mac OS是一套运行于苹果Macintosh系列电脑上的操作系统。Mac OS是首个在商用领域成功的图形用户界面操作系统。现行的最新的系统版本是OS X 10.12 ，且网上也有在PC上运行的Mac系统，简称 Mac PC。Mac系统是基于Unix内核的图形化操作系统；一般情况下在普通PC上无法安装的操作系统。由苹果公司自行开发。苹果机的操作系统已经到了OS 10，代号为MAC OS X(X为1">
@@ -477,7 +477,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/mac/" itemprop="url" rel="index"><span itemprop="name">mac</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Mac-OS/" itemprop="url" rel="index"><span itemprop="name">Mac OS</span></a></span>
 
                 
                 
@@ -516,7 +516,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">894</span>
+                <span title="本文字数">1.8k</span>
               
 
               
@@ -530,7 +530,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">2 分钟</span>
               
             </div>
           
@@ -562,6 +562,34 @@
 <p><img src="/images/macos-tutorial/img5.png" alt="img5.png"></p>
 <h3 id="用终端连接远程服务器"><a href="#用终端连接远程服务器" class="headerlink" title="用终端连接远程服务器"></a>用终端连接远程服务器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 登录</span></span><br><span class="line">$ ssh -t root@121.199.61.169 -p 22</span><br><span class="line"></span><br><span class="line"><span class="comment"># 退出</span></span><br><span class="line">$ control + d</span><br></pre></td></tr></table></figure>
 <h3 id="隐藏-显示-隐藏文件"><a href="#隐藏-显示-隐藏文件" class="headerlink" title="隐藏/显示 隐藏文件"></a>隐藏/显示 隐藏文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 凡是前面带有小点的隐藏文件，或者是显示淡蓝色的文件都是隐藏文件</span></span><br><span class="line">$ <span class="built_in">shift</span> + cmmand + .</span><br></pre></td></tr></table></figure>
+<h3 id="mac-os-获取root-su-sudo权限的方法"><a href="#mac-os-获取root-su-sudo权限的方法" class="headerlink" title="mac os 获取root/su/sudo权限的方法"></a>mac os 获取root/su/sudo权限的方法</h3><p>方法一：  打开终端， 输入sudo -i ,  按照提示输入当前管理员用户密码，即可进入root权限</p>
+<h3 id="mac-os-从root账户切换到普通账户"><a href="#mac-os-从root账户切换到普通账户" class="headerlink" title="mac os 从root账户切换到普通账户"></a>mac os 从root账户切换到普通账户</h3><p>方法一：  打开终端， 输入su - test ,  即可进入test权限</p>
+<h3 id="如何解除mac上不能安装不明开发者的软件"><a href="#如何解除mac上不能安装不明开发者的软件" class="headerlink" title="如何解除mac上不能安装不明开发者的软件"></a>如何解除mac上不能安装不明开发者的软件</h3><p>打开 「Launchpad」 - 「实用工具」 - 「终端」；你在终端里输入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo spctl --master-disable</span><br></pre></td></tr></table></figure>
+<p>输入password（开机密码），输完敲回车；“任何来源”就会显示了，然后勾选你要的选项；</p>
+<h3 id="mysql登录退出命令"><a href="#mysql登录退出命令" class="headerlink" title="mysql登录退出命令"></a>mysql登录退出命令</h3><p>登录Mysql：“输入mysql -u帐号 -p密码 这是登陆</p>
+<p>mysql退出：mysql &gt; exit;</p>
+<p>以下是实例参考下：</p>
+<p>登录Mysql：“输入mysql -uroot -p -P3306 -h127.0.0.1”</p>
+<p>表示超级用户名root,密码稍后输入，端口号3306（不输入P默认为3306），</p>
+<p>主机地址127.0.0.1（若使用本机作为主机，h默认127.0.0.1）</p>
+<p>mysql退出三种方法：</p>
+<p>mysql &gt; exit;</p>
+<p>mysql &gt; quit;</p>
+<p>mysql &gt; \q;</p>
+<h3 id="mysql连接错误如下：ERROR-2002-HY000-Can’t-connect-to-local-MySQL-server-through-socket-‘-tmp-mysql-sock’-2"><a href="#mysql连接错误如下：ERROR-2002-HY000-Can’t-connect-to-local-MySQL-server-through-socket-‘-tmp-mysql-sock’-2" class="headerlink" title="mysql连接错误如下：ERROR 2002 (HY000): Can’t connect to local MySQL server through socket ‘/tmp/mysql.sock’ (2)"></a>mysql连接错误如下：ERROR 2002 (HY000): Can’t connect to local MySQL server through socket ‘/tmp/mysql.sock’ (2)</h3><ol>
+<li><p>确保环境没有mysql</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ brew remove mysql</span><br><span class="line"></span><br><span class="line">$ brew cleanup</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew install mysql</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew services start mysql</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>设置开机启动: launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist (设置启动的命令可以通过 brew info mysql获得)</p>
+<p>4.登录<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mysql -uroot</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -629,7 +657,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/mac/" rel="tag"># mac</a>
+            <a href="/tags/note/" rel="tag"># note</a>
           
         </div>
       
@@ -724,7 +752,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-count">93</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -791,7 +819,49 @@
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -906,7 +976,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">51</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">54</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -986,7 +1062,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mac电脑使用：您的安全性偏好设置仅允许安装来自App-Store和被认可的开发者的应用（解决方法）"><span class="nav-number">1.</span> <span class="nav-text">Mac电脑使用：您的安全性偏好设置仅允许安装来自App Store和被认可的开发者的应用（解决方法）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用终端连接远程服务器"><span class="nav-number">2.</span> <span class="nav-text">用终端连接远程服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐藏-显示-隐藏文件"><span class="nav-number">3.</span> <span class="nav-text">隐藏/显示 隐藏文件</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mac电脑使用：您的安全性偏好设置仅允许安装来自App-Store和被认可的开发者的应用（解决方法）"><span class="nav-number">1.</span> <span class="nav-text">Mac电脑使用：您的安全性偏好设置仅允许安装来自App Store和被认可的开发者的应用（解决方法）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用终端连接远程服务器"><span class="nav-number">2.</span> <span class="nav-text">用终端连接远程服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐藏-显示-隐藏文件"><span class="nav-number">3.</span> <span class="nav-text">隐藏/显示 隐藏文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mac-os-获取root-su-sudo权限的方法"><span class="nav-number">4.</span> <span class="nav-text">mac os 获取root/su/sudo权限的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mac-os-从root账户切换到普通账户"><span class="nav-number">5.</span> <span class="nav-text">mac os 从root账户切换到普通账户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何解除mac上不能安装不明开发者的软件"><span class="nav-number">6.</span> <span class="nav-text">如何解除mac上不能安装不明开发者的软件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql登录退出命令"><span class="nav-number">7.</span> <span class="nav-text">mysql登录退出命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql连接错误如下：ERROR-2002-HY000-Can’t-connect-to-local-MySQL-server-through-socket-‘-tmp-mysql-sock’-2"><span class="nav-number">8.</span> <span class="nav-text">mysql连接错误如下：ERROR 2002 (HY000): Can’t connect to local MySQL server through socket ‘/tmp/mysql.sock’ (2)</span></a></li></ol></div>
             
 
           </div>
@@ -1006,7 +1082,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -1020,7 +1096,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">378k</span>
+    <span title="站点总字数">494k</span>
   
 
   
@@ -1031,7 +1107,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">5:44</span>
+    <span title="站点阅读时长">7:29</span>
   
 </div>
 

@@ -142,14 +142,14 @@
 
 
   <meta name="description" content="正则表达式，又称规则表达式。（英语：Regular Expression，在代码中常简写为regex、regexp或RE），计算机科学的一个概念。正则表达式通常被用来检索、替换那些符合某个模式(规则)的文本。许多程序设计语言都支持利用正则表达式进行字符串操作。例如，在Perl中就内建了一个功能强大的正则表达式引擎。正则表达式这个概念最初是由Unix中的工具软件（例如sed和grep）普及开的。正则">
-<meta name="keywords" content="regex">
+<meta name="keywords" content="note">
 <meta property="og:type" content="article">
 <meta property="og:title" content="正则表达式开发指南">
 <meta property="og:url" content="http://sosout.com/2018/08/10/regular-expression-tutorial.html">
 <meta property="og:site_name" content="每天一探">
 <meta property="og:description" content="正则表达式，又称规则表达式。（英语：Regular Expression，在代码中常简写为regex、regexp或RE），计算机科学的一个概念。正则表达式通常被用来检索、替换那些符合某个模式(规则)的文本。许多程序设计语言都支持利用正则表达式进行字符串操作。例如，在Perl中就内建了一个功能强大的正则表达式引擎。正则表达式这个概念最初是由Unix中的工具软件（例如sed和grep）普及开的。正则">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-24T10:57:06.053Z">
+<meta property="og:updated_time" content="2018-12-13T14:20:52.801Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="正则表达式开发指南">
 <meta name="twitter:description" content="正则表达式，又称规则表达式。（英语：Regular Expression，在代码中常简写为regex、regexp或RE），计算机科学的一个概念。正则表达式通常被用来检索、替换那些符合某个模式(规则)的文本。许多程序设计语言都支持利用正则表达式进行字符串操作。例如，在Perl中就内建了一个功能强大的正则表达式引擎。正则表达式这个概念最初是由Unix中的工具软件（例如sed和grep）普及开的。正则">
@@ -510,7 +510,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.1k</span>
+                <span title="本文字数">3.8k</span>
               
 
               
@@ -524,7 +524,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">2 分钟</span>
+                <span title="阅读时长">3 分钟</span>
               
             </div>
           
@@ -545,8 +545,64 @@
 
       
         <p>正则表达式，又称规则表达式。（英语：Regular Expression，在代码中常简写为regex、regexp或RE），计算机科学的一个概念。正则表达式通常被用来检索、替换那些符合某个模式(规则)的文本。<br>许多程序设计语言都支持利用正则表达式进行字符串操作。例如，在Perl中就内建了一个功能强大的正则表达式引擎。正则表达式这个概念最初是由Unix中的工具软件（例如sed和grep）普及开的。正则表达式通常缩写成“regex”，单数有regexp、regex，复数有regexps、regexes、regexen。</p>
-<h2 id="使用技巧"><a href="#使用技巧" class="headerlink" title="使用技巧"></a>使用技巧</h2><h3 id="exec-方法"><a href="#exec-方法" class="headerlink" title="exec() 方法"></a>exec() 方法</h3><h4 id="定义和用法"><a href="#定义和用法" class="headerlink" title="定义和用法"></a>定义和用法</h4><p>exec() 方法用于检索字符串中的正则表达式的匹配。</p>
-<h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// string: 必需。要检索的字符串。</span></span><br><span class="line">RegExpObject.exec(string);</span><br></pre></td></tr></table></figure>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><table>
+<thead>
+<tr>
+<th>字符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\</td>
+<td>将下一个字符标记为一个特殊字符、或一个原义字符、或一个向后引用、或一个八进制转义符。例如，“n”匹配字符“n”。“\n”匹配一个换行符。串行“\”匹配“\”而“(”则匹配“(”。</td>
+</tr>
+<tr>
+<td>^</td>
+<td>匹配输入字符串的开始位置。如果设置了RegExp对象的Multiline属性，^也匹配“\n”或“\r”之后的位置。</td>
+</tr>
+<tr>
+<td>+</td>
+<td>匹配前面的子表达式一次或多次。例如，“zo+”能匹配“zo”以及“zoo”，但不能匹配“z”。+等价于{1,}。</td>
+</tr>
+<tr>
+<td>?</td>
+<td>匹配前面的子表达式零次或一次。例如，“do(es)?”可以匹配“does”或“does”中的“do”。?等价于{0,1}。</td>
+</tr>
+<tr>
+<td>?</td>
+<td>当该字符紧跟在任何一个其他限制符（*,+,?，{n}，{n,}，{n,m}）后面时，匹配模式是非贪婪的。非贪婪模式尽可能少的匹配所搜索的字符串，而默认的贪婪模式则尽可能多的匹配所搜索的字符串。例如，对于字符串“oooo”，“o+?”将匹配单个“o”，而“o+”将匹配所有“o”。</td>
+</tr>
+<tr>
+<td>[xyz]</td>
+<td>字符集合。匹配所包含的任意一个字符。例如，“[abc]”可以匹配“plain”中的“a”。</td>
+</tr>
+<tr>
+<td>.</td>
+<td>匹配除“\n”之外的任何单个字符。要匹配包括“\n”在内的任何字符，请使用像“(.&#124;\n)”的模式。</td>
+</tr>
+<tr>
+<td>(pattern)</td>
+<td>匹配pattern并获取这一匹配。所获取的匹配可以从产生的Matches集合得到，在VBScript中使用SubMatches集合，在JScript中则使用$0…$9属性。要匹配圆括号字符，请使用“(”或“)”。</td>
+</tr>
+<tr>
+<td>(?:pattern)</td>
+<td>匹配pattern但不获取匹配结果，也就是说这是一个非获取匹配，不进行存储供以后使用。这在使用或字符“(&#124;)”来组合一个模式的各个部分是很有用。例如“industr(?:y&#124;ies)”就是一个比“industry&#124;industries”更简略的表达式。</td>
+</tr>
+<tr>
+<td>(?=pattern)</td>
+<td>正向肯定预查，在任何匹配pattern的字符串开始处匹配查找字符串。这是一个非获取匹配，也就是说，该匹配不需要获取供以后使用。例如，“Windows(?=95&#124;98&#124;NT&#124;2000)”能匹配“Windows2000”中的“Windows”，但不能匹配“Windows3.1”中的“Windows”。预查不消耗字符，也就是说，在一个匹配发生后，在最后一次匹配之后立即开始下一次匹配的搜索，而不是从包含预查的字符之后开始。</td>
+</tr>
+<tr>
+<td>(?!pattern)</td>
+<td>正向否定预查，在任何不匹配pattern的字符串开始处匹配查找字符串。这是一个非获取匹配，也就是说，该匹配不需要获取供以后使用。例如“Windows(?!95&#124;98&#124;NT&#124;2000)”能匹配“Windows3.1”中的“Windows”，但不能匹配“Windows2000”中的“Windows”。预查不消耗字符，也就是说，在一个匹配发生后，在最后一次匹配之后立即开始下一次匹配的搜索，而不是从包含预查的字符之后开始</td>
+</tr>
+</tbody>
+</table>
+<h2 id="使用技巧"><a href="#使用技巧" class="headerlink" title="使用技巧"></a>使用技巧</h2><h3 id="和"><a href="#和" class="headerlink" title=". 和 [.]"></a>. 和 [.]</h3><p>. 特殊字符在中括号表达式时 如 [.] 只会匹配 .字符，等价于 .，而非匹配除换行符 \n 外的所有字符。</p>
+<h3 id="和-指定字符串-之间的区别"><a href="#和-指定字符串-之间的区别" class="headerlink" title="^ 和 [^指定字符串] 之间的区别"></a>^ 和 [^指定字符串] 之间的区别</h3><p>^ 指的是匹配字符串开始的位置<br>[^指定字符串] 指的是除指定字符串以外的其他字符串<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(^[<span class="number">0</span><span class="number">-9</span>])+     <span class="comment">// 匹配有一至多个数字的字符串组合</span></span><br><span class="line">[^[<span class="number">0</span><span class="number">-9</span>]]+  <span class="comment">// 匹配有一至多个不含数字的字符串组合</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="exec-方法"><a href="#exec-方法" class="headerlink" title="exec() 方法"></a>exec() 方法</h3><h4 id="定义和用法"><a href="#定义和用法" class="headerlink" title="定义和用法"></a>定义和用法</h4><p>exec() 方法用于检索字符串中的正则表达式的匹配。</p>
+<h4 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// string: 必需。要检索的字符串。</span></span><br><span class="line">RegExpObject.exec(string);</span><br></pre></td></tr></table></figure>
 <h4 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h4><p>返回一个数组，其中存放匹配的结果。如果未找到匹配，则返回值为 null。</p>
 <h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><p>exec() 方法的功能非常强大，它是一个通用的方法，而且使用起来也比 test() 方法以及支持正则表达式的 String 对象的方法更为复杂。</p>
 <p>如果 exec() 找到了匹配的文本，则返回一个结果数组。否则，返回 null。此数组的第 0 个元素是与正则表达式相匹配的文本，第 1 个元素是与 RegExpObject 的第 1 个子表达式相匹配的文本（如果有的话），第 2 个元素是与 RegExpObject 的第 2 个子表达式相匹配的文本（如果有的话），以此类推。除了数组元素和 length 属性之外，exec() 方法还返回两个属性。index 属性声明的是匹配文本的第一个字符的位置。input 属性则存放的是被检索的字符串 string。我们可以看得出，在调用非全局的 RegExp 对象的 exec() 方法时，返回的数组与调用方法 String.match() 返回的数组是相同的。</p>
@@ -559,6 +615,8 @@
 <h3 id="在-里面和在-外面如何区分"><a href="#在-里面和在-外面如何区分" class="headerlink" title="^在[]里面和在[]外面如何区分"></a>^在[]里面和在[]外面如何区分</h3><p><strong>^在[]里面</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/[^<span class="number">0</span><span class="number">-9</span>]/.test(<span class="string">'abc'</span>) <span class="comment">// true</span></span><br><span class="line">/[^<span class="number">0</span><span class="number">-9</span>]/.test(<span class="string">'123'</span>) <span class="comment">// false</span></span><br><span class="line"><span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string">归纳：^在[]里面代表是非数字，所以它代表是非。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">**^在[]外面**</span></span><br><span class="line"><span class="string">`</span><span class="string">``</span> js</span><br><span class="line">/^[<span class="number">0</span><span class="number">-9</span>]/.test(<span class="string">'abc'</span>) <span class="comment">// false</span></span><br><span class="line">/^[<span class="number">0</span><span class="number">-9</span>]/.test(<span class="string">'1bc'</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
 <p>归纳：^在[]外面代表是为首的数字，所以它代表头。</p>
 <p>^在[]里面和在[]外面有一个记忆的方法：乌龟把头(^)缩进里面，变为无（非)头乌龟，乌龟把头(^)伸出来，变为头(首）领。</p>
+<h3 id="s-S"><a href="#s-S" class="headerlink" title="[\s\S]*?"></a>[\s\S]*?</h3><p>非贪婪匹配任意字符串（包括换行符），将这个表达式放在()内，()的前后是定位用的、固定不变的字段。()是用来在「Get Group from Matched Text」中仅输出匹配的变动字段。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">\s 空白符</span><br><span class="line">\S 非空白符</span><br><span class="line">[\s\S]任意字符</span><br><span class="line">[\s\S]* <span class="number">0</span>个到任意多个字符</span><br><span class="line">[\s\S]*? <span class="number">0</span>个到任意多个字符（非贪婪模式，即最短匹配情况）</span><br></pre></td></tr></table></figure></p>
+<h3 id="gm"><a href="#gm" class="headerlink" title="gm"></a>gm</h3><p>m表明可以进行多行匹配，g表明可以进行全局匹配，综合到一起就是可以进行多行全局匹配 </p>
 
       
     </div>
@@ -626,7 +684,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/regex/" rel="tag"># regex</a>
+            <a href="/tags/note/" rel="tag"># note</a>
           
         </div>
       
@@ -721,7 +779,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-count">93</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -788,7 +846,49 @@
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -903,7 +1003,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">51</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">54</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -983,7 +1089,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用技巧"><span class="nav-number">1.</span> <span class="nav-text">使用技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#exec-方法"><span class="nav-number">1.1.</span> <span class="nav-text">exec() 方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义和用法"><span class="nav-number">1.1.1.</span> <span class="nav-text">定义和用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#语法"><span class="nav-number">1.1.2.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#返回值"><span class="nav-number">1.1.3.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#说明"><span class="nav-number">1.1.4.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提示和注释"><span class="nav-number">1.1.5.</span> <span class="nav-text">提示和注释</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#和-1…-9的理解和使用"><span class="nav-number">1.2.</span> <span class="nav-text">()和$1…$9的理解和使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在-里面和在-外面如何区分"><span class="nav-number">1.3.</span> <span class="nav-text">^在[]里面和在[]外面如何区分</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#语法"><span class="nav-number">1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用技巧"><span class="nav-number">2.</span> <span class="nav-text">使用技巧</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#和"><span class="nav-number">2.1.</span> <span class="nav-text">. 和 [.]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#和-指定字符串-之间的区别"><span class="nav-number">2.2.</span> <span class="nav-text">^ 和 [^指定字符串] 之间的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exec-方法"><span class="nav-number">2.3.</span> <span class="nav-text">exec() 方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义和用法"><span class="nav-number">2.3.1.</span> <span class="nav-text">定义和用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#语法-1"><span class="nav-number">2.3.2.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#返回值"><span class="nav-number">2.3.3.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#说明"><span class="nav-number">2.3.4.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提示和注释"><span class="nav-number">2.3.5.</span> <span class="nav-text">提示和注释</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#和-1…-9的理解和使用"><span class="nav-number">2.4.</span> <span class="nav-text">()和$1…$9的理解和使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在-里面和在-外面如何区分"><span class="nav-number">2.5.</span> <span class="nav-text">^在[]里面和在[]外面如何区分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#s-S"><span class="nav-number">2.6.</span> <span class="nav-text">[\s\S]*?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gm"><span class="nav-number">2.7.</span> <span class="nav-text">gm</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1003,7 +1109,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -1017,7 +1123,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">378k</span>
+    <span title="站点总字数">494k</span>
   
 
   
@@ -1028,7 +1134,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">5:44</span>
+    <span title="站点阅读时长">7:29</span>
   
 </div>
 

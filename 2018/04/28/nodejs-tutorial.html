@@ -141,18 +141,18 @@
 
 
 
-  <meta name="description" content="常见用法Node.js —— 实现修改完代码自动重启nodemon使用第三方命令行工具解决频繁修改代码重启服务器问题：nodemon。nodemon是一个基于Node.js开发的第三方命令行工具。 全局安装nodemon：1$ npm install -g nodemon 使用：把输入cmd的node改为nodemon，比如node app.js改为ndoemon app.js。只要是通过node">
-<meta name="keywords" content="nodejs">
+  <meta name="description" content="前言什么是NodeJS？JavaScript是一门脚本语言，它需要一个运行环境。就好像PHP需要Apache，Java需要Tomcat等等，而NodeJS之前，JavaScript运行环境是浏览器，也就是JavaScript在网页中才能跑起来。NodeJS之后JavaScript又多了一个运行环境，就是NodeJS。NodeJS 是基于Chrome V8引擎的 JavaScript 运行环境。No">
+<meta name="keywords" content="note">
 <meta property="og:type" content="article">
 <meta property="og:title" content="nodejs 开发汇总">
 <meta property="og:url" content="http://sosout.com/2018/04/28/nodejs-tutorial.html">
 <meta property="og:site_name" content="每天一探">
-<meta property="og:description" content="常见用法Node.js —— 实现修改完代码自动重启nodemon使用第三方命令行工具解决频繁修改代码重启服务器问题：nodemon。nodemon是一个基于Node.js开发的第三方命令行工具。 全局安装nodemon：1$ npm install -g nodemon 使用：把输入cmd的node改为nodemon，比如node app.js改为ndoemon app.js。只要是通过node">
+<meta property="og:description" content="前言什么是NodeJS？JavaScript是一门脚本语言，它需要一个运行环境。就好像PHP需要Apache，Java需要Tomcat等等，而NodeJS之前，JavaScript运行环境是浏览器，也就是JavaScript在网页中才能跑起来。NodeJS之后JavaScript又多了一个运行环境，就是NodeJS。NodeJS 是基于Chrome V8引擎的 JavaScript 运行环境。No">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-10-19T14:04:10.876Z">
+<meta property="og:updated_time" content="2018-11-03T03:12:52.183Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nodejs 开发汇总">
-<meta name="twitter:description" content="常见用法Node.js —— 实现修改完代码自动重启nodemon使用第三方命令行工具解决频繁修改代码重启服务器问题：nodemon。nodemon是一个基于Node.js开发的第三方命令行工具。 全局安装nodemon：1$ npm install -g nodemon 使用：把输入cmd的node改为nodemon，比如node app.js改为ndoemon app.js。只要是通过node">
+<meta name="twitter:description" content="前言什么是NodeJS？JavaScript是一门脚本语言，它需要一个运行环境。就好像PHP需要Apache，Java需要Tomcat等等，而NodeJS之前，JavaScript运行环境是浏览器，也就是JavaScript在网页中才能跑起来。NodeJS之后JavaScript又多了一个运行环境，就是NodeJS。NodeJS 是基于Chrome V8引擎的 JavaScript 运行环境。No">
 
 
 
@@ -510,7 +510,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">722</span>
+                <span title="本文字数">1.7k</span>
               
 
               
@@ -524,7 +524,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">2 分钟</span>
               
             </div>
           
@@ -544,13 +544,20 @@
       
 
       
-        <h2 id="常见用法"><a href="#常见用法" class="headerlink" title="常见用法"></a>常见用法</h2><h3 id="Node-js-——-实现修改完代码自动重启"><a href="#Node-js-——-实现修改完代码自动重启" class="headerlink" title="Node.js —— 实现修改完代码自动重启"></a>Node.js —— 实现修改完代码自动重启</h3><h4 id="nodemon"><a href="#nodemon" class="headerlink" title="nodemon"></a>nodemon</h4><p>使用第三方命令行工具解决频繁修改代码重启服务器问题：nodemon。nodemon是一个基于Node.js开发的第三方命令行工具。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="什么是NodeJS？"><a href="#什么是NodeJS？" class="headerlink" title="什么是NodeJS？"></a>什么是NodeJS？</h3><p>JavaScript是一门脚本语言，它需要一个运行环境。就好像PHP需要Apache，Java需要Tomcat等等，而NodeJS之前，JavaScript运行环境是浏览器，也就是JavaScript在网页中才能跑起来。NodeJS之后JavaScript又多了一个运行环境，就是NodeJS。NodeJS 是基于Chrome V8引擎的 JavaScript 运行环境。NodeJS使用事件驱动，非阻塞型I/O。NodeJS的包管理生态是 NPM，是现在世界上最大的开源程序包库。<br>由于NodeJS的最底层是Chrome的V8引擎，然后libuv封装了<code>一些I/O的线程池管理和网络的I/O操作</code>，这部分是C/C++写的。简单来说NodeJS可以控制系统文件的读写，网络的输入输出，所以NodeJS又可以被单纯的认为是一个可以运行 JavaScript 的服务器。</p>
+<h3 id="NodeJS和VueJS，ReactJS，还有AngularJS的区别"><a href="#NodeJS和VueJS，ReactJS，还有AngularJS的区别" class="headerlink" title="NodeJS和VueJS，ReactJS，还有AngularJS的区别"></a>NodeJS和VueJS，ReactJS，还有AngularJS的区别</h3><p>这些工具的起源和诞生几乎浓缩了前端的发展历程，因为 NodeJS 可以读写文件，监听网络输入输出，所以 NodeJS 和 VueJS、ReactJS、AngularJS 有非常本质的区别。NodeJS 是可以运行 JavaScript 的环境，剩下三个是用 JavaScript 写的库。</p>
+<h3 id="一般NodeJS被用在哪里？"><a href="#一般NodeJS被用在哪里？" class="headerlink" title="一般NodeJS被用在哪里？"></a>一般NodeJS被用在哪里？</h3><p>至于纯前端，大多用于辅助开发。我们所用的vue-cli等脚手架，或者webpack，gulp，grunt等构建工具都是用node写得。它为我们提升效率、打包、构建、维护等。</p>
+<h3 id="NodeJS-还能做啥？"><a href="#NodeJS-还能做啥？" class="headerlink" title="NodeJS 还能做啥？"></a>NodeJS 还能做啥？</h3><p>用JS做服务器： Express / EggJS / HAPI / Koa 等。</p>
+<p>用JS做移动端混合应用：PhoneGap / Cordova / Ionic 等。</p>
+<p>用JS做移动端原生应用：React-Native / NativeScript / WEEX 等。</p>
+<h2 id="常见用法"><a href="#常见用法" class="headerlink" title="常见用法"></a>常见用法</h2><h3 id="Node-js-——-实现修改完代码自动重启"><a href="#Node-js-——-实现修改完代码自动重启" class="headerlink" title="Node.js —— 实现修改完代码自动重启"></a>Node.js —— 实现修改完代码自动重启</h3><h4 id="nodemon"><a href="#nodemon" class="headerlink" title="nodemon"></a>nodemon</h4><p>使用第三方命令行工具解决频繁修改代码重启服务器问题：nodemon。nodemon是一个基于Node.js开发的第三方命令行工具。</p>
 <p><strong>全局安装nodemon：</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g nodemon</span><br></pre></td></tr></table></figure></p>
 <p><strong>使用：</strong><br>把输入cmd的node改为nodemon，比如node app.js改为ndoemon app.js。只要是通过nodemon启动的服务，它会监视文件变化，当文件发生变化时会自动重启服务器。</p>
-<h3 id="module-filename、filename、dirname、process-cwd-和require-main-filename-解惑"><a href="#module-filename、filename、dirname、process-cwd-和require-main-filename-解惑" class="headerlink" title="module.filename、filename、dirname、process.cwd()和require.main.filename 解惑"></a>module.filename、<strong>filename、</strong>dirname、process.cwd()和require.main.filename 解惑</h3><p>module.filename：开发期间，该行代码所在的文件。<br><strong>filename：始终等于 module.filename。
-</strong>dirname：开发期间，该行代码所在的目录。<br>process.cwd()：运行node的工作目录，可以使用  cd /d 修改工作目录。<br>require.main.filename：用node命令启动的module的filename, 如 node xxx，这里的filename就是这个xxx。</p>
+<h3 id="module-filename、filename、dirname、process-cwd-和require-main-filename-解惑"><a href="#module-filename、filename、dirname、process-cwd-和require-main-filename-解惑" class="headerlink" title="module.filename、filename、dirname、process.cwd()和require.main.filename 解惑"></a>module.filename、<strong>filename、</strong>dirname、process.cwd()和require.main.filename 解惑</h3><p><strong>module.filename：</strong>开发期间，该行代码所在的文件。<br><strong>__filename：</strong>始终等于 module.filename。<br><strong>__dirname：</strong>开发期间，该行代码所在的目录。<br><strong>process.cwd()：</strong>运行node的工作目录，可以使用  cd /d 修改工作目录。<br><strong>require.main.filename：</strong>用node命令启动的module的filename, 如 node xxx，这里的filename就是这个xxx。</p>
 <p>require()方法的坐标路径是：module.filename；fs.readFile()的坐标路径是：process.cwd()。</p>
-<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="Node-js-连接MySQL时-出现-connect-ECONNREFUSED-127-0-0-1-3306"><a href="#Node-js-连接MySQL时-出现-connect-ECONNREFUSED-127-0-0-1-3306" class="headerlink" title="Node.js 连接MySQL时 出现 connect ECONNREFUSED 127.0.0.1:3306"></a>Node.js 连接MySQL时 出现 connect ECONNREFUSED 127.0.0.1:3306</h3><p>原因：数据库服务没有打开。</p>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="bash-usr-local-bin-Permission-denied"><a href="#bash-usr-local-bin-Permission-denied" class="headerlink" title="bash: /usr/local/bin: Permission denied"></a>bash: /usr/local/bin: Permission denied</h3><p>原因：数据权限问题</p>
+<p>解决办法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo chmod 755 /usr/<span class="built_in">local</span>/bin</span><br><span class="line"></span><br><span class="line">$ sudo chmod -R 755 /usr/<span class="built_in">local</span>/bin <span class="comment"># 递归下面</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Node-js-连接MySQL时-出现-connect-ECONNREFUSED-127-0-0-1-3306"><a href="#Node-js-连接MySQL时-出现-connect-ECONNREFUSED-127-0-0-1-3306" class="headerlink" title="Node.js 连接MySQL时 出现 connect ECONNREFUSED 127.0.0.1:3306"></a>Node.js 连接MySQL时 出现 connect ECONNREFUSED 127.0.0.1:3306</h3><p>原因：数据库服务没有打开。</p>
 <p>解决办法：开启 MySQL服务。</p>
 <h3 id="nodemon-不断重启"><a href="#nodemon-不断重启" class="headerlink" title="nodemon 不断重启"></a>nodemon 不断重启</h3><p>解决办法：以管理员身份打开命令行执行命令，如果没有帮助，重启电脑。</p>
 
@@ -620,7 +627,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/nodejs/" rel="tag"># nodejs</a>
+            <a href="/tags/note/" rel="tag"># note</a>
           
         </div>
       
@@ -715,7 +722,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-count">93</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -782,7 +789,49 @@
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -897,7 +946,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">51</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">54</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -977,7 +1032,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#常见用法"><span class="nav-number">1.</span> <span class="nav-text">常见用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js-——-实现修改完代码自动重启"><span class="nav-number">1.1.</span> <span class="nav-text">Node.js —— 实现修改完代码自动重启</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nodemon"><span class="nav-number">1.1.1.</span> <span class="nav-text">nodemon</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#module-filename、filename、dirname、process-cwd-和require-main-filename-解惑"><span class="nav-number">1.2.</span> <span class="nav-text">module.filename、filename、dirname、process.cwd()和require.main.filename 解惑</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见问题"><span class="nav-number">2.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js-连接MySQL时-出现-connect-ECONNREFUSED-127-0-0-1-3306"><span class="nav-number">2.1.</span> <span class="nav-text">Node.js 连接MySQL时 出现 connect ECONNREFUSED 127.0.0.1:3306</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nodemon-不断重启"><span class="nav-number">2.2.</span> <span class="nav-text">nodemon 不断重启</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是NodeJS？"><span class="nav-number">1.1.</span> <span class="nav-text">什么是NodeJS？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NodeJS和VueJS，ReactJS，还有AngularJS的区别"><span class="nav-number">1.2.</span> <span class="nav-text">NodeJS和VueJS，ReactJS，还有AngularJS的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一般NodeJS被用在哪里？"><span class="nav-number">1.3.</span> <span class="nav-text">一般NodeJS被用在哪里？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NodeJS-还能做啥？"><span class="nav-number">1.4.</span> <span class="nav-text">NodeJS 还能做啥？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见用法"><span class="nav-number">2.</span> <span class="nav-text">常见用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js-——-实现修改完代码自动重启"><span class="nav-number">2.1.</span> <span class="nav-text">Node.js —— 实现修改完代码自动重启</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nodemon"><span class="nav-number">2.1.1.</span> <span class="nav-text">nodemon</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#module-filename、filename、dirname、process-cwd-和require-main-filename-解惑"><span class="nav-number">2.2.</span> <span class="nav-text">module.filename、filename、dirname、process.cwd()和require.main.filename 解惑</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见问题"><span class="nav-number">3.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bash-usr-local-bin-Permission-denied"><span class="nav-number">3.1.</span> <span class="nav-text">bash: /usr/local/bin: Permission denied</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js-连接MySQL时-出现-connect-ECONNREFUSED-127-0-0-1-3306"><span class="nav-number">3.2.</span> <span class="nav-text">Node.js 连接MySQL时 出现 connect ECONNREFUSED 127.0.0.1:3306</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nodemon-不断重启"><span class="nav-number">3.3.</span> <span class="nav-text">nodemon 不断重启</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -997,7 +1052,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -1011,7 +1066,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">378k</span>
+    <span title="站点总字数">494k</span>
   
 
   
@@ -1022,7 +1077,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">5:44</span>
+    <span title="站点阅读时长">7:29</span>
   
 </div>
 

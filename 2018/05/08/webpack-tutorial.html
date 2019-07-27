@@ -141,18 +141,18 @@
 
 
 
-  <meta name="description" content="常见用法require.contextrequire.context：创建自己的（模块）上下文，这个方法有 3 个参数：要搜索的文件夹目录，是否还应该搜索它的子目录，以及一个匹配文件的正则表达式。1require.context(directory, useSubdirectories = false, regExp = /^\.\//) 1234567891011121314151617/***">
-<meta name="keywords" content="webpack">
+  <meta name="description" content="webpack 教程require.contextrequire.context：创建自己的（模块）上下文，这个方法有 3 个参数：要搜索的文件夹目录，是否还应该搜索它的子目录，以及一个匹配文件的正则表达式。1require.context(directory, useSubdirectories = false, regExp = /^\.\//) 12345678910111213141516">
+<meta name="keywords" content="note">
 <meta property="og:type" content="article">
 <meta property="og:title" content="webpack 开发汇总">
 <meta property="og:url" content="http://sosout.com/2018/05/08/webpack-tutorial.html">
 <meta property="og:site_name" content="每天一探">
-<meta property="og:description" content="常见用法require.contextrequire.context：创建自己的（模块）上下文，这个方法有 3 个参数：要搜索的文件夹目录，是否还应该搜索它的子目录，以及一个匹配文件的正则表达式。1require.context(directory, useSubdirectories = false, regExp = /^\.\//) 1234567891011121314151617/***">
+<meta property="og:description" content="webpack 教程require.contextrequire.context：创建自己的（模块）上下文，这个方法有 3 个参数：要搜索的文件夹目录，是否还应该搜索它的子目录，以及一个匹配文件的正则表达式。1require.context(directory, useSubdirectories = false, regExp = /^\.\//) 12345678910111213141516">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-10-12T13:36:11.817Z">
+<meta property="og:updated_time" content="2018-11-03T03:12:52.195Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack 开发汇总">
-<meta name="twitter:description" content="常见用法require.contextrequire.context：创建自己的（模块）上下文，这个方法有 3 个参数：要搜索的文件夹目录，是否还应该搜索它的子目录，以及一个匹配文件的正则表达式。1require.context(directory, useSubdirectories = false, regExp = /^\.\//) 1234567891011121314151617/***">
+<meta name="twitter:description" content="webpack 教程require.contextrequire.context：创建自己的（模块）上下文，这个方法有 3 个参数：要搜索的文件夹目录，是否还应该搜索它的子目录，以及一个匹配文件的正则表达式。1require.context(directory, useSubdirectories = false, regExp = /^\.\//) 12345678910111213141516">
 
 
 
@@ -510,7 +510,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.7k</span>
+                <span title="本文字数">8.6k</span>
               
 
               
@@ -524,7 +524,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">2 分钟</span>
+                <span title="阅读时长">8 分钟</span>
               
             </div>
           
@@ -544,12 +544,52 @@
       
 
       
-        <h2 id="常见用法"><a href="#常见用法" class="headerlink" title="常见用法"></a>常见用法</h2><h3 id="require-context"><a href="#require-context" class="headerlink" title="require.context"></a>require.context</h3><p><strong>require.context：</strong>创建自己的（模块）上下文，这个方法有 3 个参数：要搜索的文件夹目录，是否还应该搜索它的子目录，以及一个匹配文件的正则表达式。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>.context(directory, useSubdirectories = <span class="literal">false</span>, regExp = <span class="regexp">/^\.\//</span>)</span><br></pre></td></tr></table></figure></p>
+        <h2 id="webpack-教程"><a href="#webpack-教程" class="headerlink" title="webpack 教程"></a>webpack 教程</h2><h3 id="require-context"><a href="#require-context" class="headerlink" title="require.context"></a>require.context</h3><p><strong>require.context：</strong>创建自己的（模块）上下文，这个方法有 3 个参数：要搜索的文件夹目录，是否还应该搜索它的子目录，以及一个匹配文件的正则表达式。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>.context(directory, useSubdirectories = <span class="literal">false</span>, regExp = <span class="regexp">/^\.\//</span>)</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 创建一个</span></span><br><span class="line"><span class="comment">* 包含了 test 文件夹</span></span><br><span class="line"><span class="comment">* 不包含子目录下面的</span></span><br><span class="line"><span class="comment">* 所有文件名以 `.test.js` 结尾的、</span></span><br><span class="line"><span class="comment">* 能被 require 请求到的文件的上下文。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="built_in">require</span>.context(<span class="string">"./test"</span>, <span class="literal">false</span>, /\.test\.js$/);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 创建一个</span></span><br><span class="line"><span class="comment">* 包含了父级文件夹</span></span><br><span class="line"><span class="comment">* 包含子目录下面的</span></span><br><span class="line"><span class="comment">* 所有文件名以 `.stories.js` 结尾的</span></span><br><span class="line"><span class="comment">* 能被 require 请求到的文件的上下文。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="built_in">require</span>.context(<span class="string">"../"</span>, <span class="literal">true</span>, /\.stories\.js$/);</span><br></pre></td></tr></table></figure>
 <p>require.context模块导出（返回）一个（require）函数，这个函数可以接收一个参数：request 函数 – 这里的 request 应该是指在 require() 语句中的表达式。require.context 第一个参数不能是变量，webpack在编译阶段无法定位目录。导出的方法有 3 个属性： resolve, keys, id。<br><strong>resolve：</strong>函数，它返回请求被解析后得到的模块 id。<br><strong>keys：</strong>函数，它返回一个数组，由所有可能被上下文模块处理的请求组成。<br><strong>id：</strong>上下文模块里面所包含的模块 id. 它可能在你使用 module.hot.accept 的时候被用到。</p>
 <h4 id="示例一：引入多张图片"><a href="#示例一：引入多张图片" class="headerlink" title="示例一：引入多张图片"></a>示例一：引入多张图片</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> img1 <span class="keyword">from</span> <span class="string">'../../assets/img1.jpeg'</span>;</span><br><span class="line"><span class="keyword">import</span> img2 <span class="keyword">from</span> <span class="string">'../../assets/img2.jpeg'</span>;</span><br><span class="line"><span class="keyword">import</span> img3 <span class="keyword">from</span> <span class="string">'../../assets/img3.jpeg'</span>;</span><br></pre></td></tr></table></figure>
 <p>上面页面上需要的图片很多，这样做太麻烦了，有没有批量引入的办法呢？<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> requireContext = <span class="built_in">require</span>.context(<span class="string">"../../assets"</span>, <span class="literal">false</span>, /^\.\/.*\.jpeg$/);</span><br><span class="line"><span class="keyword">const</span> images = requireContext.keys().map(requireContext);</span><br></pre></td></tr></table></figure></p>
 <h4 id="示例二：多个js文件"><a href="#示例二：多个js文件" class="headerlink" title="示例二：多个js文件"></a>示例二：多个js文件</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> context = <span class="built_in">require</span>.context(<span class="string">'./'</span>, <span class="literal">false</span>, /\.js$/);</span><br><span class="line"><span class="keyword">const</span> models = context.keys().filter(<span class="function"><span class="params">item</span> =&gt;</span> item !== <span class="string">'./index.js'</span>).map(context);</span><br></pre></td></tr></table></figure>
+<h3 id="Node-环境变量-process-env-NODE-ENV-之webpack应用"><a href="#Node-环境变量-process-env-NODE-ENV-之webpack应用" class="headerlink" title="Node 环境变量 process.env.NODE_ENV 之webpack应用"></a>Node 环境变量 process.env.NODE_ENV 之webpack应用</h3><p>文档中说：</p>
+<blockquote>
+<p>DefinePlugin 在原始的源码中执行查找和替换操作，在导入的代码中，任何出现 process.env.NODE_ENV的地方都会被替换为”production”。因此，形如if (process.env.NODE_ENV !== ‘production’) console.log(‘……’) 的代码就会等价于 if (false) console.log(‘……’) 并且最终通过UglifyJS等价替换掉。<br>也就是说，webpack config文件中定义的变量：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> webpack.DefinePlugin(&#123;</span><br><span class="line">  <span class="string">'process.env.NODE_ENV'</span>: <span class="built_in">JSON</span>.stringify(<span class="string">'production'</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>是为了我们将要打包的文件中用的。那如何在webpack config文件中使用 process.env.NODE_ENV 呢？答案是corss-env。</p>
+<h4 id="接下来进入主题，开始配置-webpack-config-js"><a href="#接下来进入主题，开始配置-webpack-config-js" class="headerlink" title="接下来进入主题，开始配置 webpack.config.js:"></a>接下来进入主题，开始配置 webpack.config.js:</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</span><br><span class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">'html-webpack-plugin'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> config = &#123;</span><br><span class="line">    entry:path.join(__dirname,<span class="string">"src/app.js"</span>),</span><br><span class="line">    output:&#123;</span><br><span class="line">        path:path.join(__dirname,<span class="string">"dist"</span>),</span><br><span class="line">        filename:<span class="string">"bundle.js"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    plugins:[</span><br><span class="line">        <span class="keyword">new</span> HtmlWebpackPlugin()</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">module</span>.exports = config</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"process.env.NODE_ENV 的值是(webpack.config.js)："</span>+ process.env.NODE_ENV)</span><br></pre></td></tr></table></figure>
+<p>然后新建文件 src/app.js：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"app test"</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"process.env.NODE_ENV 的值是(app.js)："</span>+ process.env.NODE_ENV)</span><br></pre></td></tr></table></figure></p>
+<p>一切准备好后，给package.json加一行 ：”build”: “webpack”<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">"scripts": &#123;</span><br><span class="line">  "build":"webpack"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>由于没有进行任何配置，所以上面的输出中给出的信息是：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">process.env.NODE_ENV 的值是(webpack.config.js)：<span class="literal">undefined</span></span><br></pre></td></tr></table></figure></p>
+<p>通过浏览器访问/dist/index.html，控制台有如下信息输出：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">app test </span><br><span class="line">process.env.NODE_ENV 的值是(app.js)：<span class="literal">undefined</span></span><br></pre></td></tr></table></figure></p>
+<p>也就是说，在/src/app.js里，process.env.NODE_ENV 也未定义。</p>
+<h4 id="通过webpack-p参数控制"><a href="#通过webpack-p参数控制" class="headerlink" title="通过webpack -p参数控制"></a>通过webpack -p参数控制</h4><p>在package.json里增加一行：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">"scripts": &#123;</span><br><span class="line">  "build":"webpack",</span><br><span class="line">  "build-p":"webpack -p"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后执行： npm run build-p 命令行输出没有任何变化，仍然是：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">process.env.NODE_ENV 的值是(webpack.config.js)：<span class="literal">undefined</span></span><br></pre></td></tr></table></figure></p>
+<p>但通过浏览器访问/dist/index.html，控制台有如下信息输出：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">app test </span><br><span class="line">process.env.NODE_ENV 的值是(app.js)：production</span><br></pre></td></tr></table></figure></p>
+<p>也就是说，通过webpack -p，然process.env.NODE_ENV值传递给app.js了（webpack.config.js并未获取到~）</p>
+<h4 id="通过-webpack-DefinePlugin-定义"><a href="#通过-webpack-DefinePlugin-定义" class="headerlink" title="通过 webpack.DefinePlugin 定义"></a>通过 webpack.DefinePlugin 定义</h4><p>接着看，假设webpack.config.js是基本定义，针对上线产品，额外定义了webpack.config.prod.js，然后通过webpack-merge合并两个配置文件webpack.config.prod.js如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>)</span><br><span class="line"><span class="keyword">const</span> merge = <span class="built_in">require</span>(<span class="string">'webpack-merge'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> config = <span class="built_in">require</span>(<span class="string">"./webpack.config.js"</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = merge(config,&#123;</span><br><span class="line">    plugins:[</span><br><span class="line">        <span class="keyword">new</span> webpack.DefinePlugin(&#123;</span><br><span class="line">            <span class="string">'process.env.NODE_ENV'</span>: <span class="built_in">JSON</span>.stringify(<span class="string">'production'</span>)</span><br><span class="line">        &#125;),</span><br><span class="line">        <span class="keyword">new</span> webpack.optimize.UglifyJsPlugin(&#123;</span><br><span class="line">            compress: process.env.NODE_ENV === <span class="string">'production'</span></span><br><span class="line">        &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"process.env.NODE_ENV 的值是(webpack.config.prod.js)："</span>+ process.env.NODE_ENV)</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，在这个文件里，我们通过webpack.DefinePlugin定义了process.env.NODE_ENV，现在在package.json里增加一行，并通过–config指定配置文件：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">"scripts": &#123;</span><br><span class="line">  "build":"webpack",</span><br><span class="line">  "build-p":"webpack -p",</span><br><span class="line">  "build-prod":"webpack --config webpack.config.prod.js"</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p>
+<p>然后执行：npm run build-prod，命令行里有如下输出：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">process.env.NODE_ENV 的值是(webpack.config.js)：<span class="literal">undefined</span> </span><br><span class="line">process.env.NODE_ENV 的值是(webpack.config.prod.js)：<span class="literal">undefined</span></span><br></pre></td></tr></table></figure></p>
+<p>通过浏览器访问/dist/index.html，控制台有如下信息输出：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">app test </span><br><span class="line">process.env.NODE_ENV 的值是(app.js)：production</span><br></pre></td></tr></table></figure></p>
+<p>这次没有用webpack -p参数，而是在webpack.config.prod.js里通过webpack.DefinePlugin定义了process.env.NODE_ENV，取得了相当的效果。</p>
+<h4 id="在config文件里获取NODE-ENV值"><a href="#在config文件里获取NODE-ENV值" class="headerlink" title="在config文件里获取NODE_ENV值"></a>在config文件里获取NODE_ENV值</h4><p>解决了在app.js获取NODE_ENV的值，如何在webpack配置文件里获取NODE_ENV的值呢，这样就可以根据不同的值定义相关的参数了，如上所述，答案是：corss-env，在package.json里增加一行：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">"scripts": &#123;</span><br><span class="line">  "build":"webpack",</span><br><span class="line">  "build-p":"webpack -p",</span><br><span class="line">  "build-prod":"webpack --config webpack.config.prod.js",</span><br><span class="line">  "build-cross-env":"cross-env NODE_ENV=production webpack"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里执行：npm run build-cross-env，命令行里会得到：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">process.env.NODE_ENV 的值是(webpack.config.js)：production</span><br></pre></td></tr></table></figure></p>
+<p>通过浏览器访问/dist/index.html，控制台有如下信息输出：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">app test </span><br><span class="line">process.env.NODE_ENV 的值是(app.js)：<span class="literal">undefined</span></span><br></pre></td></tr></table></figure></p>
+<p>可以看到，通过cross-env NODE_ENV=production，然信息传递给了webpack的配置文件，但app.js并没有获取到。</p>
+<h4 id="很自然的想到，如果里要在配置文件里和业务代码里，都获取到NODE-ENV，那将3、4结合起来："><a href="#很自然的想到，如果里要在配置文件里和业务代码里，都获取到NODE-ENV，那将3、4结合起来：" class="headerlink" title="很自然的想到，如果里要在配置文件里和业务代码里，都获取到NODE_ENV，那将3、4结合起来："></a>很自然的想到，如果里要在配置文件里和业务代码里，都获取到NODE_ENV，那将3、4结合起来：</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">"scripts": &#123;</span><br><span class="line">  "build":"webpack",</span><br><span class="line">  "build-p":"webpack -p",</span><br><span class="line">  "build-prod":"webpack --config webpack.config.prod.js",</span><br><span class="line">  "build-cross-env":"cross-env NODE_ENV=production webpack",</span><br><span class="line">  "build-cross-env-with-prod":"cross-env NODE_ENV=production webpack  --config webpack.config.prod.js"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行： npm run build-cross-env-with-prod，命令行中有显示：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">process.env.NODE_ENV 的值是(webpack.config.js)：production </span><br><span class="line">process.env.NODE_ENV 的值是(webpack.config.prod.js)：production</span><br></pre></td></tr></table></figure></p>
+<p>通过浏览器访问/dist/index.html，控制台有如下信息输出：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">app test </span><br><span class="line">process.env.NODE_ENV 的值是(app.js)：production</span><br></pre></td></tr></table></figure></p>
+<h3 id="Webpack-Code-Splitting"><a href="#Webpack-Code-Splitting" class="headerlink" title="Webpack Code Splitting"></a>Webpack Code Splitting</h3><p>首先说，code splitting指什么。我们打包时通常会生成一个大的bundle.js(或者index,看你如何命名)文件，这样所有的模块都会打包到这个bundle.js文件中，最终生成的文件往往比较大。code splitting就是指将文件分割为块(chunk)，webpack使我们可以定义一些分割点(split point)，根据这些分割点对文件进行分块，并实现按需加载。</p>
+<h4 id="code-splitting的意义"><a href="#code-splitting的意义" class="headerlink" title="code splitting的意义"></a>code splitting的意义</h4><p>1、第三方类库单独打包。由于第三方类库的内容基本不会改变，可以将其与业务代码分离出来，这样就可以将类库代码缓存在客户端，减少请求。<br>2、按需加载。webpack支持定义分割点，通过require.ensure进行按需加载。<br>3、通用模块单独打包。我们代码中可能会有一些通用模块，比如弹窗、分页、通用的方法等等。其他业务代码模块常常会有引用这些通用模块。若按照2中做，则会造成通用模块重复打包。这时可以将通用模块单独打包出来。</p>
+<h4 id="如何进行code-spliting"><a href="#如何进行code-spliting" class="headerlink" title="如何进行code spliting"></a>如何进行code spliting</h4><h5 id="第三方类库"><a href="#第三方类库" class="headerlink" title="第三方类库"></a>第三方类库</h5><p>我们项目中常常会用到一些第三方的类库，比如jquery,bootstrap等。可以配置多入口来将第三方类库单独打包，如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在entry中添加入口</span></span><br><span class="line">entry: &#123;</span><br><span class="line">  index: <span class="string">'./index'</span>,</span><br><span class="line">  vendor: [<span class="string">'jquery'</span>, <span class="string">'bootstrap'</span>]</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="comment">//在plugins中配置</span></span><br><span class="line">plugins: [</span><br><span class="line">  <span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(<span class="string">"vendor"</span>, <span class="string">"vendor.bundle.js"</span>),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p><strong>说明 </strong><br>CommonsChunkPlugin提供两个参数，第一个参数为对应的chunk名（chunk指文件块，对应entry中的属性名），第二个参数为生成的文件名。<br>这个插件做了两件事：<br>1、将vendor配置的模块（jquery,bootstrap）打包到vendor.bundle.js中。<br>2、将index中存在的jquery, bootstrap模块从文件中移除。这样index中则只留下纯净的业务代码。</p>
+<h5 id="按需加载"><a href="#按需加载" class="headerlink" title="按需加载"></a>按需加载</h5><p>以基于backbone的单页面应用为例，可以在router中进行配置实现按需加载，如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// router.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Router = Backbone.Router.extend(&#123;</span><br><span class="line">  routes: &#123;</span><br><span class="line">    <span class="string">'a'</span>: <span class="string">'a'</span>,</span><br><span class="line">    <span class="string">'b'</span>: <span class="string">'b'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  </span><br><span class="line">  a: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">require</span>.ensure([<span class="string">'./a'</span>], (<span class="built_in">require</span>) =&gt; &#123;</span><br><span class="line">      <span class="keyword">let</span> a = <span class="built_in">require</span>(<span class="string">'./a'</span>);</span><br><span class="line">      <span class="comment">//do something</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  </span><br><span class="line">  b: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">require</span>.ensure([<span class="string">'./b'</span>], (<span class="built_in">require</span>) =&gt; &#123;</span><br><span class="line">      <span class="keyword">let</span> b = <span class="built_in">require</span>(<span class="string">'./b'</span>);</span><br><span class="line">      <span class="comment">//do something</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>说明</strong><br>如上方式将打出两个文件，a.js和b.js（当然名字会有所不同），且为按需加载。只有在访问a时，a.js才会被加载，b同理。但是这种做法存在两个问题：<br>1、若路由分配不合理，会打包出很多很小的文件，每个文件或许只有几k，却多了很多网络请求，得不偿失。<br>2、会造成通用模块的重复打包，比如a模块和b模块都引用了c模块，</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'c'</span> <span class="keyword">from</span> <span class="string">'./c'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// b</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'c'</span> <span class="keyword">from</span> <span class="string">'./c'</span></span><br></pre></td></tr></table></figure>
+<p>这样我们会发现打包出的a.js和b.js中都包含c模块的代码，造成了代码冗余。</p>
+<p>对于问题1，可以通过webpack提供的插件来解决：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在plugins中添加该插件：</span></span><br><span class="line">plugins: [</span><br><span class="line">  <span class="keyword">new</span> webpack.optimize.AggressiveMergingPlugin()</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>对于问题2:<br>可以按照下文中所说方式解决。</p>
 <h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="webpack-cli（v4）"><a href="#webpack-cli（v4）" class="headerlink" title="webpack-cli（v4）"></a>webpack-cli（v4）</h3><p><strong>Q：</strong>由于webpack-cli从webpack包里面分离出来了，未安装webpack-cli会产生以下错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">One CLI for webpack must be installed. These are recommended choices, delivered as separate packages:</span><br><span class="line"> - webpack-cli (https://github.com/webpack/webpack-cli)</span><br><span class="line">   The original webpack full-featured CLI.</span><br><span class="line"> - webpack-command (https://github.com/webpack-contrib/webpack-command)</span><br><span class="line">   A lightweight, opinionated webpack CLI.</span><br><span class="line">We will use &quot;npm&quot; to install the CLI via &quot;npm install -D&quot;.</span><br><span class="line">Which one do you like to install (webpack-cli/webpack-command):</span><br></pre></td></tr></table></figure></p>
 <p><strong>A：</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install webpack-cli -D</span><br></pre></td></tr></table></figure></p>
 <h3 id="mode（v4）"><a href="#mode（v4）" class="headerlink" title="mode（v4）"></a>mode（v4）</h3><p><strong>Q：</strong>未设置mode属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">WARNING in configuration</span><br><span class="line">The &apos;mode&apos; option has not been set, webpack will fallback to &apos;production&apos; for this value. Set &apos;mode&apos; option to &apos;development&apos; or &apos;production&apos; to enable defaults for each environment.</span><br><span class="line">You can also set it to &apos;none&apos; to disable any default behavior. Learn more: https://webpack.js.org/concepts/mode/</span><br></pre></td></tr></table></figure></p>
@@ -622,7 +662,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/webpack/" rel="tag"># webpack</a>
+            <a href="/tags/note/" rel="tag"># note</a>
           
         </div>
       
@@ -717,7 +757,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-count">93</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -784,7 +824,49 @@
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -899,7 +981,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">51</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">54</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -979,7 +1067,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#常见用法"><span class="nav-number">1.</span> <span class="nav-text">常见用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#require-context"><span class="nav-number">1.1.</span> <span class="nav-text">require.context</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#示例一：引入多张图片"><span class="nav-number">1.1.1.</span> <span class="nav-text">示例一：引入多张图片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例二：多个js文件"><span class="nav-number">1.1.2.</span> <span class="nav-text">示例二：多个js文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见问题"><span class="nav-number">2.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#webpack-cli（v4）"><span class="nav-number">2.1.</span> <span class="nav-text">webpack-cli（v4）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mode（v4）"><span class="nav-number">2.2.</span> <span class="nav-text">mode（v4）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#loader-加载顺序"><span class="nav-number">2.3.</span> <span class="nav-text">loader 加载顺序</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack-教程"><span class="nav-number">1.</span> <span class="nav-text">webpack 教程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#require-context"><span class="nav-number">1.1.</span> <span class="nav-text">require.context</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#示例一：引入多张图片"><span class="nav-number">1.1.1.</span> <span class="nav-text">示例一：引入多张图片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例二：多个js文件"><span class="nav-number">1.1.2.</span> <span class="nav-text">示例二：多个js文件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-环境变量-process-env-NODE-ENV-之webpack应用"><span class="nav-number">1.2.</span> <span class="nav-text">Node 环境变量 process.env.NODE_ENV 之webpack应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#接下来进入主题，开始配置-webpack-config-js"><span class="nav-number">1.2.1.</span> <span class="nav-text">接下来进入主题，开始配置 webpack.config.js:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过webpack-p参数控制"><span class="nav-number">1.2.2.</span> <span class="nav-text">通过webpack -p参数控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过-webpack-DefinePlugin-定义"><span class="nav-number">1.2.3.</span> <span class="nav-text">通过 webpack.DefinePlugin 定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在config文件里获取NODE-ENV值"><span class="nav-number">1.2.4.</span> <span class="nav-text">在config文件里获取NODE_ENV值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#很自然的想到，如果里要在配置文件里和业务代码里，都获取到NODE-ENV，那将3、4结合起来："><span class="nav-number">1.2.5.</span> <span class="nav-text">很自然的想到，如果里要在配置文件里和业务代码里，都获取到NODE_ENV，那将3、4结合起来：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Webpack-Code-Splitting"><span class="nav-number">1.3.</span> <span class="nav-text">Webpack Code Splitting</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#code-splitting的意义"><span class="nav-number">1.3.1.</span> <span class="nav-text">code splitting的意义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何进行code-spliting"><span class="nav-number">1.3.2.</span> <span class="nav-text">如何进行code spliting</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第三方类库"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">第三方类库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#按需加载"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">按需加载</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见问题"><span class="nav-number">2.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#webpack-cli（v4）"><span class="nav-number">2.1.</span> <span class="nav-text">webpack-cli（v4）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mode（v4）"><span class="nav-number">2.2.</span> <span class="nav-text">mode（v4）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#loader-加载顺序"><span class="nav-number">2.3.</span> <span class="nav-text">loader 加载顺序</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -999,7 +1087,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -1013,7 +1101,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">378k</span>
+    <span title="站点总字数">494k</span>
   
 
   
@@ -1024,7 +1112,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">5:44</span>
+    <span title="站点阅读时长">7:29</span>
   
 </div>
 

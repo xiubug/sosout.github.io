@@ -1,0 +1,2355 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: true,
+    lazyload: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="TSLint 规则一套完整的 TSLint 规则，以及对每条规则的释义。 使用方法以tslint-config-alloy为例：安装： 1npm install --save-dev tslint typescript tslint-config-alloy 在你的项目根目录下创建 tslint.json，并将以下内容复制到文件中： 1234567891011121314&amp;#123;    &amp;qu">
+<meta name="keywords" content="note">
+<meta property="og:type" content="article">
+<meta property="og:title" content="typescript 教程">
+<meta property="og:url" content="http://sosout.com/2018/11/30/typescript-tutorial.html">
+<meta property="og:site_name" content="每天一探">
+<meta property="og:description" content="TSLint 规则一套完整的 TSLint 规则，以及对每条规则的释义。 使用方法以tslint-config-alloy为例：安装： 1npm install --save-dev tslint typescript tslint-config-alloy 在你的项目根目录下创建 tslint.json，并将以下内容复制到文件中： 1234567891011121314&amp;#123;    &amp;qu">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-11-29T13:35:40.023Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="typescript 教程">
+<meta name="twitter:description" content="TSLint 规则一套完整的 TSLint 规则，以及对每条规则的释义。 使用方法以tslint-config-alloy为例：安装： 1npm install --save-dev tslint typescript tslint-config-alloy 在你的项目根目录下创建 tslint.json，并将以下内容复制到文件中： 1234567891011121314&amp;#123;    &amp;qu">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="每天一探" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="http://sosout.com/2018/11/30/typescript-tutorial.html"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>typescript 教程 | 每天一探</title>
+  
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-123825183-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-123825183-1');
+</script>
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?aed6dded356af07f3b5991c346dc812d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">每天一探</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">无法停止探索的脚步</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-开源项目">
+    <a href="/project/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-github"></i> <br />开源项目</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-站点地图">
+    <a href="/sitemap.xml" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />站点地图</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://sosout.com/2018/11/30/typescript-tutorial.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Weich">
+      <meta itemprop="description" content="看博客上一探">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="每天一探">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">typescript 教程
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-30 23:44:49" itemprop="dateCreated datePublished" datetime="2018-11-30T23:44:49+08:00">2018-11-30</time>
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/typescript/" itemprop="url" rel="index"><span itemprop="name">typescript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/11/30/typescript-tutorial.html" class="leancloud_visitors" data-flag-title="typescript 教程">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">8.9k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">8 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="TSLint-规则"><a href="#TSLint-规则" class="headerlink" title="TSLint 规则"></a>TSLint 规则</h2><p>一套完整的 TSLint 规则，以及对每条规则的释义。</p>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p>以<code>tslint-config-alloy</code>为例：<br>安装：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev tslint typescript tslint-config-alloy</span><br></pre></td></tr></table></figure>
+<p>在你的项目根目录下创建 <code>tslint.json</code>，并将以下内容复制到文件中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;extends&quot;: [&quot;tslint-config-alloy&quot;],</span><br><span class="line">    &quot;linterOptions&quot;: &#123;</span><br><span class="line">        &quot;exclude&quot;: [&quot;**/node_modules/**&quot;]</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;rules&quot;: &#123;</span><br><span class="line">        // 这里填入你的项目需要的个性化配置，比如：</span><br><span class="line">        //</span><br><span class="line">        // // 一个缩进必须用两个空格替代</span><br><span class="line">        // // @has-fixer 可自动修复</span><br><span class="line">        // // @prettier 可交由 prettier 控制</span><br><span class="line">        // &quot;indent&quot;: [true, &quot;spaces&quot;, 2]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="CLI-中运行"><a href="#CLI-中运行" class="headerlink" title="CLI 中运行"></a>CLI 中运行</h4><p>使用项目依赖中的 <code>tslint</code> 脚本，指定项目路径，检查所有 ts 后缀的文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./node_modules/.bin/tslint --project . ./**/*.ts</span><br></pre></td></tr></table></figure>
+<p>将 <code>tslint</code> 作为 npm scripts 运行：</p>
+<ol>
+<li><code>package.json</code> 的 <code>scripts</code> 字段添加一条 <code>&quot;tslint&quot;: &quot;tslint --project . ./**/*.ts&quot;</code></li>
+<li>运行 <code>npm run tslint</code></li>
+</ol>
+<h4 id="与-VSCode-集成"><a href="#与-VSCode-集成" class="headerlink" title="与 VSCode 集成"></a>与 VSCode 集成</h4><ol>
+<li>在 VSCode 中安装 tslint 插件</li>
+<li>按下 <code>Cmd</code> + <code>,</code> 或 <code>Ctrl</code> + <code>,</code>，打开设置</li>
+<li>将 <code>tslint.autoFixOnSave</code>，配置为 <code>true</code></li>
+</ol>
+<h4 id="与-Prettier-集成"><a href="#与-Prettier-集成" class="headerlink" title="与 Prettier 集成"></a>与 Prettier 集成</h4><p>Prettier 是一个专注于对代码风格进行统一格式化的工具，由于与 TSLint 的部分配置冲突，故需要使用 tslint-config-prettier 禁用掉 TSLint 的部分规则。</p>
+<p>首先安装 prettier 和 tslint-config-prettier：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev prettier tslint-config-prettier</span><br></pre></td></tr></table></figure>
+<p>然后为 <code>tslint.config</code> 的 <code>extends</code> 添加 <code>tslint-config-prettier</code> 即可：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;extends&quot;: [&quot;tslint-config-alloy&quot;, &quot;tslint-config-prettier&quot;],</span><br><span class="line">    &quot;linterOptions&quot;: &#123;</span><br><span class="line">        &quot;exclude&quot;: [&quot;**/node_modules/**&quot;]</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;rules&quot;: &#123;</span><br><span class="line">        // 这里填入你的项目需要的个性化配置，比如：</span><br><span class="line">        //</span><br><span class="line">        // // 一个缩进必须用两个空格替代</span><br><span class="line">        // // @has-fixer 可自动修复</span><br><span class="line">        // // @prettier 可交由 prettier 控制</span><br><span class="line">        // &quot;indent&quot;: [true, &quot;spaces&quot;, 2]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果需要在 VSCode 中实现保存时修复 Prettier 的问题，则可以按照以下步骤配置：</p>
+<ol>
+<li>VSCode 安装 Prettier - Code formatter 插件</li>
+<li>按下 <code>Cmd</code> + <code>,</code> 或 <code>Ctrl</code> + <code>,</code>，打开设置</li>
+<li>将 <code>tslint.formatOnSave</code>，配置为 <code>true</code></li>
+</ol>
+<p>Prettier 的配置文件 <code>prettier.config.js</code> 可以参考这个：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// prettier.config.js or .prettierrc.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="comment">// 一行最多 100 字符</span></span><br><span class="line">    printWidth: <span class="number">100</span>,</span><br><span class="line">    <span class="comment">// 使用 4 个空格缩进</span></span><br><span class="line">    tabWidth: <span class="number">4</span>,</span><br><span class="line">    <span class="comment">// 不使用缩进符，而使用空格</span></span><br><span class="line">    useTabs: <span class="literal">false</span>,</span><br><span class="line">    <span class="comment">// 行尾需要有分号</span></span><br><span class="line">    semi: <span class="literal">true</span>,</span><br><span class="line">    <span class="comment">// 使用单引号</span></span><br><span class="line">    singleQuote: <span class="literal">true</span>,</span><br><span class="line">    <span class="comment">// jsx 不使用单引号，而使用双引号</span></span><br><span class="line">    jsxSingleQuote: <span class="literal">false</span>,</span><br><span class="line">    <span class="comment">// 末尾不需要逗号</span></span><br><span class="line">    trailingComma: <span class="string">'none'</span>,</span><br><span class="line">    <span class="comment">// 大括号内的首尾需要空格</span></span><br><span class="line">    bracketSpacing: <span class="literal">true</span>,</span><br><span class="line">    <span class="comment">// jsx 标签的反尖括号需要换行</span></span><br><span class="line">    jsxBracketSameLine: <span class="literal">false</span>,</span><br><span class="line">    <span class="comment">// 箭头函数，只有一个参数的时候，也需要括号</span></span><br><span class="line">    arrowParens: <span class="string">'always'</span>,</span><br><span class="line">    <span class="comment">// 每个文件格式化的范围是文件的全部内容</span></span><br><span class="line">    rangeStart: <span class="number">0</span>,</span><br><span class="line">    rangeEnd: <span class="literal">Infinity</span>,</span><br><span class="line">    <span class="comment">// 不需要写文件开头的 @prettier</span></span><br><span class="line">    requirePragma: <span class="literal">false</span>,</span><br><span class="line">    <span class="comment">// 不需要自动在文件开头插入 @prettier</span></span><br><span class="line">    insertPragma: <span class="literal">false</span>,</span><br><span class="line">    <span class="comment">// 使用默认的折行标准</span></span><br><span class="line">    proseWrap: <span class="string">'preserve'</span>,</span><br><span class="line">    <span class="comment">// 根据显示样式决定 html 要不要折行</span></span><br><span class="line">    htmlWhitespaceSensitivity: <span class="string">'css'</span>,</span><br><span class="line">    <span class="comment">// 换行符使用 lf</span></span><br><span class="line">    endOfLine: <span class="string">'lf'</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="规则列表"><a href="#规则列表" class="headerlink" title="规则列表"></a>规则列表</h3><h4 id="TypeScript-相关"><a href="#TypeScript-相关" class="headerlink" title="TypeScript 相关"></a>TypeScript 相关</h4><p>与 TypeScript 特性相关的规则。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/adjacent-overload-signatures/" target="_blank" rel="noopener">adjacent-overload-signatures</a></td>
+<td>重载的函数<strong>必须</strong>写在一起</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/ban-types/" target="_blank" rel="noopener">ban-types</a></td>
+<td>禁用特定的类型</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/member-access/" target="_blank" rel="noopener">member-access</a></td>
+<td><strong>必须</strong>指定类的成员的可访问性</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/member-ordering/" target="_blank" rel="noopener">member-ordering</a></td>
+<td>指定类成员的排序规则</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-any/" target="_blank" rel="noopener">no-any</a></td>
+<td><strong>禁止</strong>使用any</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-empty-interface/" target="_blank" rel="noopener">no-empty-interface</a></td>
+<td><strong>禁止</strong>定义空的接口</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-import-side-effect/" target="_blank" rel="noopener">no-import-side-effect</a></td>
+<td><strong>禁止</strong>导入立即执行的模块，除了<code>css</code>、<code>less</code>、<code>sass</code>、<code>scss</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-inferrable-types/" target="_blank" rel="noopener">no-inferrable-types</a></td>
+<td><strong>禁止</strong>给一个初始化时直接赋值为<code>number</code>、<code>string</code>或<code>boolean</code>的变量显式的指定类型</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-internal-module/" target="_blank" rel="noopener">no-internal-module</a></td>
+<td><strong>禁止</strong>使用<code>module</code>来定义命名空间</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-magic-numbers/" target="_blank" rel="noopener">no-magic-numbers</a></td>
+<td><strong>禁止</strong>使用魔法数字，仅允许使用一部分白名单中的数字</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-any/" target="_blank" rel="noopener">no-namespace</a></td>
+<td><strong>禁止</strong>使用<code>namespace</code>来定义命名空间</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-non-null-assertion/" target="_blank" rel="noopener">no-non-null-assertion</a></td>
+<td><strong>禁止</strong>使用 non-null 断言（感叹号）</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-parameter-reassignment/" target="_blank" rel="noopener">no-parameter-reassignment</a></td>
+<td><strong>禁止</strong>对函数的参数重新赋值</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-reference/" target="_blank" rel="noopener">no-reference</a></td>
+<td><strong>禁止</strong>使用三斜线引入模块<code>/// &lt;reference path=&quot;foo&quot; /&gt;</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-unnecessary-type-assertion/" target="_blank" rel="noopener">no-unnecessary-type-assertion</a></td>
+<td><strong>禁止</strong>无用的类型断言</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-unnecessary-type-assertion/" target="_blank" rel="noopener">no-var-requires</a></td>
+<td><strong>禁止</strong>使用<code>require</code>来引入模块</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/only-arrow-functions/" target="_blank" rel="noopener">only-arrow-functions</a></td>
+<td><strong>必须</strong>使用箭头函数，除非是单独的函数声明或是命名函数</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/prefer-for-of/" target="_blank" rel="noopener">prefer-for-of</a></td>
+<td>使用<code>for</code>循环遍历数组时，如果<code>index</code>仅用于获取成员，则<strong>必须</strong>使用<code>for of</code>循环替代<code>for</code>循环</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/promise-function-async/" target="_blank" rel="noopener">promise-function-async</a></td>
+<td><code>async</code>函数的返回值<strong>必须</strong>是<code>Promise</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/typedef/" target="_blank" rel="noopener">typedef</a></td>
+<td>变量、函数返回值、函数参数等<strong>必须</strong>要有类型定义</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/typedef-whitespace/" target="_blank" rel="noopener">typedef-whitespace</a></td>
+<td>类型定义的冒号前面<strong>必须</strong>没有空格，后面<strong>必须</strong>有一个空格</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/unified-signatures/" target="_blank" rel="noopener">unified-signatures</a></td>
+<td>函数重载时，若能通过联合类型将两个函数的类型声明合为一个，则使用联合类型而不是两个函数声明</td>
+</tr>
+</tbody>
+</table>
+<h4 id="功能性检查"><a href="#功能性检查" class="headerlink" title="功能性检查"></a>功能性检查</h4><p>找出可能的错误，以及可能会产生 bug 的编码习惯。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/await-promise/" target="_blank" rel="noopener">await-promise</a></td>
+<td><code>await</code><strong>必须</strong>接受<code>Promise</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/ban/" target="_blank" rel="noopener">ban</a></td>
+<td>禁用指定的函数或全局方法</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/ban-comma-operator/" target="_blank" rel="noopener">ban-comma-operator</a></td>
+<td><strong>禁止</strong>使用逗号操作符</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/curly/" target="_blank" rel="noopener">curly</a></td>
+<td><code>if</code>后面<strong>必须</strong>有<code>{</code>，除非是单行<code>if</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/forin/" target="_blank" rel="noopener">forin</a></td>
+<td><code>for in</code>内部<strong>必须</strong>有<code>hasOwnProperty</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/import-blacklist/" target="_blank" rel="noopener">import-blacklist</a></td>
+<td>禁用指定的模块</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/label-position/" target="_blank" rel="noopener">label-position</a></td>
+<td>只允许在<code>do</code>, <code>for</code>, <code>while</code> 或 <code>switch</code> 中使用 <code>label</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-arg/" target="_blank" rel="noopener">no-arg</a></td>
+<td><strong>禁止</strong>使用<code>arguments.callee</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-bitwise/" target="_blank" rel="noopener">no-bitwise</a></td>
+<td><strong>禁止</strong>使用位运算</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-conditional-assignment/" target="_blank" rel="noopener">no-conditional-assignment</a></td>
+<td><strong>禁止</strong>在分支条件判断中有赋值操作</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-console/" target="_blank" rel="noopener">no-console</a></td>
+<td><strong>禁止</strong>使用<code>console</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-construct/" target="_blank" rel="noopener">no-construct</a></td>
+<td><strong>禁止</strong>使用<code>new</code>来生成<code>String</code>,<code>Number</code>或<code>Boolean</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-debugger/" target="_blank" rel="noopener">no-debugger</a></td>
+<td><strong>禁止</strong>使用<code>debugger</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-duplicate-super/" target="_blank" rel="noopener">no-duplicate-super</a></td>
+<td><strong>禁止</strong><code>super</code>在一个构造函数中出现两次</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-duplicate-switch-case/" target="_blank" rel="noopener">no-duplicate-switch-case</a></td>
+<td><strong>禁止</strong>在<code>switch</code>语句中出现重复测试表达式的<code>case</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-duplicate-variable/" target="_blank" rel="noopener">no-duplicate-variable</a></td>
+<td><strong>禁止</strong>出现重复的变量定义或函数参数名</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-dynamic-delete/" target="_blank" rel="noopener">no-dynamic-delete</a></td>
+<td><strong>禁止</strong><code>delete</code>动态的值</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-empty/" target="_blank" rel="noopener">no-empty</a></td>
+<td><strong>禁止</strong>出现空代码块，允许<code>catch</code>是空代码块</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-eval/" target="_blank" rel="noopener">no-eval</a></td>
+<td><strong>禁止</strong>使用<code>eval</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-floating-promises/" target="_blank" rel="noopener">no-floating-promises</a></td>
+<td>函数返回值为<code>Promise</code>时，<strong>必须</strong>被处理</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-for-in-array/" target="_blank" rel="noopener">no-for-in-array</a></td>
+<td><strong>禁止</strong>对<code>array</code>使用<code>for in</code>循环</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-implicit-dependencies/" target="_blank" rel="noopener">no-implicit-dependencies</a></td>
+<td><strong>禁止</strong>引入<code>package.json</code>中不存在的模块</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-inferred-empty-object-type/" target="_blank" rel="noopener">no-inferred-empty-object-type</a></td>
+<td><strong>禁止</strong>推论出的类型是空对象类型</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-invalid-template-strings/" target="_blank" rel="noopener">no-invalid-template-strings</a></td>
+<td><strong>禁止</strong>在非模版字符串中出现<code>${}</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-invalid-this/" target="_blank" rel="noopener">no-invalid-this</a></td>
+<td><strong>禁止</strong>在类外面使用<code>this</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-misused-new/" target="_blank" rel="noopener">no-misused-new</a></td>
+<td><strong>禁止</strong>在接口中定义<code>constructor</code>，或在类中定义<code>new</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-null-keyword/" target="_blank" rel="noopener">no-null-keyword</a></td>
+<td><strong>禁止</strong>使用<code>null</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-object-literal-type-assertion/" target="_blank" rel="noopener">no-object-literal-type-assertion</a></td>
+<td><strong>禁止</strong>对对象字面量进行类型断言（断言成<code>any</code>是允许的）</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-return-await/" target="_blank" rel="noopener">no-return-await</a></td>
+<td><strong>禁止</strong>没必要的<code>return await</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-shadowed-variable/" target="_blank" rel="noopener">no-shadowed-variable</a></td>
+<td><strong>禁止</strong>变量名与上层作用域内的定义过的变量重复</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-sparse-arrays/" target="_blank" rel="noopener">no-sparse-arrays</a></td>
+<td><strong>禁止</strong>在数组中出现连续的逗号，如<code>let foo = [,,]</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-string-literal/" target="_blank" rel="noopener">no-string-literal</a></td>
+<td><strong>禁止</strong>出现<code>foo[&#39;bar&#39;]</code>，必须写成<code>foo.bar</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-string-throw/" target="_blank" rel="noopener">no-string-throw</a></td>
+<td><strong>禁止</strong><code>throw</code>字符串，必须<code>throw</code>一个<code>Error</code>对象</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-submodule-imports/" target="_blank" rel="noopener">no-submodule-imports</a></td>
+<td><strong>禁止</strong><code>import</code>模块的子文件</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-switch-case-fall-through/" target="_blank" rel="noopener">no-switch-case-fall-through</a></td>
+<td><code>switch</code> 的 <code>case</code> 必须 <code>return</code> 或 <code>break</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-this-assignment/" target="_blank" rel="noopener">no-this-assignment</a></td>
+<td><strong>禁止</strong>将<code>this</code>赋值给其他变量，除非是解构赋值</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-unbound-method/" target="_blank" rel="noopener">no-unbound-method</a></td>
+<td>使用实例的方法时，<strong>必须</strong><code>bind</code>到实例上</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-unnecessary-class/" target="_blank" rel="noopener">no-unnecessary-class</a></td>
+<td><strong>禁止</strong>定义没必要的类，比如只有静态方法的类</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-unsafe-any/" target="_blank" rel="noopener">no-unsafe-any</a></td>
+<td><strong>禁止</strong>取用一个类型为<code>any</code>的对象的属性</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-unsafe-finally/" target="_blank" rel="noopener">no-unsafe-finally</a></td>
+<td><strong>禁止</strong><code>finally</code>内出现<code>return</code>,<code>continue</code>,<code>break</code>,<code>throw</code>等</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-unused-expression/" target="_blank" rel="noopener">no-unused-expression</a></td>
+<td><strong>禁止</strong>无用的表达式</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-use-before-declare/" target="_blank" rel="noopener">no-use-before-declare</a></td>
+<td>变量<code>必须</code>先定义后使用</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-var-keyword/" target="_blank" rel="noopener">no-var-keyword</a></td>
+<td><strong>禁止</strong>使用<code>var</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-void-expression/" target="_blank" rel="noopener">no-void-expression</a></td>
+<td><strong>禁止</strong>返回值为<code>void</code>类型</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/prefer-conditional-expression/" target="_blank" rel="noopener">prefer-conditional-expression</a></td>
+<td>可以用三元表达式时，就不用<code>if else</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/prefer-object-spread/" target="_blank" rel="noopener">prefer-object-spread</a></td>
+<td>使用<code>{ ...foo, bar: 1 }</code>代替<code>Object.assign({}, foo, { bar: 1 })</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/radix/" target="_blank" rel="noopener">radix</a></td>
+<td><code>parseInt</code><strong>必须</strong>传入第二个参数</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/restrict-plus-operands/" target="_blank" rel="noopener">restrict-plus-operands</a></td>
+<td>使用加号时，两者<strong>必须</strong>同为数字或同为字符串</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/strict-boolean-expressions/" target="_blank" rel="noopener">strict-boolean-expressions</a></td>
+<td>在分支条件判断中<strong>必须</strong>传入布尔类型的值</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/strict-type-predicates/" target="_blank" rel="noopener">strict-type-predicates</a></td>
+<td><strong>禁止</strong>出现永远为<code>true</code>或永远为<code>false</code>的条件判断（通过类型预测出一个表达式为<code>true</code>还是<code>false</code>）</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/switch-default/" target="_blank" rel="noopener">switch-default</a></td>
+<td><code>switch</code>语句<strong>必须</strong>有<code>default</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/triple-equals/" target="_blank" rel="noopener">triple-equals</a></td>
+<td><strong>必须</strong>使用<code>===</code>或<code>!==</code>，<strong>禁止</strong>使用<code>==</code>或<code>!=</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/typeof-compare/" target="_blank" rel="noopener">typeof-compare</a></td>
+<td><code>typeof</code>表达式比较的对象<strong>必须</strong>是<code>&#39;undefined&#39;</code>,<code>&#39;object&#39;</code>,<code>&#39;boolean&#39;</code>,<code>&#39;number&#39;</code>,<code>&#39;string&#39;</code>,<code>&#39;function&#39;</code>或<code>&#39;symbol&#39;</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/use-default-type-parameter/" target="_blank" rel="noopener">use-default-type-parameter</a></td>
+<td>传入的类型与默认类型一致时，<strong>必须</strong>省略传入的类型</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/use-isnan/" target="_blank" rel="noopener">use-isnan</a></td>
+<td><strong>必须</strong>使用<code>isNaN(foo)</code>而不是<code>foo === NaN</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="可维护性"><a href="#可维护性" class="headerlink" title="可维护性"></a>可维护性</h4><p>增强代码可维护性的规则。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/cyclomatic-complexity/" target="_blank" rel="noopener">cyclomatic-complexity</a></td>
+<td><strong>禁止</strong>函数的循环复杂度超过 20，详见 <a href="https://en.wikipedia.org/wiki/Cyclomatic_complexity" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Cyclomatic_complexity</a></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/deprecation/" target="_blank" rel="noopener">deprecation</a></td>
+<td><strong>禁止</strong>使用废弃（被标识了<code>@deprecated</code>）的<code>API</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/eofline/" target="_blank" rel="noopener">eofline</a></td>
+<td>文件最后一行<strong>必须</strong>有一个空行</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/indent/" target="_blank" rel="noopener">indent</a></td>
+<td>一个缩进<strong>必须</strong>用四个空格替代</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/linebreak-style/" target="_blank" rel="noopener">linebreak-style</a></td>
+<td>限制换行符为 LF 或 CRLF</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/max-classes-per-file/" target="_blank" rel="noopener">max-classes-per-file</a></td>
+<td>限制每个文件的类的数量</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/max-file-line-count/" target="_blank" rel="noopener">max-file-line-count</a></td>
+<td>限制每个文件的行数</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/max-line-length/" target="_blank" rel="noopener">max-line-length</a></td>
+<td>限制每行字符数</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-default-export/" target="_blank" rel="noopener">no-default-export</a></td>
+<td><strong>禁止</strong>使用<code>default export</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-duplicate-imports/" target="_blank" rel="noopener">no-duplicate-imports</a></td>
+<td><strong>禁止</strong>出现重复的<code>import</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-require-imports/" target="_blank" rel="noopener">no-require-imports</a></td>
+<td><strong>禁止</strong>使用<code>require</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/object-literal-sort-keys/" target="_blank" rel="noopener">object-literal-sort-keys</a></td>
+<td>对象字面量<strong>必须</strong>按<code>key</code>排序</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/prefer-const/" target="_blank" rel="noopener">prefer-const</a></td>
+<td>申明后不再被修改的变量<strong>必须</strong>使用<code>const</code>来申明</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/prefer-readonly/" target="_blank" rel="noopener">prefer-readonly</a></td>
+<td>如果私有变量只在构造函数中被赋值，则<strong>必须</strong>使用<code>readonly</code>修饰符</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/trailing-comma/" target="_blank" rel="noopener">trailing-comma</a></td>
+<td>限制对象、数组、解构赋值等的最后一项末尾是否需要逗号</td>
+</tr>
+</tbody>
+</table>
+<h4 id="代码风格"><a href="#代码风格" class="headerlink" title="代码风格"></a>代码风格</h4><p>与代码风格相关的规则。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/align/" target="_blank" rel="noopener">align</a></td>
+<td>变量定义需要竖向对其</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/array-type/" target="_blank" rel="noopener">array-type</a></td>
+<td>限制<strong>必须</strong>使用<code>T[]</code>或<code>Array&lt;T&gt;</code>之中的一种来定义数组的类型</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/arrow-parens/" target="_blank" rel="noopener">arrow-parens</a></td>
+<td>箭头函数的参数<strong>必须</strong>有小括号</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/arrow-return-shorthand/" target="_blank" rel="noopener">arrow-return-shorthand</a></td>
+<td>箭头函数的函数体只有<code>return</code>语句的时候，<strong>必须</strong>简写</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/binary-expression-operand-order/" target="_blank" rel="noopener">binary-expression-operand-order</a></td>
+<td>数字字面量<strong>必须</strong>在加号的右边，即<strong>禁止</strong><code>1 + x</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/callable-types/" target="_blank" rel="noopener">callable-types</a></td>
+<td>可以简写为函数类型的接口或字面类似，<strong>必须</strong>简写</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/class-name/" target="_blank" rel="noopener">class-name</a></td>
+<td>类名与接口名<strong>必须</strong>为驼峰式</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/comment-format/" target="_blank" rel="noopener">comment-format</a></td>
+<td>限制单行注释的规则</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/completed-docs/" target="_blank" rel="noopener">completed-docs</a></td>
+<td>类、函数等<strong>必须</strong>写注释</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/encoding/" target="_blank" rel="noopener">encoding</a></td>
+<td>文件类型<strong>必须</strong>是<code>utf-8</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/file-header/" target="_blank" rel="noopener">file-header</a></td>
+<td>文件的开头<strong>必须</strong>有指定的字符串</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/file-name-casing/" target="_blank" rel="noopener">file-name-casing</a></td>
+<td>约束文件命名规范</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/import-spacing/" target="_blank" rel="noopener">import-spacing</a></td>
+<td><code>import</code>语句中，关键字之间的间距<strong>必须</strong>是一个空格</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/interface-name/" target="_blank" rel="noopener">interface-name</a></td>
+<td>接口名称<strong>必须</strong>已<code>I</code>开头</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/interface-over-type-literal/" target="_blank" rel="noopener">interface-over-type-literal</a></td>
+<td>优先使用接口而不是字面类型</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/jsdoc-format/" target="_blank" rel="noopener">jsdoc-format</a></td>
+<td>注释<strong>必须</strong>符合<code>JSDoc</code>规范</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/match-default-export-name/" target="_blank" rel="noopener">match-default-export-name</a></td>
+<td><code>import</code>的名称<strong>必须</strong>和<code>export default</code>的名称一致</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/new-parens/" target="_blank" rel="noopener">new-parens</a></td>
+<td><code>new</code>后面只<strong>必须</strong>有一个空格</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/newline-before-return/" target="_blank" rel="noopener">newline-before-return</a></td>
+<td><code>return</code>语句前<strong>必须</strong>有空行</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/newline-per-chained-call/" target="_blank" rel="noopener">newline-per-chained-call</a></td>
+<td>链式调用时，每次调用都<strong>必须</strong>占用一行</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-angle-bracket-type-assertion/" target="_blank" rel="noopener">no-angle-bracket-type-assertion</a></td>
+<td>类型断言<strong>必须</strong>使用<code>as Type</code>，<strong>禁止</strong>使用<code>&lt;Type&gt;</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-boolean-literal-compare/" target="_blank" rel="noopener">no-boolean-literal-compare</a></td>
+<td><strong>禁止</strong>变量与<code>true</code>或<code>false</code>比较</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-consecutive-blank-lines/" target="_blank" rel="noopener">no-consecutive-blank-lines</a></td>
+<td><strong>禁止</strong>连续超过三行空行</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-irregular-whitespace/" target="_blank" rel="noopener">no-irregular-whitespace</a></td>
+<td><strong>禁止</strong>使用特殊空白符（比如全角空格</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-parameter-properties/" target="_blank" rel="noopener">no-parameter-properties</a></td>
+<td><strong>禁止</strong>给类的构造函数的参数添加修饰符</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-redundant-jsdoc/" target="_blank" rel="noopener">no-redundant-jsdoc</a></td>
+<td><strong>禁止</strong>JSDoc 中的冗余类型声明，因为 TypeScirpt 已经包含了大部分功能</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-reference-import/" target="_blank" rel="noopener">no-reference-import</a></td>
+<td>如果已经引入过库，则<strong>禁止</strong>使用三斜杠引入类型定义文件</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-trailing-whitespace/" target="_blank" rel="noopener">no-trailing-whitespace</a></td>
+<td><strong>禁止</strong>行尾有空格</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-unnecessary-callback-wrapper/" target="_blank" rel="noopener">no-unnecessary-callback-wrapper</a></td>
+<td><strong>禁止</strong>没必要的函数调用，如<code>x =&gt; f(x)</code>应该简写为<code>f</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-unnecessary-initializer/" target="_blank" rel="noopener">no-unnecessary-initializer</a></td>
+<td><strong>禁止</strong>变量定义时赋值为<code>undefined</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/no-unnecessary-qualifier/" target="_blank" rel="noopener">no-unnecessary-qualifier</a></td>
+<td>在命名空间中，可以直接使用内部变量，不需要添加命名空间前缀</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/number-literal-format/" target="_blank" rel="noopener">number-literal-format</a></td>
+<td>小数<strong>必须</strong>以<code>0.</code>开头，<strong>禁止</strong>以<code>.</code>开头，并且不能以<code>0</code>结尾</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/object-literal-key-quotes/" target="_blank" rel="noopener">object-literal-key-quotes</a></td>
+<td>对象的<code>key</code><strong>必须</strong>用引号包起来</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/object-literal-shorthand/" target="_blank" rel="noopener">object-literal-shorthand</a></td>
+<td><strong>必须</strong>使用<code>a = {b}</code>而不是<code>a = {b: b}</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/one-line/" target="_blank" rel="noopener">one-line</a></td>
+<td><code>if</code>后的<code>{</code><strong>禁止</strong>换行</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/one-variable-per-declaration/" target="_blank" rel="noopener">one-variable-per-declaration</a></td>
+<td>变量申明<strong>必须</strong>每行一个，<code>for</code>循环的初始条件中除外</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/ordered-imports/" target="_blank" rel="noopener">ordered-imports</a></td>
+<td><code>import</code><strong>必须</strong>排序</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/prefer-function-over-method/" target="_blank" rel="noopener">prefer-function-over-method</a></td>
+<td>类中没有使用<code>this</code>的方法应该提取成类外的函数</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/prefer-method-signature/" target="_blank" rel="noopener">prefer-method-signature</a></td>
+<td><strong>必须</strong>使用<code>foo(): void</code>而不是<code>foo: () =&gt; void</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/prefer-switch/" target="_blank" rel="noopener">prefer-switch</a></td>
+<td>当<code>if</code>中只有<code>===</code>时，<strong>必须</strong>使用<code>switch</code>替换<code>if</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/prefer-template/" target="_blank" rel="noopener">prefer-template</a></td>
+<td><strong>必须</strong>使用模版字符串而不是字符串连接</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/prefer-while/" target="_blank" rel="noopener">prefer-while</a></td>
+<td>当没有初始值的时候，<strong>必须</strong>使用<code>while</code>而不是<code>for</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/quotemark/" target="_blank" rel="noopener">quotemark</a></td>
+<td><strong>必须</strong>使用单引号，<code>jsx</code>中<strong>必须</strong>使用双引号</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/return-undefined/" target="_blank" rel="noopener">return-undefined</a></td>
+<td>使用<code>return;</code>而不是<code>return undefined;</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/semicolon/" target="_blank" rel="noopener">semicolon</a></td>
+<td>行尾<strong>必须</strong>有分号</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/space-before-function-paren/" target="_blank" rel="noopener">space-before-function-paren</a></td>
+<td>函数名前<strong>必须</strong>有空格</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/space-within-parens/" target="_blank" rel="noopener">space-within-parens</a></td>
+<td>括号内首尾<strong>禁止</strong>有空格</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/switch-final-break/" target="_blank" rel="noopener">switch-final-break</a></td>
+<td><code>switch</code>的最后一项<strong>禁止</strong>有<code>break</code></td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/type-literal-delimiter/" target="_blank" rel="noopener">type-literal-delimiter</a></td>
+<td>字面类型的每个成员都<strong>必须</strong>有分号</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/variable-name/" target="_blank" rel="noopener">variable-name</a></td>
+<td>限制变量命名规则</td>
+</tr>
+<tr>
+<td><a href="https://palantir.github.io/tslint/rules/whitespace/" target="_blank" rel="noopener">whitespace</a></td>
+<td>限制空格的位置</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+
+    
+      
+
+
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/config/wechatpay.png" alt="Weich 微信支付"/>
+        <p>微信打赏</p><!-- <p>微信支付</p> -->
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/config/alipay.png" alt="Weich 支付宝"/>
+        <p>支付宝打赏</p><!-- <p>支付宝</p> -->
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Weich</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://sosout.com/2018/11/30/typescript-tutorial.html" title="typescript 教程">http://sosout.com/2018/11/30/typescript-tutorial.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/note/" rel="tag"># note</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/30/react-refs.html" rel="next" title="React refs 的前世今生">
+                <i class="fa fa-chevron-left"></i> React refs 的前世今生
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/03/local-ajax-cross.html" rel="prev" title="解决本地开发ajax跨域问题">
+                解决本地开发ajax跨域问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Weich</p>
+              <p class="site-description motion-element" itemprop="description">看博客上一探</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">93</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">48</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">54</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/sosout" target="_blank" title="GitHub" rel="external nofollow"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:sosout@139.com" target="_blank" title="E-Mail" rel="external nofollow"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://segmentfault.com/u/sosout" target="_blank" title="SegmentFault" rel="external nofollow"><i class="fa fa-fw fa-facebook"></i>SegmentFault</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-twitter"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://es6.ruanyifeng.com/" title="ECMAScript 6 入门" target="_blank">ECMAScript 6 入门</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://wangdoc.com/javascript/stdlib/index.html" title="JavaScript 教程" target="_blank">JavaScript 教程</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#TSLint-规则"><span class="nav-number">1.</span> <span class="nav-text">TSLint 规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用方法"><span class="nav-number">1.1.</span> <span class="nav-text">使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CLI-中运行"><span class="nav-number">1.1.1.</span> <span class="nav-text">CLI 中运行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#与-VSCode-集成"><span class="nav-number">1.1.2.</span> <span class="nav-text">与 VSCode 集成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#与-Prettier-集成"><span class="nav-number">1.1.3.</span> <span class="nav-text">与 Prettier 集成</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#规则列表"><span class="nav-number">1.2.</span> <span class="nav-text">规则列表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TypeScript-相关"><span class="nav-number">1.2.1.</span> <span class="nav-text">TypeScript 相关</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#功能性检查"><span class="nav-number">1.2.2.</span> <span class="nav-text">功能性检查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可维护性"><span class="nav-number">1.2.3.</span> <span class="nav-text">可维护性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码风格"><span class="nav-number">1.2.4.</span> <span class="nav-text">代码风格</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Weich</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">494k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">7:29</span>
+  
+</div>
+
+
+  
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" rel="external nofollow" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" rel="external nofollow" href="https://theme-next.org">NexT.Mist</a> v6.3.0</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("JDFztM3Lau0XOKEA9BQR0Gz7-gzGzoHsz", "F34SJfnI4FhcOUUqjd4u3Rps");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            
+              var $element = $(document.getElementById(url));
+              $element.find('.leancloud-visitors-count').text(counter.get('time'));
+            
+            counter.save(null, {
+              success: function(counter) {
+                
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            
+              var newcounter = new Counter();
+              /* Set ACL */
+              var acl = new AV.ACL();
+              acl.setPublicReadAccess(true);
+              acl.setPublicWriteAccess(true);
+              newcounter.setACL(acl);
+              /* End Set ACL */
+              newcounter.set("title", title);
+              newcounter.set("url", url);
+              newcounter.set("time", 1);
+              newcounter.save(null, {
+                success: function(newcounter) {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                },
+                error: function(newcounter, error) {
+                  console.log('Failed to create');
+                }
+              });
+            
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

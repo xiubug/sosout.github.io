@@ -1904,7 +1904,7 @@ img:hover {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #f8f;
+  background: #ff5eff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2896,4 +2896,13 @@ body {
 th,
 td {
   border-bottom: 1px solid #eee;
+}
+.post-body h2 {
+  border-bottom: 1px dashed #eee;
+}
+ul {
+  padding-inline-start: 20px;
+}
+ol {
+  padding-inline-start: 10px;
 }

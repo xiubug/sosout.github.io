@@ -141,18 +141,24 @@
 
 
 
-  <meta name="description" content="背景对于维护过多个package的同学来说，都会遇到一个选择器：这些package是放在一个仓库里维护还是放在多个仓库里单独维护，数量较少的时候，多个仓库维护不会有太大问题，但是当package数量逐渐增多时，一些问题逐渐暴露出来：  package之间相互依赖，开发人员需要在本地手动执行npm link，维护版本号的更替； issue难以统一追踪，管理，因为其分散在独立的repo里； 每一个pa">
-<meta name="keywords" content="lerna">
+  <meta name="description" content="背景对于维护过多个package的同学来说，都会遇到一个选择：这些package是放在一个仓库里维护还是放在多个仓库里单独维护，数量较少的时候，多个仓库维护不会有太大问题，但是当package数量逐渐增多时，一些问题逐渐暴露出来：一、package之间相互依赖，开发人员需要在本地手动执行npm link，维护版本号的更替；二、issue难以统一追踪，管理，因为其分散在独立的repo里；三、每一个p">
+<meta name="keywords" content="package">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用lerna优雅地管理多个package">
+<meta property="og:title" content="lerna管理前端packages的最佳实践">
 <meta property="og:url" content="http://sosout.com/2018/07/21/lerna-repo.html">
 <meta property="og:site_name" content="每天一探">
-<meta property="og:description" content="背景对于维护过多个package的同学来说，都会遇到一个选择器：这些package是放在一个仓库里维护还是放在多个仓库里单独维护，数量较少的时候，多个仓库维护不会有太大问题，但是当package数量逐渐增多时，一些问题逐渐暴露出来：  package之间相互依赖，开发人员需要在本地手动执行npm link，维护版本号的更替； issue难以统一追踪，管理，因为其分散在独立的repo里； 每一个pa">
+<meta property="og:description" content="背景对于维护过多个package的同学来说，都会遇到一个选择：这些package是放在一个仓库里维护还是放在多个仓库里单独维护，数量较少的时候，多个仓库维护不会有太大问题，但是当package数量逐渐增多时，一些问题逐渐暴露出来：一、package之间相互依赖，开发人员需要在本地手动执行npm link，维护版本号的更替；二、issue难以统一追踪，管理，因为其分散在独立的repo里；三、每一个p">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-31T12:39:45.772Z">
+<meta property="og:image" content="http://sosout.com/images/lerna-repo/img1.jpg">
+<meta property="og:image" content="http://sosout.com/images/lerna-repo/img2.jpg">
+<meta property="og:image" content="http://sosout.com/images/lerna-repo/img3.jpg">
+<meta property="og:image" content="http://sosout.com/images/lerna-repo/img4.jpg">
+<meta property="og:image" content="http://sosout.com/images/lerna-repo/img4.jpg">
+<meta property="og:updated_time" content="2019-01-09T13:26:00.779Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用lerna优雅地管理多个package">
-<meta name="twitter:description" content="背景对于维护过多个package的同学来说，都会遇到一个选择器：这些package是放在一个仓库里维护还是放在多个仓库里单独维护，数量较少的时候，多个仓库维护不会有太大问题，但是当package数量逐渐增多时，一些问题逐渐暴露出来：  package之间相互依赖，开发人员需要在本地手动执行npm link，维护版本号的更替； issue难以统一追踪，管理，因为其分散在独立的repo里； 每一个pa">
+<meta name="twitter:title" content="lerna管理前端packages的最佳实践">
+<meta name="twitter:description" content="背景对于维护过多个package的同学来说，都会遇到一个选择：这些package是放在一个仓库里维护还是放在多个仓库里单独维护，数量较少的时候，多个仓库维护不会有太大问题，但是当package数量逐渐增多时，一些问题逐渐暴露出来：一、package之间相互依赖，开发人员需要在本地手动执行npm link，维护版本号的更替；二、issue难以统一追踪，管理，因为其分散在独立的repo里；三、每一个p">
+<meta name="twitter:image" content="http://sosout.com/images/lerna-repo/img1.jpg">
 
 
 
@@ -171,7 +177,7 @@
   };
 </script>
 
-  <title>使用lerna优雅地管理多个package | 每天一探</title>
+  <title>lerna管理前端packages的最佳实践 | 每天一探</title>
   
 
 
@@ -427,7 +433,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">使用lerna优雅地管理多个package
+          <h2 class="post-title" itemprop="name headline">lerna管理前端packages的最佳实践
               
             
           </h2>
@@ -485,7 +491,7 @@
 
           
           
-             <span id="/2018/07/21/lerna-repo.html" class="leancloud_visitors" data-flag-title="使用lerna优雅地管理多个package">
+             <span id="/2018/07/21/lerna-repo.html" class="leancloud_visitors" data-flag-title="lerna管理前端packages的最佳实践">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -510,7 +516,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">339</span>
+                <span title="本文字数">7k</span>
               
 
               
@@ -524,7 +530,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">6 分钟</span>
               
             </div>
           
@@ -544,12 +550,104 @@
       
 
       
-        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>对于维护过多个package的同学来说，都会遇到一个选择器：<strong>这些package是放在一个仓库里维护还是放在多个仓库里单独维护</strong>，数量较少的时候，多个仓库维护不会有太大问题，但是当package数量逐渐增多时，一些问题逐渐暴露出来：</p>
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>对于维护过多个package的同学来说，都会遇到一个选择：<strong>这些package是放在一个仓库里维护还是放在多个仓库里单独维护</strong>，数量较少的时候，多个仓库维护不会有太大问题，但是当package数量逐渐增多时，一些问题逐渐暴露出来：<br><strong>一、</strong>package之间相互依赖，开发人员需要在本地手动执行<strong>npm link</strong>，维护版本号的更替；<br><strong>二、</strong>issue难以统一追踪，管理，因为其分散在独立的repo里；<br><strong>三、</strong>每一个package都包含独立的node_modules，而且大部分都包含babel,webpack等开发时依赖，安装耗时冗余并且占用过多空间。</p>
+<h2 id="什么是lerna"><a href="#什么是lerna" class="headerlink" title="什么是lerna"></a>什么是lerna</h2><p>lerna到底是什么呢？lerna官网上是这样描述的。</p>
+<blockquote>
+<p>用于管理具有多个包的JavaScript项目的工具。<br>这个介绍可以说很清晰了，引入lerna后，上面提到的问题不仅迎刃而解，更为开发人员提供了一种管理多packages javascript项目的方式。<br><strong>一、</strong>自动解决packages之间的依赖关系。<br><strong>二、</strong>通过git 检测文件改动，自动发布。<br><strong>三、</strong>根据git 提交记录，自动生成CHANGELOG</p>
+</blockquote>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><h4 id="全局安装lerna"><a href="#全局安装lerna" class="headerlink" title="全局安装lerna"></a>全局安装lerna</h4><p>lerna 我们需要全局安装lerna工具。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ npm i -g lerna</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">$ yarn global add lerna</span><br></pre></td></tr></table></figure></p>
+<h4 id="为所有项目安装依赖，类似于npm-yarn-i"><a href="#为所有项目安装依赖，类似于npm-yarn-i" class="headerlink" title="为所有项目安装依赖，类似于npm/yarn i"></a>为所有项目安装依赖，类似于npm/yarn i</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ lerna bootstrap</span><br></pre></td></tr></table></figure>
+<h4 id="提交对项目的更新"><a href="#提交对项目的更新" class="headerlink" title="提交对项目的更新"></a>提交对项目的更新</h4><p>运行该命令会执行如下的步骤：</p>
 <ol>
-<li>package之间相互依赖，开发人员需要在本地手动执行<strong>npm link</strong>，维护版本号的更替；</li>
-<li>issue难以统一追踪，管理，因为其分散在独立的repo里；</li>
-<li>每一个package都包含独立的node_modules，而且大部分都包含babel,webpack等开发时依赖，安装耗时冗余并且占用过多空间。</li>
+<li>运行lerna updated来决定哪一个包需要被publish</li>
+<li>如果有必要，将会更新lerna.json中的version</li>
+<li>将所有更新过的的包中的package.json的version字段更新</li>
+<li>将所有更新过的包中的依赖更新</li>
+<li>为新版本创建一个git commit或tag</li>
+<li>将包publish到npm上</li>
 </ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ lerna publish <span class="comment"># 用于发布更新</span></span><br><span class="line">$ lerna publish --skip-git <span class="comment"># 不会创建git commit或tag</span></span><br><span class="line">$ lerna publish --skip-npm <span class="comment"># 不会把包publish到npm上</span></span><br></pre></td></tr></table></figure>
+<h4 id="使用lerna-初始化项目"><a href="#使用lerna-初始化项目" class="headerlink" title="使用lerna 初始化项目"></a>使用lerna 初始化项目</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ lerna init <span class="comment"># 固定模式(Fixed mode)默认为固定模式，packages下的所有包共用一个版本号(version)</span></span><br><span class="line">$ lerna init --independent <span class="comment"># 独立模式(Independent mode)，每一个包有一个独立的版本号</span></span><br></pre></td></tr></table></figure>
+<h4 id="为packages文件夹下的package安装依赖"><a href="#为packages文件夹下的package安装依赖" class="headerlink" title="为packages文件夹下的package安装依赖"></a>为packages文件夹下的package安装依赖</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ lerna add &lt;package&gt;[@version] [--dev] <span class="comment"># 命令签名</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如</span></span><br><span class="line">$ lerna add module-1 --scope=module-2 <span class="comment"># 将 module-1 安装到 module-2</span></span><br><span class="line">$ lerna add module-1 --scope=module-2 --dev <span class="comment"># 将 module-1 安装到 module-2 的 devDependencies 下</span></span><br><span class="line">$ lerna add module-1 <span class="comment"># 将 module-1 安装到除 module-1 以外的所有模块</span></span><br><span class="line">$ lerna add babel-core <span class="comment"># 将 babel-core 安装到所有模块</span></span><br></pre></td></tr></table></figure>
+<h4 id="卸载依赖"><a href="#卸载依赖" class="headerlink" title="卸载依赖"></a>卸载依赖</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ lerna <span class="built_in">exec</span> -- &lt;<span class="built_in">command</span>&gt; [..args] <span class="comment"># 在所有包中运行该命令</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如</span></span><br><span class="line">$ lerna <span class="built_in">exec</span> --scope=npm-list  yarn remove listr <span class="comment"># 将 npm-list 包下的 listr 卸载</span></span><br><span class="line">$ lerna <span class="built_in">exec</span> -- yarn remove listr <span class="comment"># 将所有包下的 listr 卸载</span></span><br></pre></td></tr></table></figure>
+<h4 id="对包是否发生过变更"><a href="#对包是否发生过变更" class="headerlink" title="对包是否发生过变更"></a>对包是否发生过变更</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ lerna updated</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">$ lerna diff</span><br></pre></td></tr></table></figure>
+<h4 id="显示packages下的各个package的version"><a href="#显示packages下的各个package的version" class="headerlink" title="显示packages下的各个package的version"></a>显示packages下的各个package的version</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ lerna ls</span><br></pre></td></tr></table></figure>
+<h4 id="清理node-modules"><a href="#清理node-modules" class="headerlink" title="清理node_modules"></a>清理node_modules</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ lerna clean</span><br></pre></td></tr></table></figure>
+<h4 id="lerna-run"><a href="#lerna-run" class="headerlink" title="lerna run"></a>lerna run</h4><p>运行npm script，可以指定具体的package。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ lerna run &lt;script&gt; -- [..args] <span class="comment"># 在所有包下运行指定</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如</span></span><br><span class="line">$ lerna run <span class="built_in">test</span> <span class="comment"># 运行所有包的 test 命令</span></span><br><span class="line">$ lerna run build <span class="comment"># 运行所有包的 build 命令</span></span><br><span class="line">$ lerna run --parallel watch <span class="comment"># 观看所有包并在更改时发报，流式处理前缀输出</span></span><br><span class="line"></span><br><span class="line">$ lerna run --scope my-component <span class="built_in">test</span> <span class="comment"># 运行 my-component 模块下的 test</span></span><br></pre></td></tr></table></figure></p>
+<p><a href="https://github.com/lerna/lerna/tree/master/commands/run#readme" target="_blank" rel="noopener">参考</a></p>
+<h2 id="lerna-json解析"><a href="#lerna-json解析" class="headerlink" title="lerna.json解析"></a>lerna.json解析</h2><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"1.1.3"</span>,</span><br><span class="line">  <span class="attr">"npmClient"</span>: <span class="string">"npm"</span>,</span><br><span class="line">  <span class="attr">"command"</span>: &#123;</span><br><span class="line">    <span class="attr">"publish"</span>: &#123;</span><br><span class="line">      <span class="attr">"ignoreChanges"</span>: [</span><br><span class="line">        <span class="string">"ignored-file"</span>,</span><br><span class="line">        <span class="string">"*.md"</span></span><br><span class="line">      ]</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"bootstrap"</span>: &#123;</span><br><span class="line">      <span class="attr">"ignore"</span>: <span class="string">"component-*"</span>,</span><br><span class="line">      <span class="attr">"npmClientArgs"</span>: [<span class="string">"--no-package-lock"</span>]      </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"packages"</span>: [<span class="string">"packages/*"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>version：</strong>当前库的版本<br><strong>npmClient：</strong> 允许指定命令使用的client， 默认是 npm， 可以设置成 yarn<br><strong>command.publish.ignoreChanges：</strong>可以指定那些目录或者文件的变更不会被publish<br><strong>command.bootstrap.ignore：</strong>指定不受 bootstrap 命令影响的包<br><strong>command.bootstrap.npmClientArgs：</strong>指定默认传给 lerna bootstrap 命令的参数<br><strong>command.bootstrap.scope：</strong>指定那些包会受 lerna bootstrap 命令影响<br><strong>packages：</strong>指定包所在的目录</p>
+<h2 id="使用lerna的基本工作流"><a href="#使用lerna的基本工作流" class="headerlink" title="使用lerna的基本工作流"></a>使用lerna的基本工作流</h2><h3 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h3><ul>
+<li>Git 在一个lerna工程里，是通过git来进行代码管理的。所以你首先要确保本地有正确的git环境。 如果需要多人协作开发，请先创建正确的git中心仓库的链接。 因此需要你了解基本的git操作，在此不再赘述。</li>
+<li><p>npm仓库 无论你管理的package是要发布到官网还是公司的私有服务器上，都需要正确的仓库地址和用户名。 你可运行下方的命令来检查，本地的npm registry地址是否正确。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm config ls</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>lerna 我们需要全局安装lerna工具</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ npm i -g lerna</span><br><span class="line"><span class="comment"># 或</span></span><br><span class="line">$ yarn global add lerna</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="初始化一个lerna工程"><a href="#初始化一个lerna工程" class="headerlink" title="初始化一个lerna工程"></a>初始化一个lerna工程</h3><blockquote>
+<p>在这个例子中，我将在我本地d:/jobs 根目录下初始化一个lerna工程。<br>1、在<code>d:/jobs</code>下创建一个空的文件夹，命名为<code>lerna-demo</code>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir lerna-demo</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>2、初始化 通过cmd进入相关目录，进行初始化<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> d:/<span class="built_in">jobs</span>/lerna-demo</span><br><span class="line">$ lerna init</span><br></pre></td></tr></table></figure></p>
+<p>执行成功后，目录下将会生成这样的目录结构。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- packages(目录)</span><br><span class="line">- lerna.json(配置文件)</span><br><span class="line">- package.json(工程描述文件)</span><br></pre></td></tr></table></figure></p>
+<p>3、添加一个测试package</p>
+<blockquote>
+<p>默认情况下，package是放在packages目录下的。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入packages目录</span></span><br><span class="line"><span class="built_in">cd</span> d:/<span class="built_in">jobs</span>/lerna-demo/packages</span><br><span class="line"><span class="comment"># 创建一个packge目录</span></span><br><span class="line">mkdir module-1</span><br><span class="line"><span class="comment"># 进入module-1 package目录</span></span><br><span class="line"><span class="built_in">cd</span> module-1</span><br><span class="line"><span class="comment"># 初始化一个package</span></span><br><span class="line">npm init -y</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>执行完毕，工程下的目录结构如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">--packages</span><br><span class="line">	--module-1</span><br><span class="line">		package.json</span><br><span class="line">--lerna.json</span><br><span class="line">--package.json</span><br></pre></td></tr></table></figure></p>
+<p>4、安装各packages依赖 这一步操作，官网上是这样描述的</p>
+<blockquote>
+<p>在当前的Lerna仓库中引导包。安装所有依赖项并链接任何交叉依赖项。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> d:/lerna-demo</span><br><span class="line">$ lerna bootstrap</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>在现在的测试package中，module-1是没有任何依赖的，因此为了更加接近真实情况。你可已在module-1的<code>package.json</code>文件中添加一些第三方库的依赖。 这样的话，当你执行完该条命令后，你会发现module-1的依赖已经安装上了。</p>
+<p>5、发布 在发布的时候，就需要<code>git</code>工具的配合了。 所以在发布之前，请确认此时该lerna工程是否已经连接到git的远程仓库。你可以执行下面的命令进行查看。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git remote -v</span><br><span class="line">// <span class="built_in">print</span> <span class="built_in">log</span></span><br><span class="line">origin  git@github.com:meitianyitan/docm.git (fetch)</span><br><span class="line">origin  git@github.com:meitianyitan/docm.git (push)</span><br></pre></td></tr></table></figure></p>
+<p>本篇文章的代码托管在Github上。因此会显示此远程链接信息。 如果你还没有与远程仓库链接，请首先在github创建一个空的仓库，然后根据相关提示信息，进行链接。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ lerna publish</span><br></pre></td></tr></table></figure></p>
+<p>执行这条命令，你就可以根据cmd中的提示，一步步的发布packges了。<br>实际上在执行该条命令的时候，lerna会做很多的工作。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-  Run the equivalent of  `lerna updated`  to determine which packages need to be published.</span><br><span class="line">-  If necessary, increment the  `version`  key in  `lerna.json`.</span><br><span class="line">-  Update the  `package.json`  of all updated packages to their new versions.</span><br><span class="line">-  Update all dependencies of the updated packages with the new versions, specified with a  [caret (^)](https://docs.npmjs.com/files/package.json#dependencies).</span><br><span class="line">-  Create a new git commit and tag for the new version.</span><br><span class="line">-  Publish updated packages to npm.</span><br></pre></td></tr></table></figure></p>
+<p>到这里为止，就是一个最简单的lerna的工作流了。但是lerna还有更多的功能等待你去发掘。<br>lerna有两种工作模式,Independent mode和Fixed/Locked mode，在这里介绍可能会对初学者造成困扰，但因为实在太重要了，还是有必要提一下的。<br>lerna的默认模式是Fixed/Locked mode，在这种模式下，实际上lerna是把工程当作一个整体来对待。每次发布packges，都是全量发布，无论是否修改。但是在Independent mode下，lerna会配合Git，检查文件变动，只发布有改动的packge。</p>
+<h2 id="使用lerna提升开发流程体验"><a href="#使用lerna提升开发流程体验" class="headerlink" title="使用lerna提升开发流程体验"></a>使用lerna提升开发流程体验</h2><p>接下来，我们从一个demo出发，了解基于lerna的开发流程。</p>
+<h3 id="项目初始化"><a href="#项目初始化" class="headerlink" title="项目初始化"></a>项目初始化</h3><p><img src="/images/lerna-repo/img1.jpg" alt="img1.jpg"></p>
+<p>我们需要维护一个UI组件库，其包含2个组件，分别为House（房子）和Window（窗户）组件，其中House组件依赖于Window组件。<br>我们使用lerna初始化整个项目，并且在packages里新建了2个package，执行命令进行初始化：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ lerna init</span><br></pre></td></tr></table></figure></p>
+<p>初始化化后目录结构如下所示：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── lerna.json</span><br><span class="line">├── package.json</span><br><span class="line">└── packages</span><br><span class="line">    ├── house</span><br><span class="line">    │   ├── index.js</span><br><span class="line">    │   ├── node_modules</span><br><span class="line">    │   └── package.json</span><br><span class="line">    └── <span class="built_in">window</span></span><br><span class="line">        ├── index.js</span><br><span class="line">        ├── node_modules</span><br><span class="line">        └── package.json</span><br></pre></td></tr></table></figure></p>
+<h3 id="增加依赖"><a href="#增加依赖" class="headerlink" title="增加依赖"></a>增加依赖</h3><p><img src="/images/lerna-repo/img2.jpg" alt="img2.jpg"></p>
+<p>接下来，我们来为组件增加些依赖，首先House组件不能只由Window构成，还需要添加一些外部依赖（在这里我们假定为lodash）。我们执行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ lerna add lodash --scope=house</span><br></pre></td></tr></table></figure></p>
+<p>这句话会将lodash增添到House的dependencies属性里，这会儿你可以去看看package.json是不是发生变更了。</p>
+<p>我们还需要将Window添加到House的依赖里，执行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ lerna add window --scope=house</span><br></pre></td></tr></table></figure></p>
+<p>就是这么简单，它会自动检测到window隶属于当前项目，直接采用symlink的方式关联过去。</p>
+<blockquote>
+<p>symlink:符号链接，也就是平常所说的建立超链接，此时House的node_modules里的Window直接链接至项目里的Window组件，而不会再重新拉取一份，这个对本地开发是非常有用的。</p>
+</blockquote>
+<h3 id="发布到npm"><a href="#发布到npm" class="headerlink" title="发布到npm"></a>发布到npm</h3><p><img src="/images/lerna-repo/img3.jpg" alt="img3.jpg"></p>
+<p>接下来我们只需要简单地执行lerna publish，确认升级的版本号，就可以批量将所有的package发布到远程。</p>
+<blockquote>
+<p>默认情况下会推送到系统目前npm对应的registry里，实际项目里可以根据配置leran.json切换所使用的npm客户端。</p>
+</blockquote>
+<h3 id="更新模块"><a href="#更新模块" class="headerlink" title="更新模块"></a>更新模块</h3><p><img src="/images/lerna-repo/img4.jpg" alt="img4.jpg"></p>
+<p>接下来，我们变更了Window组件，执行一下lerna updated，便可以得知有哪些组件发生了变更。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">→ lerna updated</span><br><span class="line">lerna info version <span class="number">2.9</span><span class="number">.1</span></span><br><span class="line">lerna info Checking <span class="keyword">for</span> updated packages...</span><br><span class="line">lerna info Comparing <span class="keyword">with</span> v1<span class="number">.0</span><span class="number">.9</span>.</span><br><span class="line">lerna info Checking <span class="keyword">for</span> prereleased packages...</span><br><span class="line">lerna info result</span><br><span class="line">- jx-house</span><br><span class="line">- jx-<span class="built_in">window</span></span><br></pre></td></tr></table></figure></p>
+<p>我们可以看到，虽然我们只变更了window组件，但是lerna能够帮助我们检查到所有依赖于它的组件，对于没有关联的组件，是不会出现在更新列表里的，这个对于相比之前人工维护版本依赖的更新，是非常稳健的。</p>
+<h3 id="集中版本号或独立版本号"><a href="#集中版本号或独立版本号" class="headerlink" title="集中版本号或独立版本号"></a>集中版本号或独立版本号</h3><p>截止目前，我们已经成功发布了2个package，现在再新增一个Tree组件，它和其他2个package保持独立，随后我们执行lerna publish，它会提示Tree组件的版本号将会从0.0.0升级至1.0.0，但是事实上Tree组件仅仅是刚创建的，这点不利于版本号的语义化，lerna已经考虑到了这一点，它包含2种版本号管理机制。</p>
+<ul>
+<li>fixed模式下，模块发布新版本时，都会升级到leran.json里编写的version字段</li>
+<li>independent模式下，模块发布新版本时，会逐个询问需要升级的版本号，基准版本为它自身的package.json，这样就避免了上述问题。</li>
+</ul>
+<p>如果需要各个组件维护自身的版本号，那么就使用independent模式，只需要去配置leran.json即可。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><img src="/images/lerna-repo/img4.jpg" alt="img4.jpg"><br>lerna不负责构建，测试等任务，它提出了一种集中管理package的目录模式，提供了一套自动化管理程序，让开发者不必再深耕到具体的组件里维护内容，在项目根目录就可以全局掌控，基于npm scripts，可以很好地完成组件构建，代码格式化等操作，并在最后一公里，用lerna变更package版本，将其上传至远端。</p>
+<h2 id="lerna最佳实践"><a href="#lerna最佳实践" class="headerlink" title="lerna最佳实践"></a>lerna最佳实践</h2><p>为了能够使lerna发挥最大的作用，根据这段时间使用lerna 的经验，总结出一个最佳实践。下面是一些特性。</p>
+<ul>
+<li>采用Independent模式</li>
+<li>根据Git提交信息，自动生成changelog</li>
+<li>eslint规则检查</li>
+<li>prettier自动格式化代码</li>
+<li>提交代码，代码检查hook</li>
+<li>遵循semver版本规范<br>大家应该也可以看出来，在开发这种工程的过程的，最为重要的一点就是规范。因为应用场景各种各样，你必须保证发布的packge是规范的，代码是规范的，一切都是有迹可循的。这点我认为是非常重要的。</li>
+</ul>
+<h2 id="工具整合"><a href="#工具整合" class="headerlink" title="工具整合"></a>工具整合</h2><p>在这里引入的工具都是为了解决一个问题，就是工程和代码的规范问题。</p>
+<ul>
+<li>husky</li>
+<li>lint-staged</li>
+<li>prettier</li>
+<li>eslint</li>
+</ul>
 <h2 id="yarn-workspaces"><a href="#yarn-workspaces" class="headerlink" title="yarn workspaces"></a>yarn workspaces</h2><h3 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h3><h4 id="在根目录安装-npm-包，以-danger-为例："><a href="#在根目录安装-npm-包，以-danger-为例：" class="headerlink" title="在根目录安装 npm 包，以 danger 为例："></a>在根目录安装 npm 包，以 danger 为例：</h4><pre><code class="bash">$ yarn add danger --dev -W
 </code></pre>
 
@@ -606,7 +704,7 @@
     <strong>本文作者： </strong>Weich</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://sosout.com/2018/07/21/lerna-repo.html" title="使用lerna优雅地管理多个package">http://sosout.com/2018/07/21/lerna-repo.html</a>
+    <a href="http://sosout.com/2018/07/21/lerna-repo.html" title="lerna管理前端packages的最佳实践">http://sosout.com/2018/07/21/lerna-repo.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -619,7 +717,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/lerna/" rel="tag"># lerna</a>
+            <a href="/tags/package/" rel="tag"># package</a>
           
         </div>
       
@@ -714,7 +812,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-count">93</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -781,7 +879,49 @@
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -896,7 +1036,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">51</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">54</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -976,7 +1122,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#yarn-workspaces"><span class="nav-number">2.</span> <span class="nav-text">yarn workspaces</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令"><span class="nav-number">2.1.</span> <span class="nav-text">命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在根目录安装-npm-包，以-danger-为例："><span class="nav-number">2.1.1.</span> <span class="nav-text">在根目录安装 npm 包，以 danger 为例：</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是lerna"><span class="nav-number">2.</span> <span class="nav-text">什么是lerna</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常用命令"><span class="nav-number">2.1.</span> <span class="nav-text">常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#全局安装lerna"><span class="nav-number">2.1.1.</span> <span class="nav-text">全局安装lerna</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为所有项目安装依赖，类似于npm-yarn-i"><span class="nav-number">2.1.2.</span> <span class="nav-text">为所有项目安装依赖，类似于npm/yarn i</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#提交对项目的更新"><span class="nav-number">2.1.3.</span> <span class="nav-text">提交对项目的更新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用lerna-初始化项目"><span class="nav-number">2.1.4.</span> <span class="nav-text">使用lerna 初始化项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为packages文件夹下的package安装依赖"><span class="nav-number">2.1.5.</span> <span class="nav-text">为packages文件夹下的package安装依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#卸载依赖"><span class="nav-number">2.1.6.</span> <span class="nav-text">卸载依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对包是否发生过变更"><span class="nav-number">2.1.7.</span> <span class="nav-text">对包是否发生过变更</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#显示packages下的各个package的version"><span class="nav-number">2.1.8.</span> <span class="nav-text">显示packages下的各个package的version</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#清理node-modules"><span class="nav-number">2.1.9.</span> <span class="nav-text">清理node_modules</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#lerna-run"><span class="nav-number">2.1.10.</span> <span class="nav-text">lerna run</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lerna-json解析"><span class="nav-number">3.</span> <span class="nav-text">lerna.json解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用lerna的基本工作流"><span class="nav-number">4.</span> <span class="nav-text">使用lerna的基本工作流</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#环境配置"><span class="nav-number">4.1.</span> <span class="nav-text">环境配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化一个lerna工程"><span class="nav-number">4.2.</span> <span class="nav-text">初始化一个lerna工程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用lerna提升开发流程体验"><span class="nav-number">5.</span> <span class="nav-text">使用lerna提升开发流程体验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#项目初始化"><span class="nav-number">5.1.</span> <span class="nav-text">项目初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增加依赖"><span class="nav-number">5.2.</span> <span class="nav-text">增加依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发布到npm"><span class="nav-number">5.3.</span> <span class="nav-text">发布到npm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新模块"><span class="nav-number">5.4.</span> <span class="nav-text">更新模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集中版本号或独立版本号"><span class="nav-number">5.5.</span> <span class="nav-text">集中版本号或独立版本号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.6.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lerna最佳实践"><span class="nav-number">6.</span> <span class="nav-text">lerna最佳实践</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工具整合"><span class="nav-number">7.</span> <span class="nav-text">工具整合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#yarn-workspaces"><span class="nav-number">8.</span> <span class="nav-text">yarn workspaces</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令"><span class="nav-number">8.1.</span> <span class="nav-text">命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在根目录安装-npm-包，以-danger-为例："><span class="nav-number">8.1.1.</span> <span class="nav-text">在根目录安装 npm 包，以 danger 为例：</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -996,7 +1142,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -1010,7 +1156,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">378k</span>
+    <span title="站点总字数">494k</span>
   
 
   
@@ -1021,7 +1167,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">5:44</span>
+    <span title="站点阅读时长">7:29</span>
   
 </div>
 

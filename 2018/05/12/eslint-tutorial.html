@@ -142,17 +142,19 @@
 
 
   <meta name="description" content="前言ESLint 最初是由 Nicholas C. Zakas 于2013年6月创建的开源项目。它是在 ECMAScript/JavaScript 代码中识别和报告模式匹配的工具，目标是保证代码的一致性和避免错误。在许多方面，它和 JSLint、JSHint 相似，除了少数的例外：一：ESLint 使用Espree解析 JavaScript。二：ESLint 使用 AST 去分析代码中的模式。三：">
-<meta name="keywords" content="eslint">
+<meta name="keywords" content="note">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ESlint 全面解读">
+<meta property="og:title" content="ESlint 开发汇总">
 <meta property="og:url" content="http://sosout.com/2018/05/12/eslint-tutorial.html">
 <meta property="og:site_name" content="每天一探">
 <meta property="og:description" content="前言ESLint 最初是由 Nicholas C. Zakas 于2013年6月创建的开源项目。它是在 ECMAScript/JavaScript 代码中识别和报告模式匹配的工具，目标是保证代码的一致性和避免错误。在许多方面，它和 JSLint、JSHint 相似，除了少数的例外：一：ESLint 使用Espree解析 JavaScript。二：ESLint 使用 AST 去分析代码中的模式。三：">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-12T10:55:34.238Z">
+<meta property="og:image" content="http://sosout.com/images/eslint-tutorial/not-use-new.png">
+<meta property="og:updated_time" content="2018-11-03T03:12:52.175Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ESlint 全面解读">
+<meta name="twitter:title" content="ESlint 开发汇总">
 <meta name="twitter:description" content="前言ESLint 最初是由 Nicholas C. Zakas 于2013年6月创建的开源项目。它是在 ECMAScript/JavaScript 代码中识别和报告模式匹配的工具，目标是保证代码的一致性和避免错误。在许多方面，它和 JSLint、JSHint 相似，除了少数的例外：一：ESLint 使用Espree解析 JavaScript。二：ESLint 使用 AST 去分析代码中的模式。三：">
+<meta name="twitter:image" content="http://sosout.com/images/eslint-tutorial/not-use-new.png">
 
 
 
@@ -171,7 +173,7 @@
   };
 </script>
 
-  <title>ESlint 全面解读 | 每天一探</title>
+  <title>ESlint 开发汇总 | 每天一探</title>
   
 
 
@@ -427,7 +429,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">ESlint 全面解读
+          <h2 class="post-title" itemprop="name headline">ESlint 开发汇总
               
             
           </h2>
@@ -485,7 +487,7 @@
 
           
           
-             <span id="/2018/05/12/eslint-tutorial.html" class="leancloud_visitors" data-flag-title="ESlint 全面解读">
+             <span id="/2018/05/12/eslint-tutorial.html" class="leancloud_visitors" data-flag-title="ESlint 开发汇总">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -510,7 +512,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.3k</span>
+                <span title="本文字数">2.8k</span>
               
 
               
@@ -524,7 +526,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">3 分钟</span>
               
             </div>
           
@@ -555,6 +557,28 @@
 <h3 id="extends"><a href="#extends" class="headerlink" title="extends"></a>extends</h3><p>继承一些标准库</p>
 <h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="eslint-支持async、await"><a href="#eslint-支持async、await" class="headerlink" title="eslint 支持async、await"></a>eslint 支持async、await</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install babel-eslint --save-dev</span><br></pre></td></tr></table></figure>
 <p>在<code>eslint</code>的配置文件中增加<code>&quot;parser&quot;: &quot;babel-eslint&quot;</code>。</p>
+<h3 id="Do-not-use-‘new’-for-side-effects"><a href="#Do-not-use-‘new’-for-side-effects" class="headerlink" title="Do not use ‘new’ for side effects"></a>Do not use ‘new’ for side effects</h3><p>代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  router,</span><br><span class="line">  template: <span class="string">'&lt;App/&gt;'</span>,</span><br><span class="line">  components: &#123; App &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>报错：</p>
+<p><img src="/images/eslint-tutorial/not-use-new.png" alt="not-use-new.png"></p>
+<p>原因：刪除了以下注释。这句注释可以绕过规则检测：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* eslint-disable no-new */</span></span><br></pre></td></tr></table></figure>
+<p>在new Vue()上方加上句注釋即可：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* eslint-disable no-new */</span></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#app'</span>,</span><br><span class="line">  router,</span><br><span class="line">  template: <span class="string">'&lt;App/&gt;'</span>,</span><br><span class="line">  components: &#123; App &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h3 id="vue-cli构建的项目，eslint一直报CRLF-LF的linebreak错误"><a href="#vue-cli构建的项目，eslint一直报CRLF-LF的linebreak错误" class="headerlink" title="vue-cli构建的项目，eslint一直报CRLF/LF的linebreak错误"></a>vue-cli构建的项目，eslint一直报CRLF/LF的linebreak错误</h3><p>如题，vue在构建项目的时候选择了airbnb规则，同时项目构建后被windows的unix bash工具pull并且push过，这之后在windows上进行开发，就开始一直报</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Expected linebreaks to be <span class="string">'CRLF'</span> but found <span class="string">'LF'</span></span><br></pre></td></tr></table></figure>
+<p>这样的错误，后经查是一种强制统一方式，并且解决方法是</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">linebreak-style: [<span class="string">"error"</span>, <span class="string">"windows"</span>]</span><br></pre></td></tr></table></figure>
+<p>强制使用windows方式，我将之添加到了项目根目录下的 .eslintrc.js 文件中的rule字段下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// add your custom rules here</span></span><br><span class="line">  <span class="string">'rules'</span>: &#123;</span><br><span class="line">    <span class="comment">// don't require .vue extension when importing</span></span><br><span class="line">    <span class="string">'import/extensions'</span>: [<span class="string">'error'</span>, <span class="string">'always'</span>, &#123;</span><br><span class="line">      <span class="string">'js'</span>: <span class="string">'never'</span>,</span><br><span class="line">      <span class="string">'vue'</span>: <span class="string">'never'</span></span><br><span class="line">    &#125;],</span><br><span class="line">    <span class="comment">// allow optionalDependencies</span></span><br><span class="line">    <span class="string">'import/no-extraneous-dependencies'</span>: [<span class="string">'error'</span>, &#123;</span><br><span class="line">      <span class="string">'optionalDependencies'</span>: [<span class="string">'test/unit/index.js'</span>]</span><br><span class="line">    &#125;],</span><br><span class="line">    <span class="comment">// try to fix the line break problem</span></span><br><span class="line">    <span class="string">'linebreak-style'</span>: [<span class="string">"error"</span>, <span class="string">"windows"</span>],</span><br><span class="line">    <span class="comment">// allow debugger during development</span></span><br><span class="line">    <span class="string">'no-debugger'</span>: process.env.NODE_ENV === <span class="string">'production'</span> ? <span class="number">2</span> : <span class="number">0</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>结果无效，现有问题二个：</p>
+<ul>
+<li>是否是因为系统环境不同而造成了某种强制转换才会引发如上的错误？</li>
+<li>如何选择性的关闭eslint某个功能（linebreak检查）？</li>
+</ul>
+<p>问题1:<br>*不同的操作系统下，甚至是不同编辑器，不同工具处理过的文件可能都会导致换行符的改变。</p>
+<p>问题2：</p>
+<ul>
+<li>项目根目录下有.eslintrc.js文件，在配置文件中修改rule配置项，如下：</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 统一换行符，"\n" unix(for LF) and "\r\n" for windows(CRLF)，默认unix</span></span><br><span class="line"><span class="comment">// off或0: 禁用规则</span></span><br><span class="line"><span class="string">'linebreak-style'</span>: <span class="string">'off'</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -609,7 +633,7 @@
     <strong>本文作者： </strong>Weich</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://sosout.com/2018/05/12/eslint-tutorial.html" title="ESlint 全面解读">http://sosout.com/2018/05/12/eslint-tutorial.html</a>
+    <a href="http://sosout.com/2018/05/12/eslint-tutorial.html" title="ESlint 开发汇总">http://sosout.com/2018/05/12/eslint-tutorial.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -622,7 +646,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/eslint/" rel="tag"># eslint</a>
+            <a href="/tags/note/" rel="tag"># note</a>
           
         </div>
       
@@ -717,7 +741,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-count">93</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -784,7 +808,49 @@
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -899,7 +965,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">51</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">54</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -979,7 +1051,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置规则"><span class="nav-number">3.</span> <span class="nav-text">配置规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#root"><span class="nav-number">3.1.</span> <span class="nav-text">root</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#parserOptions"><span class="nav-number">3.2.</span> <span class="nav-text">parserOptions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#parser"><span class="nav-number">3.3.</span> <span class="nav-text">parser</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#env"><span class="nav-number">3.4.</span> <span class="nav-text">env</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#extends"><span class="nav-number">3.5.</span> <span class="nav-text">extends</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见问题"><span class="nav-number">4.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#eslint-支持async、await"><span class="nav-number">4.1.</span> <span class="nav-text">eslint 支持async、await</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置规则"><span class="nav-number">3.</span> <span class="nav-text">配置规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#root"><span class="nav-number">3.1.</span> <span class="nav-text">root</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#parserOptions"><span class="nav-number">3.2.</span> <span class="nav-text">parserOptions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#parser"><span class="nav-number">3.3.</span> <span class="nav-text">parser</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#env"><span class="nav-number">3.4.</span> <span class="nav-text">env</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#extends"><span class="nav-number">3.5.</span> <span class="nav-text">extends</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见问题"><span class="nav-number">4.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#eslint-支持async、await"><span class="nav-number">4.1.</span> <span class="nav-text">eslint 支持async、await</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Do-not-use-‘new’-for-side-effects"><span class="nav-number">4.2.</span> <span class="nav-text">Do not use ‘new’ for side effects</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vue-cli构建的项目，eslint一直报CRLF-LF的linebreak错误"><span class="nav-number">4.3.</span> <span class="nav-text">vue-cli构建的项目，eslint一直报CRLF/LF的linebreak错误</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -999,7 +1071,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -1013,7 +1085,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">378k</span>
+    <span title="站点总字数">494k</span>
   
 
   
@@ -1024,7 +1096,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">5:44</span>
+    <span title="站点阅读时长">7:29</span>
   
 </div>
 

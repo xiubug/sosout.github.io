@@ -141,18 +141,18 @@
 
 
 
-  <meta name="description" content="Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理和更强大。它由社区最早提出和实现，ES6 将其写进了语言标准，统一了用法，原生提供了Promise对象。 所谓Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。Promise 提供统一的 API，各">
+  <meta name="description" content="背景从JavaScript中的异步任务说起，典型的异步任务，是一个setTimeout调用。123setTimeout(() =&amp;gt; &amp;#123;  // 爱干啥干啥&amp;#125;, 1000) 通常用JS写异步任务的时候，会分成两个部分：主过程和后续过程，在主过程执行成功后，触发后续过程执行。比如，在实际编程中经常需要使用AJAX向服务器请求数据，成功获取到数据后，才开始处理数据。于是代码分成">
 <meta name="keywords" content="promise">
 <meta property="og:type" content="article">
-<meta property="og:title" content="promise">
+<meta property="og:title" content="理解JavaScript Promise">
 <meta property="og:url" content="http://sosout.com/2018/05/25/promise.html">
 <meta property="og:site_name" content="每天一探">
-<meta property="og:description" content="Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理和更强大。它由社区最早提出和实现，ES6 将其写进了语言标准，统一了用法，原生提供了Promise对象。 所谓Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。Promise 提供统一的 API，各">
+<meta property="og:description" content="背景从JavaScript中的异步任务说起，典型的异步任务，是一个setTimeout调用。123setTimeout(() =&amp;gt; &amp;#123;  // 爱干啥干啥&amp;#125;, 1000) 通常用JS写异步任务的时候，会分成两个部分：主过程和后续过程，在主过程执行成功后，触发后续过程执行。比如，在实际编程中经常需要使用AJAX向服务器请求数据，成功获取到数据后，才开始处理数据。于是代码分成">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-10T11:10:37.073Z">
+<meta property="og:updated_time" content="2018-12-01T03:19:08.986Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="promise">
-<meta name="twitter:description" content="Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理和更强大。它由社区最早提出和实现，ES6 将其写进了语言标准，统一了用法，原生提供了Promise对象。 所谓Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。Promise 提供统一的 API，各">
+<meta name="twitter:title" content="理解JavaScript Promise">
+<meta name="twitter:description" content="背景从JavaScript中的异步任务说起，典型的异步任务，是一个setTimeout调用。123setTimeout(() =&amp;gt; &amp;#123;  // 爱干啥干啥&amp;#125;, 1000) 通常用JS写异步任务的时候，会分成两个部分：主过程和后续过程，在主过程执行成功后，触发后续过程执行。比如，在实际编程中经常需要使用AJAX向服务器请求数据，成功获取到数据后，才开始处理数据。于是代码分成">
 
 
 
@@ -171,7 +171,7 @@
   };
 </script>
 
-  <title>promise | 每天一探</title>
+  <title>理解JavaScript Promise | 每天一探</title>
   
 
 
@@ -427,7 +427,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">promise
+          <h2 class="post-title" itemprop="name headline">理解JavaScript Promise
               
             
           </h2>
@@ -485,7 +485,7 @@
 
           
           
-             <span id="/2018/05/25/promise.html" class="leancloud_visitors" data-flag-title="promise">
+             <span id="/2018/05/25/promise.html" class="leancloud_visitors" data-flag-title="理解JavaScript Promise">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -510,7 +510,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">220</span>
+                <span title="本文字数">2.9k</span>
               
 
               
@@ -524,7 +524,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">3 分钟</span>
               
             </div>
           
@@ -544,8 +544,59 @@
       
 
       
-        <p>Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理和更强大。它由社区最早提出和实现，ES6 将其写进了语言标准，统一了用法，原生提供了Promise对象。</p>
-<p>所谓Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。Promise 提供统一的 API，各种异步操作都可以用同样的方法进行处理。</p>
+        <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>从JavaScript中的异步任务说起，典型的异步任务，是一个setTimeout调用。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 爱干啥干啥</span></span><br><span class="line">&#125;, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure></p>
+<p>通常用JS写异步任务的时候，会分成两个部分：主过程和后续过程，在主过程执行成功后，触发后续过程执行。比如，在实际编程中经常需要使用AJAX向服务器请求数据，成功获取到数据后，才开始处理数据。于是代码分成获取数据部分和处理数据部分，像下面这样：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">getData(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 处理data</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>上面这两个处理异步任务的编程方式都是采用的回调函数的形式。<br>现在假设有多个异步任务，且任务间有依赖关系（一个任务需要拿到另一个任务成功后的结果才能开始执行）的时候，回调的方式写出来的代码就会像下面这样：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">getData1(<span class="function"><span class="params">data1</span> =&gt;</span> &#123;</span><br><span class="line">  getData2(data1, data2 =&gt; &#123;</span><br><span class="line">    getData3(data2, data3 =&gt; &#123;</span><br><span class="line">      getData4(data3, data4 =&gt; &#123;</span><br><span class="line">        getData5(data4, data5 =&gt; &#123;</span><br><span class="line">          <span class="comment">// 终于取到data5了</span></span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>这种代码被称为回调地狱或者回调金字塔。<br>假设上面的任务，想要换一下执行顺序，代码修改起来，就比较麻烦了。如果内容复杂，阅读代码的时候跳来跳去，也让人头大。<br>如果用promise改写一下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 先把getData们都转成返回promise对象的函数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 然后</span></span><br><span class="line">getData1()</span><br><span class="line">.then(getData2)</span><br><span class="line">.then(getData3)</span><br><span class="line">.then(getData4)</span><br><span class="line">.then(getData5)</span><br><span class="line">.then(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 取到最终data了</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>这样的代码，是线性的，符合人的阅读习惯，代码表示的流程清晰，便于阅读。</p>
+<h3 id="Promise-概念"><a href="#Promise-概念" class="headerlink" title="Promise 概念"></a>Promise 概念</h3><p>Promise 是异步编程的一种解决方案，比传统的解决方案——回调函数和事件——更合理和更强大。它由社区最早提出和实现，ES6 将其写进了语言标准，统一了用法，原生提供了Promise对象。所谓Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。从写法上说，Promise 就是一种用来写JavaScript编程中的异步代码的方式。Promise 提供统一的 API，各种异步操作都可以用同样的方法进行处理。</p>
+<h3 id="Promise-特点"><a href="#Promise-特点" class="headerlink" title="Promise 特点"></a>Promise 特点</h3><ul>
+<li>对象的状态不受外界影响。</li>
+<li>一旦状态改变，就不会再变，任何时候都可以得到这个结果。</li>
+</ul>
+<h3 id="Promise-用法"><a href="#Promise-用法" class="headerlink" title="Promise 用法"></a>Promise 用法</h3><p>首先要认清最基本的用法。一般学习Promise看到的第一段代码是这样：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> p = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 做一些事情</span></span><br><span class="line">  <span class="comment">// 然后在某些条件下resolve，或者reject</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="comment">/* 条件随便写^_^ */</span>) &#123;</span><br><span class="line">    resolve()</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    reject()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">p.then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 如果p的状态被resolve了，就进入这里</span></span><br><span class="line">&#125;, () =&gt; &#123;</span><br><span class="line">    <span class="comment">// 如果p的状态被reject</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>第一段调用了Promise构造函数，第二段是调用了promise实例的.then方法。<br><strong>构造实例</strong></p>
+<ul>
+<li>构造函数接受一个函数作为参数</li>
+<li>调用构造函数得到实例p的同时，作为参数的函数会立即执行</li>
+<li>参数函数接受两个回调函数参数resolve和reject</li>
+<li>在参数函数被执行的过程中，如果在其内部调用resolve，会将p的状态变成fulfilled，或者调用reject，会将p的状态变成rejected</li>
+</ul>
+<p><strong>调用.then</strong></p>
+<ul>
+<li>调用.then可以为实例p注册两种状态回调函数</li>
+<li>当实例p的状态为fulfilled，会触发第一个函数执行</li>
+<li>当实例p的状态为rejected，则触发第二个函数执行</li>
+</ul>
+<p>上面这样构造promise实例，然后调用.then.then.then的编写代码方式，就是promise。其基本模式是：</p>
+<ul>
+<li>将异步过程转化成promise对象</li>
+<li>对象有3种状态</li>
+<li>通过.then注册状态的回调</li>
+<li>已完成的状态能触发回调</li>
+</ul>
+<p>采用这种方式来处理编程中的异步任务，就是在使用promise了，所以promise就是一种异步编程模式。</p>
+<h4 id="Promise-状态"><a href="#Promise-状态" class="headerlink" title="Promise 状态"></a>Promise 状态</h4><p>首先，promise实例有三种状态：</p>
+<ul>
+<li>pending（待定）</li>
+<li>fulfilled（已执行）</li>
+<li>rejected（已拒绝）<br>fulfilled和rejected有可以说是已成功和已失败，这两种状态又归为已完成状态</li>
+</ul>
+<h4 id="resolve和reject"><a href="#resolve和reject" class="headerlink" title="resolve和reject"></a>resolve和reject</h4><p>调用resolve和reject能将分别将promise实例的状态变成fulfilled和rejected，只有状态变成已完成（即fulfilled和rejected之一），才能触发状态的回调。</p>
+<h4 id="Promise-API"><a href="#Promise-API" class="headerlink" title="Promise API"></a>Promise API</h4><p>promise的内容分为构造函数、实例方法和静态方法：</p>
+<ul>
+<li>1个构造函数： new Promise</li>
+<li>2个实例方法：.then、.catch、finally</li>
+<li>4个静态方法：Promise.all、Promise.race、Promise.resolve、Promise.reject和Promise.try</li>
+</ul>
+<p>下面逐个讲下他们的作用：</p>
+<ul>
+<li>new Promise能将一个异步过程转化成promise对象。先有了promise对象，然后才有promise编程方式。</li>
+<li>.then用于为promise对象的状态注册回调函数。它会返回一个promise对象，所以可以进行链式调用，也就是.then后面可以继续.then。在注册的状态回调函数中，可以通过return语句改变.then返回的promise对象的状态，以及向后面.then注册的状态回调传递数据；也可以不使用return语句，那样默认就是将返回的promise对象resolve。</li>
+<li>.catch用于注册rejected状态的回调函数，同时该回调也是程序出错的回调，即如果前面的程序运行过程中出错，也会进入执行该回调函数。同.then一样，也会返回新的promise对象。</li>
+<li>调用Promise.resolve会返回一个状态为fulfilled状态的promise对象，参数会作为数据传递给后面的状态回调函数。</li>
+<li>Promise.reject与Promise.resolve同理，区别在于返回的promise对象状态为rejected。</li>
+</ul>
 
       
     </div>
@@ -600,7 +651,7 @@
     <strong>本文作者： </strong>Weich</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://sosout.com/2018/05/25/promise.html" title="promise">http://sosout.com/2018/05/25/promise.html</a>
+    <a href="http://sosout.com/2018/05/25/promise.html" title="理解JavaScript Promise">http://sosout.com/2018/05/25/promise.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -626,8 +677,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/20/vue-require-component-way.html" rel="next" title="Vue 组件注册时什么情况在require后面加上default">
-                <i class="fa fa-chevron-left"></i> Vue 组件注册时什么情况在require后面加上default
+              <a href="/2018/05/22/mysql-login.html" rel="next" title="Linux下登录MySQL">
+                <i class="fa fa-chevron-left"></i> Linux下登录MySQL
               </a>
             
           </div>
@@ -636,7 +687,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/06/01/awesome-software-development-resources.html" rel="prev" title="每天两分钟，了解一个流行 NPM 库">
+              <a href="/2018/06/01/npm-tutorial.html" rel="prev" title="每天两分钟，了解一个流行 NPM 库">
                 每天两分钟，了解一个流行 NPM 库 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -683,8 +734,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -699,7 +759,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-count">93</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -766,7 +826,49 @@
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -881,7 +983,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">51</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">54</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -952,6 +1060,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-概念"><span class="nav-number">2.</span> <span class="nav-text">Promise 概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-特点"><span class="nav-number">3.</span> <span class="nav-text">Promise 特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-用法"><span class="nav-number">4.</span> <span class="nav-text">Promise 用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Promise-状态"><span class="nav-number">4.1.</span> <span class="nav-text">Promise 状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#resolve和reject"><span class="nav-number">4.2.</span> <span class="nav-text">resolve和reject</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Promise-API"><span class="nav-number">4.3.</span> <span class="nav-text">Promise API</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -965,7 +1089,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -979,7 +1103,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">378k</span>
+    <span title="站点总字数">494k</span>
   
 
   
@@ -990,7 +1114,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">5:44</span>
+    <span title="站点阅读时长">7:29</span>
   
 </div>
 

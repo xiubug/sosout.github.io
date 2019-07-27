@@ -141,22 +141,22 @@
 
 
 
-  <meta name="description" content="cssvscode 使用 postcss 语法并且对其支持emmet安装postcss-sugar-language插件。将css文件视作postcss（为了方便.css文件使用postcss语法不被报错），以及让emmet支持postcss文件。在settings中的配置：12345678&quot;files.associations&quot;: &amp;#123;    &quot;*.css&quot;: &quot;postcss&quot;&amp;#12">
-<meta name="keywords" content="vscode">
+  <meta name="description" content="基本使用常用命名ctrl + k 清空终端内容 设置设置tab的空格数方案一：文件 -&amp;gt; 首选项 -&amp;gt; 设置。将 editor.tabSize 改为 2。注意：复制到右侧修改。 插件Setting Sync 插件 使用插件将目前配置保存到GitHub上，以后只需要从GitHub上获取，就可以一次性安装插件配置信息。  适用于电脑更换时还要一个个去搜索插件安装，公司电脑和个人电脑同步。">
+<meta name="keywords" content="note">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vscode 使用汇总">
 <meta property="og:url" content="http://sosout.com/2018/05/05/vscode-tutorial.html">
 <meta property="og:site_name" content="每天一探">
-<meta property="og:description" content="cssvscode 使用 postcss 语法并且对其支持emmet安装postcss-sugar-language插件。将css文件视作postcss（为了方便.css文件使用postcss语法不被报错），以及让emmet支持postcss文件。在settings中的配置：12345678&quot;files.associations&quot;: &amp;#123;    &quot;*.css&quot;: &quot;postcss&quot;&amp;#12">
+<meta property="og:description" content="基本使用常用命名ctrl + k 清空终端内容 设置设置tab的空格数方案一：文件 -&amp;gt; 首选项 -&amp;gt; 设置。将 editor.tabSize 改为 2。注意：复制到右侧修改。 插件Setting Sync 插件 使用插件将目前配置保存到GitHub上，以后只需要从GitHub上获取，就可以一次性安装插件配置信息。  适用于电脑更换时还要一个个去搜索插件安装，公司电脑和个人电脑同步。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://sosout.com/images/vscode-tutorial/img1.png">
 <meta property="og:image" content="http://sosout.com/images/vscode-tutorial/img2.png">
 <meta property="og:image" content="http://sosout.com/images/vscode-tutorial/img3.png">
 <meta property="og:image" content="http://sosout.com/images/vscode-tutorial/img4.png">
-<meta property="og:updated_time" content="2018-10-19T13:09:51.968Z">
+<meta property="og:updated_time" content="2018-11-22T15:17:26.528Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vscode 使用汇总">
-<meta name="twitter:description" content="cssvscode 使用 postcss 语法并且对其支持emmet安装postcss-sugar-language插件。将css文件视作postcss（为了方便.css文件使用postcss语法不被报错），以及让emmet支持postcss文件。在settings中的配置：12345678&quot;files.associations&quot;: &amp;#123;    &quot;*.css&quot;: &quot;postcss&quot;&amp;#12">
+<meta name="twitter:description" content="基本使用常用命名ctrl + k 清空终端内容 设置设置tab的空格数方案一：文件 -&amp;gt; 首选项 -&amp;gt; 设置。将 editor.tabSize 改为 2。注意：复制到右侧修改。 插件Setting Sync 插件 使用插件将目前配置保存到GitHub上，以后只需要从GitHub上获取，就可以一次性安装插件配置信息。  适用于电脑更换时还要一个个去搜索插件安装，公司电脑和个人电脑同步。">
 <meta name="twitter:image" content="http://sosout.com/images/vscode-tutorial/img1.png">
 
 
@@ -515,7 +515,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.4k</span>
+                <span title="本文字数">1.9k</span>
               
 
               
@@ -529,7 +529,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">2 分钟</span>
               
             </div>
           
@@ -549,9 +549,8 @@
       
 
       
-        <h2 id="css"><a href="#css" class="headerlink" title="css"></a>css</h2><h3 id="vscode-使用-postcss-语法并且对其支持emmet"><a href="#vscode-使用-postcss-语法并且对其支持emmet" class="headerlink" title="vscode 使用 postcss 语法并且对其支持emmet"></a>vscode 使用 postcss 语法并且对其支持emmet</h3><p>安装<code>postcss-sugar-language</code>插件。<br>将css文件视作postcss（为了方便.css文件使用postcss语法不被报错），以及让emmet支持postcss文件。<br>在settings中的配置：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"files.associations"</span>: &#123;</span><br><span class="line">    <span class="string">"*.css"</span>: <span class="string">"postcss"</span></span><br><span class="line">&#125;,</span><br><span class="line"><span class="string">"emmet.includeLanguages"</span>: &#123;</span><br><span class="line">  <span class="string">"vue-html"</span>: <span class="string">"html"</span>,</span><br><span class="line">  <span class="string">"javascript"</span>: <span class="string">"javascriptreact"</span>,</span><br><span class="line">  <span class="string">"postcss"</span>: <span class="string">"css"</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p>
-<h2 id="vue"><a href="#vue" class="headerlink" title="vue"></a>vue</h2><h3 id="使用vscode，新建vue模板"><a href="#使用vscode，新建vue模板" class="headerlink" title="使用vscode，新建vue模板"></a>使用vscode，新建vue模板</h3><p>文件 –&gt; 首选项 –&gt; 用户代码片段 –&gt; 输入vue，选择vue –&gt;复制 以下内容保存：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#123;    </span><br><span class="line">  <span class="attr">"Print to console"</span>: &#123;</span><br><span class="line">    <span class="attr">"prefix"</span>: <span class="string">"vue"</span>,</span><br><span class="line">    <span class="attr">"body"</span>: [</span><br><span class="line">        <span class="string">"&lt;template&gt;"</span>,</span><br><span class="line">        <span class="string">"   &lt;div class=\"\"&gt;\n"</span>,</span><br><span class="line">        <span class="string">"   &lt;/div&gt;"</span>,</span><br><span class="line">        <span class="string">"&lt;/template&gt;\n"</span>,</span><br><span class="line">        <span class="string">"&lt;script type=\"text/ecmascript-6\"&gt;"</span>,</span><br><span class="line">        <span class="string">"export default &#123;"</span>,</span><br><span class="line">        <span class="string">"   name: '',"</span>,</span><br><span class="line">        <span class="string">"   data() &#123;"</span>,</span><br><span class="line">        <span class="string">"       return &#123;&#125;"</span>,</span><br><span class="line">        <span class="string">"   &#125;,"</span>,</span><br><span class="line">        <span class="string">"  components: &#123;&#125;"</span>,</span><br><span class="line">        <span class="string">"&#125;"</span>,</span><br><span class="line">        <span class="string">"&lt;/script&gt;\n"</span>,</span><br><span class="line">        <span class="string">"&lt;style scoped lang=\"stylus\"&gt;"</span>,</span><br><span class="line">        <span class="string">"&lt;/style&gt;"</span>,</span><br><span class="line">        <span class="string">"$2"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"description"</span>: <span class="string">"Log output to console"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>新建vue文件，输入vue，按下tab键即可。</p>
+        <h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><h3 id="常用命名"><a href="#常用命名" class="headerlink" title="常用命名"></a>常用命名</h3><p>ctrl + k 清空终端内容</p>
+<h3 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h3><h4 id="设置tab的空格数"><a href="#设置tab的空格数" class="headerlink" title="设置tab的空格数"></a>设置tab的空格数</h4><p>方案一：文件 -&gt; 首选项 -&gt; 设置。将 editor.tabSize 改为 2。注意：复制到右侧修改。</p>
 <h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><h3 id="Setting-Sync-插件"><a href="#Setting-Sync-插件" class="headerlink" title="Setting Sync 插件"></a>Setting Sync 插件</h3><blockquote>
 <p>使用插件将目前配置保存到GitHub上，以后只需要从GitHub上获取，就可以一次性安装插件配置信息。</p>
 </blockquote>
@@ -573,7 +572,14 @@
 </li>
 </ul>
 <h5 id="上传完成后会生成一个ID，要记下来"><a href="#上传完成后会生成一个ID，要记下来" class="headerlink" title="上传完成后会生成一个ID，要记下来"></a>上传完成后会生成一个ID，要记下来</h5><p>ID和key不同</p>
-<h5 id="使用Shift-Alt-D，输入ID，即可开始同步配置"><a href="#使用Shift-Alt-D，输入ID，即可开始同步配置" class="headerlink" title="使用Shift + Alt + D，输入ID，即可开始同步配置"></a>使用Shift + Alt + D，输入ID，即可开始同步配置</h5>
+<h5 id="使用Shift-Alt-D，输入ID，即可开始同步配置"><a href="#使用Shift-Alt-D，输入ID，即可开始同步配置" class="headerlink" title="使用Shift + Alt + D，输入ID，即可开始同步配置"></a>使用Shift + Alt + D，输入ID，即可开始同步配置</h5><h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="ES6-及以上"><a href="#ES6-及以上" class="headerlink" title="ES6 及以上"></a>ES6 及以上</h3><h4 id="vscode中使用Experimental-Decorators报错"><a href="#vscode中使用Experimental-Decorators报错" class="headerlink" title="vscode中使用Experimental Decorators报错"></a>vscode中使用Experimental Decorators报错</h4><p>在vscode中使用es7的新语法decorator会报错：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">对修饰器的实验支持是一项将在将来版本中更改的功能。设置 <span class="string">"experimentalDecorators"</span> 选项以删除此警告</span><br></pre></td></tr></table></figure>
+<p>这个错误来自与vscode的JS support，只要在项目根目录下创建一个jsconfig.json文件，添加如下内容：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"compilerOptions"</span>: &#123;</span><br><span class="line">        <span class="string">"experimentalDecorators"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>添加好了有可能需要重启才能生效。</p>
+<h3 id="css-相关"><a href="#css-相关" class="headerlink" title="css 相关"></a>css 相关</h3><h4 id="vscode-使用-postcss-语法并且对其支持emmet"><a href="#vscode-使用-postcss-语法并且对其支持emmet" class="headerlink" title="vscode 使用 postcss 语法并且对其支持emmet"></a>vscode 使用 postcss 语法并且对其支持emmet</h4><p>安装<code>postcss-sugar-language</code>插件。<br>将css文件视作postcss（为了方便.css文件使用postcss语法不被报错），以及让emmet支持postcss文件。<br>在settings中的配置：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"files.associations"</span>: &#123;</span><br><span class="line">    <span class="string">"*.css"</span>: <span class="string">"postcss"</span></span><br><span class="line">&#125;,</span><br><span class="line"><span class="string">"emmet.includeLanguages"</span>: &#123;</span><br><span class="line">  <span class="string">"vue-html"</span>: <span class="string">"html"</span>,</span><br><span class="line">  <span class="string">"javascript"</span>: <span class="string">"javascriptreact"</span>,</span><br><span class="line">  <span class="string">"postcss"</span>: <span class="string">"css"</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure></p>
+<h3 id="vue-相关"><a href="#vue-相关" class="headerlink" title="vue 相关"></a>vue 相关</h3><h3 id="使用vscode，新建vue模板"><a href="#使用vscode，新建vue模板" class="headerlink" title="使用vscode，新建vue模板"></a>使用vscode，新建vue模板</h3><p>文件 –&gt; 首选项 –&gt; 用户代码片段 –&gt; 输入vue，选择vue –&gt;复制 以下内容保存：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#123;    </span><br><span class="line">  <span class="attr">"Print to console"</span>: &#123;</span><br><span class="line">    <span class="attr">"prefix"</span>: <span class="string">"vue"</span>,</span><br><span class="line">    <span class="attr">"body"</span>: [</span><br><span class="line">        <span class="string">"&lt;template&gt;"</span>,</span><br><span class="line">        <span class="string">"   &lt;div class=\"\"&gt;\n"</span>,</span><br><span class="line">        <span class="string">"   &lt;/div&gt;"</span>,</span><br><span class="line">        <span class="string">"&lt;/template&gt;\n"</span>,</span><br><span class="line">        <span class="string">"&lt;script type=\"text/ecmascript-6\"&gt;"</span>,</span><br><span class="line">        <span class="string">"export default &#123;"</span>,</span><br><span class="line">        <span class="string">"   name: '',"</span>,</span><br><span class="line">        <span class="string">"   data() &#123;"</span>,</span><br><span class="line">        <span class="string">"       return &#123;&#125;"</span>,</span><br><span class="line">        <span class="string">"   &#125;,"</span>,</span><br><span class="line">        <span class="string">"  components: &#123;&#125;"</span>,</span><br><span class="line">        <span class="string">"&#125;"</span>,</span><br><span class="line">        <span class="string">"&lt;/script&gt;\n"</span>,</span><br><span class="line">        <span class="string">"&lt;style scoped lang=\"stylus\"&gt;"</span>,</span><br><span class="line">        <span class="string">"&lt;/style&gt;"</span>,</span><br><span class="line">        <span class="string">"$2"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"description"</span>: <span class="string">"Log output to console"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>新建vue文件，输入vue，按下tab键即可。</p>
+
       
     </div>
 
@@ -640,7 +646,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/vscode/" rel="tag"># vscode</a>
+            <a href="/tags/note/" rel="tag"># note</a>
           
         </div>
       
@@ -735,7 +741,7 @@
                 
                   <a href="/archives">
                 
-                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-count">93</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -802,7 +808,49 @@
                     
                       
                     
-                    <span class="site-state-item-count">27</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">48</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -917,7 +965,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">51</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">54</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -997,7 +1051,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#css"><span class="nav-number">1.</span> <span class="nav-text">css</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#vscode-使用-postcss-语法并且对其支持emmet"><span class="nav-number">1.1.</span> <span class="nav-text">vscode 使用 postcss 语法并且对其支持emmet</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue"><span class="nav-number">2.</span> <span class="nav-text">vue</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用vscode，新建vue模板"><span class="nav-number">2.1.</span> <span class="nav-text">使用vscode，新建vue模板</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插件"><span class="nav-number">3.</span> <span class="nav-text">插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Setting-Sync-插件"><span class="nav-number">3.1.</span> <span class="nav-text">Setting Sync 插件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#适用于"><span class="nav-number">3.1.1.</span> <span class="nav-text">适用于</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#步骤如下"><span class="nav-number">3.1.2.</span> <span class="nav-text">步骤如下</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#首先在VSCode里面搜索Setting-Sync插件，安装好后重新加载激活"><span class="nav-number">3.1.2.1.</span> <span class="nav-text">首先在VSCode里面搜索Setting Sync插件，安装好后重新加载激活</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Shift-Alt-U"><span class="nav-number">3.1.2.2.</span> <span class="nav-text">Shift + Alt + U</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#上传完成后会生成一个ID，要记下来"><span class="nav-number">3.1.2.3.</span> <span class="nav-text">上传完成后会生成一个ID，要记下来</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用Shift-Alt-D，输入ID，即可开始同步配置"><span class="nav-number">3.1.2.4.</span> <span class="nav-text">使用Shift + Alt + D，输入ID，即可开始同步配置</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本使用"><span class="nav-number">1.</span> <span class="nav-text">基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常用命名"><span class="nav-number">1.1.</span> <span class="nav-text">常用命名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置"><span class="nav-number">1.2.</span> <span class="nav-text">设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设置tab的空格数"><span class="nav-number">1.2.1.</span> <span class="nav-text">设置tab的空格数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插件"><span class="nav-number">2.</span> <span class="nav-text">插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Setting-Sync-插件"><span class="nav-number">2.1.</span> <span class="nav-text">Setting Sync 插件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#适用于"><span class="nav-number">2.1.1.</span> <span class="nav-text">适用于</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#步骤如下"><span class="nav-number">2.1.2.</span> <span class="nav-text">步骤如下</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#首先在VSCode里面搜索Setting-Sync插件，安装好后重新加载激活"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">首先在VSCode里面搜索Setting Sync插件，安装好后重新加载激活</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Shift-Alt-U"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">Shift + Alt + U</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#上传完成后会生成一个ID，要记下来"><span class="nav-number">2.1.2.3.</span> <span class="nav-text">上传完成后会生成一个ID，要记下来</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用Shift-Alt-D，输入ID，即可开始同步配置"><span class="nav-number">2.1.2.4.</span> <span class="nav-text">使用Shift + Alt + D，输入ID，即可开始同步配置</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常见问题"><span class="nav-number">3.</span> <span class="nav-text">常见问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6-及以上"><span class="nav-number">3.1.</span> <span class="nav-text">ES6 及以上</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vscode中使用Experimental-Decorators报错"><span class="nav-number">3.1.1.</span> <span class="nav-text">vscode中使用Experimental Decorators报错</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css-相关"><span class="nav-number">3.2.</span> <span class="nav-text">css 相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vscode-使用-postcss-语法并且对其支持emmet"><span class="nav-number">3.2.1.</span> <span class="nav-text">vscode 使用 postcss 语法并且对其支持emmet</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vue-相关"><span class="nav-number">3.3.</span> <span class="nav-text">vue 相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用vscode，新建vue模板"><span class="nav-number">3.4.</span> <span class="nav-text">使用vscode，新建vue模板</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1017,7 +1071,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -1031,7 +1085,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">378k</span>
+    <span title="站点总字数">494k</span>
   
 
   
@@ -1042,7 +1096,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">5:44</span>
+    <span title="站点阅读时长">7:29</span>
   
 </div>
 
